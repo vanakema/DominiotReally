@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.Assert.*;
 
+import main.Card;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,12 +16,13 @@ import org.junit.Test;
 public class CardTest {
 
 	/**
-	 * TODO Put here a description of what this method does.
+	 * Creates a bunch of cards
 	 *
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		Card c1 = new Card("Witch");
 	}
 
 	@Test
