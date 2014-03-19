@@ -15,19 +15,16 @@ import org.junit.Test;
  */
 public class CardTest {
 
-	/**
-	 * Creates a bunch of cards
-	 *
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		Card c1 = new Card("Witch");
-	}
-
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void nameTest() {
+		Card c1 = new Card("Witch");
+		Card c2 = new Card("Militia");
+		Card c3 = new Card("Remodel");
+		Card c4 = new Card("Village");
+		assertEquals("Witch", c1.getName());
+		assertEquals("Militia", c2.getName());
+		assertEquals("Remodel", c3.getName());
+		assertEquals("Village", c4.getName());
 	}
 
 }
