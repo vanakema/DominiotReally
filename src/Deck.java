@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
-=======
 import main.Card;
->>>>>>> 05b44307e3812feba2c8937e10985a390f1eb703
 
 
 public class Deck {
