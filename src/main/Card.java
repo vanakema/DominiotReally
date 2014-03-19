@@ -1,3 +1,4 @@
+package main;
 
 /**
  * A card object which for now just contains a name
