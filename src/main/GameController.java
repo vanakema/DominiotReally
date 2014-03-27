@@ -1,12 +1,12 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFrame;
 
-public class GameController implements GamePanelDelegate {
+public class GameController {
 
 	public static void main(String[] args) {
 		new GameController();
@@ -16,54 +16,33 @@ public class GameController implements GamePanelDelegate {
 	
 	private JFrame applicationFrame;
 	private GamePanel panel;
-	
-	private Deck deck;
 
 	public GameController() {
-		deck = demo_makeFakeDeck();
+		panel = new GamePanel();
+		panel.setCardsInHand(Arrays.asList(new String[]{ "One", "Two", "Three", "Four", "Five" }));
 		
-		panel = new GamePanel(this);
+		Map<String,Integer> supply = new HashMap<String,Integer>();
+		for (int idx = 0; idx < 10; ++idx)
+			supply.put(String.valueOf((char) ('A' + idx)), idx);
+		panel.setActionCardsInSupply(supply);
 		
+		supply.clear();
+		String[] names = new String[]{ "Copper", "Silver", "Gold", "Estate", "Duchy", "Province", "Curse" };
+		Integer[] values = new Integer[]{ 10, 10, 10, 12, 13, 14, 99 };
+		for (int idx = 0; idx < names.length; ++idx)
+			supply.put(names[idx], values[idx]);
+		panel.setResourceCardsInSupply(supply);
+		
+		panel.addActionLine("Game Started!");
+		panel.addActionLine("Player 1's Turn Begin");
+		
+		panel.setNumberOfActions(1);
+		panel.setNumberOfBuys(1);
+		panel.setNumberOfCoins(0);
+
 		applicationFrame = new JFrame(APPLICATION_NAME);
 		applicationFrame.setContentPane(panel);
-		applicationFrame.setBounds(0, 0, 600, 100);
+		applicationFrame.setBounds(0, 0, 600, 600);
 		applicationFrame.setVisible(true);
-		
-		demo_reshuffle();
-	}
-	
-	private void demo_reshuffle() {
-		List<Card> cards;
-		try {
-			cards = deck.drawFive();
-		} catch (IndexOutOfBoundsException e) {
-			panel.clearPlayerHand();
-			return;
-		}
-		
-		List<String> cardNames = new ArrayList<String>();
-		for (Card card : cards)
-			cardNames.add(card.getName());
-		
-		panel.setPlayerHand(cardNames);
-	}
-	
-	private Deck demo_makeFakeDeck() {
-		Deck fakeDeck = new Deck();
-		for (int i = 0; i < 25; ++i)
-			fakeDeck.addCard(new Card("Card #" + i));
-		
-		return fakeDeck;
-	}
-	
-	@Override
-	public void gameShouldReshuffle() {
-		System.out.println("Reshuffle...");
-		demo_reshuffle();
-	}
-
-	@Override
-	public void playerDidSelectHandCardAtIndex(int index) {
-		System.out.println("Did select card at index: " + index);
 	}
 }

@@ -1,102 +1,74 @@
 package main;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JTextArea;
 
-interface GamePanelDelegate {
-	void gameShouldReshuffle();
-	void playerDidSelectHandCardAtIndex(int index);
-}
-
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel  
+{
+	private JTextArea actionsTextArea = new JTextArea();
+	private JPanel actionSupplyPanel = new JPanel(new GridLayout(2, 5));
+	private JPanel resourceSupplyPanel = new JPanel(new GridLayout(7, 1));
+	private JPanel handPanel = new JPanel();
+	private JLabel actionsLabel = new JLabel();
+	private JLabel buysLabel = new JLabel();
+	private JLabel coinsLabel = new JLabel();
 	
-	private GamePanelDelegate delegate;
-	
-	private List<JLabel> cardLabels = new ArrayList<JLabel>();
-	private PlayerHandListener cardListener = new PlayerHandListener();
-	
-	/**
-	 * Construct a new GamePanel object with the specified delegate. The panel
-	 * is constructed in an uninitialized configuration, without a hand, supply
-	 * deck, or player information.
-	 * 
-	 * @param delegate
-	 */
-	GamePanel(GamePanelDelegate delegate) {
-		this.delegate = delegate;
+	GamePanel() {
+		super(new BorderLayout());
 		
-		JButton reshuffleButton = new JButton("Reshuffle");
-		reshuffleButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GamePanel.this.delegate.gameShouldReshuffle();
-			}
-		});
-		this.add(reshuffleButton);
+		this.add(actionsTextArea, BorderLayout.CENTER);
+		this.add(actionSupplyPanel, BorderLayout.NORTH);
+		this.add(resourceSupplyPanel, BorderLayout.EAST);
+		this.add(handPanel, BorderLayout.SOUTH);
+		
+		JPanel infoPanel = new JPanel(new GridLayout(4, 1));
+		infoPanel.add(actionsLabel);
+		infoPanel.add(buysLabel);
+		infoPanel.add(coinsLabel);
+		infoPanel.add(new JButton("End Turn"));
+		this.add(infoPanel, BorderLayout.WEST);
 	}
 	
-	/**
-	 * Sets the cards in the player's current hand. These appear at the bottom
-	 * of the panel in a row. When the player selects a card
-	 * delegate.gamePanelDidSelectCardAtIndex(int) will be called with the 
-	 * selected card's index.
-	 * 
-	 * @param cardNames
-	 */
-	public void setPlayerHand(List<String> cardNames) {
-		clearPlayerHand();
-		
-		for (String name : cardNames) {
-			JLabel label = new JLabel(name, JLabel.CENTER);
-			label.setVerticalAlignment(JLabel.CENTER);
-			label.setHorizontalAlignment(JLabel.CENTER);
-			label.addMouseListener(cardListener);
-			label.setBorder(new EmptyBorder(10, 10, 10, 10));
-			label.setBackground(Color.LIGHT_GRAY);
-			label.setOpaque(true);
-			
-			this.add(label);
-			this.revalidate();
-			cardLabels.add(label);
-		}
+	void addActionLine(String line) {
+		actionsTextArea.append("\n" + line);
 	}
 	
-	/**
-	 * Empties the player's current hand.
-	 */
-	public void clearPlayerHand() {
-		for (JLabel label : cardLabels)
-			this.remove(label);
-		
-		this.revalidate();
-		cardLabels.clear();
+	void setActionCardsInSupply(Map<String,Integer> cards) {
+		setSupplyCardsInPanel(cards, actionSupplyPanel);
 	}
 	
-	/**
-	 * Instead of creating multiple anonymous listeners for cards in the player's
-	 * hand, just create one and reuse it when the hand changes.
-	 */
-	private class PlayerHandListener implements MouseListener {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			int cardIndex = GamePanel.this.cardLabels.indexOf(e.getComponent());
-			if (cardIndex >= 0)
-				GamePanel.this.delegate.playerDidSelectHandCardAtIndex(cardIndex);
-		}
-		
-		@Override public void mousePressed(MouseEvent e) {}
-		@Override public void mouseReleased(MouseEvent e) {}
-		@Override public void mouseEntered(MouseEvent e) {}
-		@Override public void mouseExited(MouseEvent e) {}
+	void setResourceCardsInSupply(Map<String,Integer> cards) {
+		setSupplyCardsInPanel(cards, resourceSupplyPanel);
+	}
+	
+	private void setSupplyCardsInPanel(Map<String,Integer> cards, JPanel panel) {
+		panel.removeAll();
+		for (Map.Entry<String,Integer> entry : cards.entrySet())
+			panel.add(new JButton(entry.getKey() + " (" + entry.getValue() + ")"));
+	}
+	
+	void setCardsInHand(List<String> cards) {
+		handPanel.removeAll();
+		for (String card : cards)
+			handPanel.add(new JButton(card));
+	}
+	
+	void setNumberOfActions(int count) {
+		this.actionsLabel.setText("Actions: " + count);
+	}
+	
+	void setNumberOfBuys(int count) {
+		this.buysLabel.setText("Buys " + count);
+	}
+	
+	void setNumberOfCoins(int count) {
+		this.coinsLabel.setText("Coin: " + count);
 	}
 }
