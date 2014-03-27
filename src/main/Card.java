@@ -1,33 +1,13 @@
 package main;
 
-/**
- * A card object which for now just contains a name
- *
- * @author vanakema.
- *         Created Mar 19, 2014.
- */
-public class Card {
-
-	/**
-	 * Contains the name of the card
-	 */
-	private String name;
+public abstract class Card {
+	String name;
+	String description;
+	int cost;
+	int value;
 	
-	/**
-	 * Default constructor
-	 *
-	 * @param name Name of the card to be construted
-	 */
-	public Card(String name) {
-		this.name = name;
-	}
+	public abstract String getName();
+	public abstract String getDescription();
+	public abstract int getCost();
 	
-	/**
-	 * Gets the name of the card
-	 *
-	 * @return String
-	 */
-	public String getName() {
-		return this.name;
-	}
 }
