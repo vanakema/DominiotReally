@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-public class GameController {
+public class GameController implements GamePanel.Delegate {
 
 	public static void main(String[] args) {
 		new GameController();
@@ -18,7 +18,7 @@ public class GameController {
 	private GamePanel panel;
 
 	public GameController() {
-		panel = new GamePanel();
+		panel = new GamePanel(this);
 		panel.setCardsInHand(Arrays.asList(new String[]{ "One", "Two", "Three", "Four", "Five" }));
 		
 		Map<String,Integer> supply = new HashMap<String,Integer>();
@@ -44,5 +44,15 @@ public class GameController {
 		applicationFrame.setContentPane(panel);
 		applicationFrame.setBounds(0, 0, 600, 600);
 		applicationFrame.setVisible(true);
+	}
+
+	@Override
+	public void userClickedActionSupplyCardAtIndex(int index) {
+		panel.addActionLine("Bought action card at index " + index);
+	}
+	
+	@Override
+	public void userClickedResourceSupplyCardAtIndex(int index) {
+		panel.addActionLine("Bought resource card at index " + index);
 	}
 }
