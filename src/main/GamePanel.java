@@ -84,6 +84,8 @@ public class GamePanel extends JPanel
 			button.addActionListener(listener);
 			panel.add(button);
 		}
+		panel.revalidate();
+		this.doLayout();
 	}
 	
 	void setCardsInHand(List<String> cards) {
