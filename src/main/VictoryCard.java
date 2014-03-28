@@ -5,9 +5,8 @@ public class VictoryCard extends Card {
 	int victoryPointValue;
 	
 	private VictoryCard(String name, String description, int cost, int value){
-		this.name = name;
-		this.description = description;
-		this.cost = cost;
+		super(name, description, cost);
+		
 		this.victoryPointValue = value;
 	}
 	
@@ -21,22 +20,6 @@ public class VictoryCard extends Card {
 	
 	public static VictoryCard makeProvince(){
 		return new VictoryCard("Province","Victory",8,6);
-	}
-	
-	
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public String getDescription() {
-		return this.description;
-	}
-
-	@Override
-	public int getCost() {
-		return this.cost;
 	}
 	
 	public int getVictoryPointValue() {

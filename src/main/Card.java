@@ -4,13 +4,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Card {
-	String name;
-	String description;
-	int cost;
+	private String name;
+	private String description;
+	private int cost;
 	
-	public abstract String getName();
-	public abstract String getDescription();
-	public abstract int getCost();
+	protected Card(String name, String description, int cost) {
+		this.name = name;
+		this.description = description;
+		this.cost = cost;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+	public int getCost() {
+		return this.cost;
+	}
 	
 	public static final String CARD_NAME_FESTIVAL = "Festival";
 	public static final String CARD_NAME_LABORATORY = "Laboratory";

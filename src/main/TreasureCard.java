@@ -5,9 +5,8 @@ public class TreasureCard extends Card {
 	int value;
 	
 	private TreasureCard(String name, String description, int cost, int value) {
-		this.name = name;
-		this.description = description;
-		this.cost = cost;
+		super(name, description, cost);
+		
 		this.value = value;
 	}
 	
@@ -21,21 +20,6 @@ public class TreasureCard extends Card {
 	
 	public static TreasureCard makeGold() {
 		return new TreasureCard("Gold", "Treasure", 6, 3);
-	}
-	
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public String getDescription() {
-		return this.description;
-	}
-
-	@Override
-	public int getCost() {
-		return this.cost;
 	}
 	
 	public int getValue(){

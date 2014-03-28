@@ -8,6 +8,11 @@ package main;
  *
  */
 public abstract class ActionCard extends Card {
+	
+	protected ActionCard(String name, String description, int cost) {
+		super(name, description, cost);
+	}
+	
 	public int additionalActions = 0;
 	public int additionalBuys = 0;
 	public int additionalCoins = 0;

@@ -4,9 +4,8 @@ public class BoringActionCard extends ActionCard {
 
 	public BoringActionCard(String name, String description, int cost,
 			int numActions, int numBuys, int numCoins, int numCardsDraw) {
-		this.name = name;
-		this.description = description;
-		this.cost = cost;
+		super(name, description, cost);
+		
 		this.additionalActions = numActions;
 		this.additionalBuys = numBuys;
 		this.additionalCoins = numCoins;
@@ -45,40 +44,24 @@ public class BoringActionCard extends ActionCard {
 
 	@Override
 	public void addAdditionalActions(GameContext context) {
-		context.adjustActionCountByDelta(context.getActionCount());
+		context.adjustActionCountByDelta(this.additionalActions);
 
 	}
 
 	@Override
 	public void addAdditionalBuys(GameContext context) {
-		context.adjustActionCountByDelta(this.additionalActions);
+		context.adjustActionCountByDelta(this.additionalBuys);
 	}
 
 	@Override
 	public void addAdditionalCoins(GameContext context) {
-		context.adjustTreasureCountByDelta(cost);
+		context.adjustTreasureCountByDelta(this.additionalCoins);
 
 	}
 
 	@Override
 	public void drawNumOfCards() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public String getDescription() {
-		return this.description;
-	}
-
-	@Override
-	public int getCost() {
-		return this.cost;
+		// TODO: Modify context to support this
 	}
 
 }
