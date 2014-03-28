@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Card {
+	
 	private String name;
 	private String description;
 	private int cost;
@@ -33,6 +34,14 @@ public abstract class Card {
 	public static final String CARD_NAME_VILLAGE = "Village";
 	public static final String CARD_NAME_WOODCUTTER = "Woodcutter";
 	
+	public static final String CARD_NAME_ESTATE = "Estate";
+	public static final String CARD_NAME_DUCHY = "Duchy";
+	public static final String CARD_NAME_PROVINCE = "Province";
+	
+	public static final String CARD_NAME_COPPER = "Copper";
+	public static final String CARD_NAME_SILVER = "Silver";
+	public static final String CARD_NAME_GOLD = "Gold";
+	
 	static private final Map<String, Card> cards = new HashMap<String, Card>();
 	static {
 		cards.put(CARD_NAME_FESTIVAL, BoringActionCard.makeFestival());
@@ -41,6 +50,14 @@ public abstract class Card {
 		cards.put(CARD_NAME_SMITHY, BoringActionCard.makeSmithy());
 		cards.put(CARD_NAME_VILLAGE, BoringActionCard.makeVillage());
 		cards.put(CARD_NAME_WOODCUTTER, BoringActionCard.makeWoodcutter());
+		
+		cards.put(CARD_NAME_ESTATE, VictoryCard.makeEstate());
+		cards.put(CARD_NAME_DUCHY, VictoryCard.makeDuchy());
+		cards.put(CARD_NAME_PROVINCE, VictoryCard.makeProvince());
+		
+		cards.put(CARD_NAME_COPPER, TreasureCard.makeCopper());
+		cards.put(CARD_NAME_SILVER, TreasureCard.makeSilver());
+		cards.put(CARD_NAME_GOLD, TreasureCard.makeGold());
 	}
 	
 	public static final Card makeCard(String name) {

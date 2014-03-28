@@ -11,15 +11,15 @@ public class VictoryCard extends Card {
 	}
 	
 	public static VictoryCard makeEstate(){
-		return new VictoryCard("Estate", "Victory", 2,1);
+		return new VictoryCard(CARD_NAME_ESTATE, "Victory", 2,1);
 	}
 	
 	public static VictoryCard makeDuchy(){
-		return new VictoryCard("Duchy", "Victory", 5,3);
+		return new VictoryCard(CARD_NAME_DUCHY, "Victory", 5,3);
 	}
 	
 	public static VictoryCard makeProvince(){
-		return new VictoryCard("Province","Victory",8,6);
+		return new VictoryCard(CARD_NAME_PROVINCE,"Victory",8,6);
 	}
 	
 	public int getVictoryPointValue() {

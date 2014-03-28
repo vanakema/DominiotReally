@@ -1,15 +1,10 @@
 package test;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import main.Card;
 
 import org.junit.Test;
-
-import main.BoringActionCard;
-import main.Card;
-import main.Deck;
 
 public class DeckTest {
 	
@@ -47,6 +42,36 @@ public class DeckTest {
 	@Test
 	public void testFactoryForWoodcutter() {
 		testFactoryForCardName(Card.CARD_NAME_WOODCUTTER);
+	}
+
+	@Test
+	public void testFactoryForEstate() {
+		testFactoryForCardName(Card.CARD_NAME_ESTATE);
+	}
+	
+	@Test
+	public void testFactoryForDuchy() {
+		testFactoryForCardName(Card.CARD_NAME_DUCHY);
+	}
+	
+	@Test
+	public void testFactoryForProvince() {
+		testFactoryForCardName(Card.CARD_NAME_PROVINCE);
+	}
+	
+	@Test
+	public void testFactoryForCopper() {
+		testFactoryForCardName(Card.CARD_NAME_COPPER);
+	}
+	
+	@Test
+	public void testFactoryForSilver() {
+		testFactoryForCardName(Card.CARD_NAME_SILVER);
+	}
+	
+	@Test
+	public void testFactoryForGold() {
+		testFactoryForCardName(Card.CARD_NAME_GOLD);
 	}
 	
 	@Test
