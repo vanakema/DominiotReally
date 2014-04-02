@@ -84,11 +84,11 @@ public class DeckTest {
 		
 		assertEquals(10, deck1.getSize());
 		
-		List<Card> hand = deck1.drawFive();
+		List<Card> hand = deck1.drawNum(5);
 		
 		assertEquals(5,deck1.getSize());
 		
-		List<Card> hand2 = deck1.drawFive();
+		List<Card> hand2 = deck1.drawNum(5);
 		
 		assertEquals(0, deck1.getSize());
 		
@@ -100,7 +100,7 @@ public class DeckTest {
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void testIndexOutOfBoundsException(){
 		PlayerDeck emptyDeck = new PlayerDeck();
-		List<Card> hand = emptyDeck.drawFive();
+		List<Card> hand = emptyDeck.drawNum(5);
 	}
 	
 	public PlayerDeck makeDeck() {
