@@ -8,10 +8,10 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-public class GameController implements GamePanel.Delegate {
+public class GameWindow implements GamePanel.Delegate {
 
   public static void main(String[] args) {
-    new GameController();
+    new GameWindow();
   }
 
   private static final String APPLICATION_NAME = "Dominion";
@@ -22,7 +22,7 @@ public class GameController implements GamePanel.Delegate {
   private PlayerDeck playerDeck = new PlayerDeck();
   private SupplyDeck supplyDeck;
 
-  public GameController() {
+  public GameWindow() {
     panel = new GamePanel(this);
     panel.setCardsInHand(Arrays.asList(new String[] {"One", "Two", "Three", "Four", "Five"}));
 
