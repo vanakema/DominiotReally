@@ -2,6 +2,7 @@ package main;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public abstract class Card {
 
@@ -61,9 +62,12 @@ public abstract class Card {
 	}
 
 	public static final Card makeCard(String name) {
-		if (cards.containsKey(name))
+		if (cards.containsKey(name)){
 			return cards.get(name);
-
-		return null;
+		}else{
+			throw new NoSuchElementException();
+		}
+		
+		
 	}
 }
