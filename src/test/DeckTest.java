@@ -80,7 +80,31 @@ public class DeckTest {
 	
 	@Test
 	public void sizeTest() {
-		PlayerDeck deck1 = new PlayerDeck();
+		PlayerDeck deck1 = makeDeck();
+		
+		assertEquals(10, deck1.getSize());
+		
+		List<Card> hand = deck1.drawFive();
+		
+		assertEquals(5,deck1.getSize());
+		
+		List<Card> hand2 = deck1.drawFive();
+		
+		assertEquals(0, deck1.getSize());
+		
+		assertEquals(5, hand.size());
+		assertEquals(5, hand2.size());
+		
+	}
+	
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testIndexOutOfBoundsException(){
+		PlayerDeck emptyDeck = new PlayerDeck();
+		List<Card> hand = emptyDeck.drawFive();
+	}
+	
+	public PlayerDeck makeDeck() {
+PlayerDeck deck1 = new PlayerDeck();
 		
 		Card newCard1 = Card.makeCard(Card.CARD_NAME_COPPER);
 		Card newCard2= Card.makeCard(Card.CARD_NAME_COPPER);
@@ -105,24 +129,8 @@ public class DeckTest {
 		deck1.addCard(newCard8);
 		deck1.addCard(newCard9);
 		deck1.addCard(newCard10);
-		assertEquals(10, deck1.getSize());
 		
-		List<Card> hand = deck1.drawFive();
-		
-		assertEquals(5,deck1.getSize());
-		
-		List<Card> hand2 = deck1.drawFive();
-		
-		assertEquals(0, deck1.getSize());
-		
-		assertEquals(5, hand.size());
-		assertEquals(5, hand2.size());
-		try{
-			deck1.drawFive();
-		}catch(Exception e){
-			System.out.println("Deck is empty");
-		}
-		
+		return deck1;
 	}
 	
 	
