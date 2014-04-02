@@ -4,9 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,101 +15,116 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class GamePanel extends JPanel {
-	public static interface Delegate {
-		void userClickedActionSupplyCardAtIndex(int index);
 
-		void userClickedResourceSupplyCardAtIndex(int index);
-	}
+  public static interface Delegate {
+    void userSelectedActionSupplyCardAtIndex(int index);
 
-	private Delegate delegate;
+    void userSelectedResourceSupplyCardAtIndex(int index);
 
-	private JTextArea actionsTextArea = new JTextArea();
-	private JPanel actionSupplyPanel = new JPanel(new GridLayout(2, 5));
-	private JPanel resourceSupplyPanel = new JPanel(new GridLayout(7, 1));
-	private JPanel handPanel = new JPanel();
-	private JLabel actionsLabel = new JLabel();
-	private JLabel buysLabel = new JLabel();
-	private JLabel coinsLabel = new JLabel();
+    void userSelectedCardInHandAtIndex(int index);
 
-	private ActionListener actionSupplyListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int index = Arrays.asList(
-					GamePanel.this.actionSupplyPanel.getComponents()).indexOf(
-					e.getSource());
-			GamePanel.this.delegate.userClickedActionSupplyCardAtIndex(index);
-		}
-	};
+    void userClickedEndTurnButton();
+  }
 
-	private ActionListener resourceSupplyListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int index = Arrays.asList(
-					GamePanel.this.resourceSupplyPanel.getComponents())
-					.indexOf(e.getSource());
-			GamePanel.this.delegate.userClickedResourceSupplyCardAtIndex(index);
-		}
-	};
+  private Delegate delegate;
 
-	GamePanel(Delegate delegate) {
-		super(new BorderLayout());
+  private JTextArea actionsTextArea = new JTextArea();
+  private JLabel actionsLabel = new JLabel();
+  private JLabel buysLabel = new JLabel();
+  private JLabel coinsLabel = new JLabel();
 
-		this.delegate = delegate;
+  private JPanel actionSupplyPanel = new JPanel(new GridLayout(2, 5));
+  private ActionListener actionSupplyListener = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent event) {
+      int index = Arrays.asList(GamePanel.this.actionSupplyPanel.getComponents()).indexOf(event.getSource());
+      GamePanel.this.delegate.userSelectedActionSupplyCardAtIndex(index);
+    }
+  };
 
-		this.add(new JScrollPane(actionsTextArea), BorderLayout.CENTER);
-		this.add(actionSupplyPanel, BorderLayout.NORTH);
-		this.add(resourceSupplyPanel, BorderLayout.EAST);
-		this.add(handPanel, BorderLayout.SOUTH);
+  private JPanel resourceSupplyPanel = new JPanel(new GridLayout(7, 1));
+  private ActionListener resourceSupplyListener = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent event) {
+      int index = Arrays.asList(GamePanel.this.resourceSupplyPanel.getComponents()).indexOf(event.getSource());
+      GamePanel.this.delegate.userSelectedResourceSupplyCardAtIndex(index);
+    }
+  };
 
-		JPanel infoPanel = new JPanel(new GridLayout(4, 1));
-		infoPanel.add(actionsLabel);
-		infoPanel.add(buysLabel);
-		infoPanel.add(coinsLabel);
-		infoPanel.add(new JButton("End Turn"));
-		this.add(infoPanel, BorderLayout.WEST);
-	}
+  private JPanel handPanel = new JPanel();
+  private ActionListener handListener = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent event) {
+      int index = Arrays.asList(GamePanel.this.handPanel.getComponents()).indexOf(event.getSource());
+      GamePanel.this.delegate.userSelectedCardInHandAtIndex(index);
+    }
+  };
 
-	void addActionLine(String line) {
-		actionsTextArea.append("\n" + line);
-	}
+  GamePanel(Delegate delegate) {
+    super(new BorderLayout());
 
-	void setActionCardsInSupply(Map<String, Integer> cards) {
-		setSupplyCardsInPanel(cards, actionSupplyListener, actionSupplyPanel);
-	}
+    this.delegate = delegate;
 
-	void setResourceCardsInSupply(Map<String, Integer> cards) {
-		setSupplyCardsInPanel(cards, resourceSupplyListener,
-				resourceSupplyPanel);
-	}
+    this.add(new JScrollPane(actionsTextArea), BorderLayout.CENTER);
+    this.add(actionSupplyPanel, BorderLayout.NORTH);
+    this.add(resourceSupplyPanel, BorderLayout.EAST);
+    this.add(handPanel, BorderLayout.SOUTH);
 
-	private void setSupplyCardsInPanel(Map<String, Integer> cards,
-			ActionListener listener, JPanel panel) {
-		panel.removeAll();
-		for (Map.Entry<String, Integer> entry : cards.entrySet()) {
-			JButton button = new JButton(entry.getKey() + " ("
-					+ entry.getValue() + ")");
-			button.addActionListener(listener);
-			panel.add(button);
-		}
-		panel.revalidate();
-		this.doLayout();
-	}
+    JPanel infoPanel = new JPanel(new GridLayout(4, 1));
+    infoPanel.add(actionsLabel);
+    infoPanel.add(buysLabel);
+    infoPanel.add(coinsLabel);
+    this.add(infoPanel, BorderLayout.WEST);
 
-	void setCardsInHand(List<String> cards) {
-		handPanel.removeAll();
-		for (String card : cards)
-			handPanel.add(new JButton(card));
-	}
+    JButton button = new JButton("End Turn");
+    button.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        GamePanel.this.delegate.userClickedEndTurnButton();
+      }
+    });
+    infoPanel.add(button);
+  }
 
-	void setNumberOfActions(int count) {
-		this.actionsLabel.setText("Actions: " + count);
-	}
+  void addActionLine(String line) {
+    actionsTextArea.append("\n" + line);
+  }
 
-	void setNumberOfBuys(int count) {
-		this.buysLabel.setText("Buys " + count);
-	}
+  void setActionCardsInSupply(List<String> cardNames) {
+    setSupplyCardsInPanel(cardNames, actionSupplyListener, actionSupplyPanel);
+  }
 
-	void setNumberOfCoins(int count) {
-		this.coinsLabel.setText("Coin: " + count);
-	}
+  void setResourceCardsInSupply(List<String> cardNames) {
+    setSupplyCardsInPanel(cardNames, resourceSupplyListener, resourceSupplyPanel);
+  }
+  
+  void setCardsInHand(List<String> cardNames) {
+    setSupplyCardsInPanel(cardNames, handListener, handPanel);
+  }
+
+  private void setSupplyCardsInPanel(List<String> cardNames, ActionListener listener, JPanel panel) {
+    panel.removeAll();
+
+    for (String name : cardNames) {
+      JButton button = new JButton(name);
+      button.addActionListener(listener);
+
+      panel.add(button);
+    }
+
+    panel.revalidate();
+    this.doLayout();
+  }
+
+  void setNumberOfActions(int count) {
+    this.actionsLabel.setText("Actions: " + count);
+  }
+
+  void setNumberOfBuys(int count) {
+    this.buysLabel.setText("Buys " + count);
+  }
+
+  void setNumberOfCoins(int count) {
+    this.coinsLabel.setText("Coin: " + count);
+  }
 }

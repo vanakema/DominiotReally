@@ -19,6 +19,10 @@ public class SupplyDeck {
 			this.card = card;
 			this.supply = supply;
 		}
+		
+		public String userDescription() {
+		  return String.format("%s (%s)", this.card.getName(), this.supply);
+		}
 
 		public Card getCard() {
 			return this.card;
