@@ -5,7 +5,7 @@ public class BoringActionCard extends ActionCard {
 	public BoringActionCard(String name, String description, int cost,
 			int numActions, int numBuys, int numCoins, int numCardsDraw) {
 		super(name, description, cost);
-		
+
 		this.additionalActions = numActions;
 		this.additionalBuys = numBuys;
 		this.additionalCoins = numCoins;
@@ -17,7 +17,7 @@ public class BoringActionCard extends ActionCard {
 		return new BoringActionCard(CARD_NAME_FESTIVAL,
 				"Action: +2 Actions, +1 Buy, +2 Coins", 5, 2, 1, 2, 0);
 	}
-	
+
 	protected static BoringActionCard makeLaboratory() {
 		return new BoringActionCard(CARD_NAME_LABORATORY,
 				"Action: +2 Cards, +1 Action", 5, 1, 0, 0, 2);
@@ -29,17 +29,18 @@ public class BoringActionCard extends ActionCard {
 	}
 
 	protected static BoringActionCard makeSmithy() {
-		return new BoringActionCard(CARD_NAME_SMITHY, "Action: +3 Cards", 4, 0, 0, 4, 3);
+		return new BoringActionCard(CARD_NAME_SMITHY, "Action: +3 Cards", 4, 0,
+				0, 4, 3);
 	}
 
 	protected static BoringActionCard makeVillage() {
-		return new BoringActionCard(CARD_NAME_VILLAGE, "Action: +1 Card, +2 Actions",
-				3, 2, 0, 0, 1);
+		return new BoringActionCard(CARD_NAME_VILLAGE,
+				"Action: +1 Card, +2 Actions", 3, 2, 0, 0, 1);
 	}
 
 	protected static BoringActionCard makeWoodcutter() {
-		return new BoringActionCard(CARD_NAME_WOODCUTTER, "Action: +1 Buy, +2 Coins",
-				3, 0, 1, 2, 0);
+		return new BoringActionCard(CARD_NAME_WOODCUTTER,
+				"Action: +1 Buy, +2 Coins", 3, 0, 1, 2, 0);
 	}
 
 	@Override
