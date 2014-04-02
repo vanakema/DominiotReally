@@ -27,6 +27,8 @@ public abstract class Card {
 	public int getCost() {
 		return this.cost;
 	}
+	
+	public abstract void performAction(GameContext context);
 
 	public static final String CARD_NAME_FESTIVAL = "Festival";
 	public static final String CARD_NAME_LABORATORY = "Laboratory";

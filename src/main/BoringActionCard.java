@@ -51,7 +51,7 @@ public class BoringActionCard extends ActionCard {
 
 	@Override
 	public void addAdditionalBuys(GameContext context) {
-		context.adjustActionCountByDelta(this.additionalBuys);
+		context.adjustBuyCountByDelta(this.additionalBuys);
 	}
 
 	@Override
@@ -60,9 +60,12 @@ public class BoringActionCard extends ActionCard {
 
 	}
 
-	@Override
-	public void drawNumOfCards() {
-		// TODO: Modify context to support this
-	}
+  @Override
+  public void performAction(GameContext context) {
+    addAdditionalActions(context);
+    addAdditionalBuys(context);
+    addAdditionalCoins(context);
+    
+  }
 
 }

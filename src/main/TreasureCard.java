@@ -26,4 +26,16 @@ public class TreasureCard extends Card {
 		return this.value;
 	}
 
+	
+  public void addCoins(GameContext context) {
+    context.adjustTreasureCountByDelta(this.value);
+
+}
+
+  @Override
+  public void performAction(GameContext context) {
+    addCoins(context);
+    
+  }
+
 }

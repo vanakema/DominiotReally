@@ -26,4 +26,9 @@ public class VictoryCard extends Card {
 		return this.victoryPointValue;
 	}
 
+  @Override
+  public void performAction(GameContext context) {
+    // Does nothing because it doesn't affect anything. 
+  }
+
 }

@@ -24,6 +24,4 @@ public abstract class ActionCard extends Card {
 
 	public abstract void addAdditionalCoins(GameContext context);
 
-	public abstract void drawNumOfCards();
-
 }
