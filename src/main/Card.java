@@ -58,6 +58,7 @@ public abstract class Card {
     cards.put(CARD_NAME_ESTATE, VictoryCard.makeEstate());
     cards.put(CARD_NAME_DUCHY, VictoryCard.makeDuchy());
     cards.put(CARD_NAME_PROVINCE, VictoryCard.makeProvince());
+    cards.put(CARD_NAME_CURSE, VictoryCard.makeCurse());
 
     cards.put(CARD_NAME_COPPER, TreasureCard.makeCopper());
     cards.put(CARD_NAME_SILVER, TreasureCard.makeSilver());

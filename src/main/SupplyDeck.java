@@ -45,7 +45,7 @@ public class SupplyDeck {
       Card.CARD_NAME_SILVER, Card.CARD_NAME_GOLD, Card.CARD_NAME_ESTATE, Card.CARD_NAME_DUCHY,
       Card.CARD_NAME_PROVINCE, Card.CARD_NAME_CURSE};
   private static final Integer[] DEFAULT_RESOURCE_CARD_COUNT = new Integer[] {60, 40, 30, 24, 12,
-      12};
+      12, 30};
 
   /**
    * Create a new SupplyDeck with the specified action cards. Victory and Treasure cards will be
