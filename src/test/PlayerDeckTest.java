@@ -76,6 +76,23 @@ public class PlayerDeckTest {
     PlayerDeck deck = new PlayerDeck();
     assertEquals(3, deck.countVictoryPoints());
     
+    deck.addCard(Card.makeCard(Card.CARD_NAME_PROVINCE));
+    assertEquals(9,deck.countVictoryPoints());
+    
+    List<Card> hand = deck.drawNum(9);
+    assertEquals(9, deck.countVictoryPoints());
+    
+    deck.addCard(Card.makeCard(Card.CARD_NAME_DUCHY));
+    assertEquals(12, deck.countVictoryPoints());
+    
+    deck.addCard(Card.makeCard(Card.CARD_NAME_COPPER));
+    assertEquals(12, deck.countVictoryPoints());
+    
+    deck.addCard(Card.makeCard(Card.CARD_NAME_CURSE));
+    assertEquals(11,deck.countVictoryPoints());
+    
+    
+    
   }
 
 }

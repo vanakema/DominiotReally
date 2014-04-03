@@ -27,14 +27,26 @@ public class PlayerDeck {
    * @return how many victory points are contained by this deck.
    */
   public int countVictoryPoints() {
-    int victoryPoints=0;
-    for(int i =0; i<this.deck.size();i++){
-      if(this.deck.get(i) instanceof VictoryCard ){
+    int victoryPoints = 0;
+    for (int i = 0; i < this.deck.size(); i++) {
+      if (this.deck.get(i) instanceof VictoryCard) {
         VictoryCard card = (VictoryCard) this.deck.get(i);
         victoryPoints += card.getVictoryPointValue();
       }
     }
-    
+    for (int j = 0; j < this.discardDeck.size(); j++) {
+      if (this.discardDeck.get(j) instanceof VictoryCard) {
+        VictoryCard card = (VictoryCard) this.discardDeck.get(j);
+        victoryPoints += card.getVictoryPointValue();
+      }
+    }
+    for(int k=0; k<this.hand.size();k++){
+      if(this.hand.get(k) instanceof VictoryCard){
+        VictoryCard card = (VictoryCard) this.hand.get(k);
+        victoryPoints+= card.getVictoryPointValue();
+      }
+    }
+
     return victoryPoints;
   }
 
