@@ -54,9 +54,12 @@ public class PlayerDeckTest {
     assertEquals(5, hand.size());
   }
   
+  //TODO: Modify test to check for an unequal hand after trash logic is added
   @Test
-  public void testGethand() {
-    
+  public void testGetHand() {
+    PlayerDeck deck = new PlayerDeck();
+    List<Card> hand = deck.getHand();
+    assertEquals(5, hand.size());
   }
 
 }
