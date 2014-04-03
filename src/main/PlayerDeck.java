@@ -47,6 +47,7 @@ public class PlayerDeck {
 				}
 			}else{
 				this.hand.addAll(this.deck);
+				this.deck.clear();
 			}
 			// if not enough cards add more
 			return this.hand;
