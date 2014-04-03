@@ -27,7 +27,15 @@ public class PlayerDeck {
    * @return how many victory points are contained by this deck.
    */
   public int countVictoryPoints() {
-    return 0;
+    int victoryPoints=0;
+    for(int i =0; i<this.deck.size();i++){
+      if(this.deck.get(i) instanceof VictoryCard ){
+        VictoryCard card = (VictoryCard) this.deck.get(i);
+        victoryPoints += card.getVictoryPointValue();
+      }
+    }
+    
+    return victoryPoints;
   }
 
   public int getSize() {

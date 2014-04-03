@@ -70,5 +70,12 @@ public class PlayerDeckTest {
     deck.addCard(Card.makeCard(Card.CARD_NAME_GOLD));
     Assert.assertTrue(deck.getDiscard().contains(Card.makeCard(Card.CARD_NAME_GOLD)));
   }
+  
+  @Test
+  public void testCountVictoryPoints(){
+    PlayerDeck deck = new PlayerDeck();
+    assertEquals(3, deck.countVictoryPoints());
+    
+  }
 
 }
