@@ -55,44 +55,41 @@ public class PlayerDeckTest {
 
     assertEquals(5, hand.size());
   }
-  
-  //TODO: Modify test to check for an unequal hand after trash logic is added
+
+  // TODO: Modify test to check for an unequal hand after trash logic is added
   @Test
   public void testGetHand() {
     PlayerDeck deck = new PlayerDeck();
     List<Card> hand = deck.getHand();
     assertEquals(5, hand.size());
   }
-  
+
   @Test
   public void testAddCard() {
     PlayerDeck deck = new PlayerDeck();
     deck.addCard(Card.makeCard(Card.CARD_NAME_GOLD));
     Assert.assertTrue(deck.getDiscard().contains(Card.makeCard(Card.CARD_NAME_GOLD)));
   }
-  
+
   @Test
-  public void testCountVictoryPoints(){
+  public void testCountVictoryPoints() {
     PlayerDeck deck = new PlayerDeck();
     assertEquals(3, deck.countVictoryPoints());
-    
+
     deck.addCard(Card.makeCard(Card.CARD_NAME_PROVINCE));
-    assertEquals(9,deck.countVictoryPoints());
-    
+    assertEquals(9, deck.countVictoryPoints());
+
     List<Card> hand = deck.drawNum(9);
     assertEquals(9, deck.countVictoryPoints());
-    
+
     deck.addCard(Card.makeCard(Card.CARD_NAME_DUCHY));
     assertEquals(12, deck.countVictoryPoints());
-    
+
     deck.addCard(Card.makeCard(Card.CARD_NAME_COPPER));
     assertEquals(12, deck.countVictoryPoints());
-    
+
     deck.addCard(Card.makeCard(Card.CARD_NAME_CURSE));
-    assertEquals(11,deck.countVictoryPoints());
-    
-    
-    
+    assertEquals(11, deck.countVictoryPoints());
   }
 
 }
