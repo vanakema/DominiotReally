@@ -85,14 +85,16 @@ public class GameWindow implements GamePanel.Delegate {
     } else {
       panel.addActionLine("Cannot buy that card.");
     }
-    
+
     updateUI();
   }
 
   @Override
   public void userSelectedCardInHandAtIndex(int index) {
-    panel.addActionLine("Play card " + index);
-
+    if (game.getCurrentTurn().tryPlayingCardAtIndex(index)) {
+      panel.addActionLine("Play card " + index);
+    }
+    
     updateUI();
   }
 
