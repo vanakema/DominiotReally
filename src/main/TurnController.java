@@ -26,7 +26,16 @@ public class TurnController {
    * @return did playing card succeed
    */
   public boolean tryPlayingCardAtIndex(int index) {
-    return false;
+    if (this.currentContext.getActionCount() > 0) {
+      Card selectedCard = this.player.getPlayerDeck().getHand().get(index);
+      selectedCard.performAction(this.currentContext);
+      this.currentContext.adjustActionCountByDelta(-1);
+      return true;
+    }
+
+    else {
+      return false;
+    }
   }
 
 }
