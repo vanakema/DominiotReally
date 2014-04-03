@@ -39,6 +39,7 @@ public class SupplyDeck {
 	}
 
 	private List<CardTuple> actionCards = new ArrayList<CardTuple>();
+	private List<CardTuple> resourceCards= new ArrayList<CardTuple>();
 
 	/**
 	 * Create a new SupplyDeck with the specified action cards. Victory and
@@ -66,7 +67,7 @@ public class SupplyDeck {
 		return tuple.getCard();
 	}
 
-	public Map<Card, Integer> getResourceCardRoster() {
-		return null;
+	public List<CardTuple> getResourceCardRoster() {		
+		return Collections.unmodifiableList(this.resourceCards);
 	}
 }
