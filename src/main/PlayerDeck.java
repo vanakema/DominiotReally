@@ -6,18 +6,35 @@ import java.util.List;
 
 public class PlayerDeck {
 
-	ArrayList<Card> deck = new ArrayList<Card>();
-	ArrayList<Card> discardDeck = new ArrayList<Card>();
-	ArrayList<Card> hand = new ArrayList<Card>();
+	List<Card> deck = new ArrayList<Card>();
+	List<Card> discardDeck = new ArrayList<Card>();
+	List<Card> hand = new ArrayList<Card>();
 
+	public static final int STANDARD_HAND_SIZE = 5;
+	
+	public PlayerDeck() {
+      for (int i = 0; i < 7; ++i)
+        deck.add(Card.makeCard(Card.CARD_NAME_COPPER));
+      for (int i = 0; i < 3; ++i)
+        deck.add(Card.makeCard(Card.CARD_NAME_ESTATE));
+	  
+	  Collections.shuffle(deck);
+	}
+	
 	public int getSize() {
 		return this.deck.size();
+	}
+	
+	public List<Card> getHand() {
+	  if (this.hand.size() == 0)
+	    this.drawNum(PlayerDeck.STANDARD_HAND_SIZE);
+	  
+	  return Collections.unmodifiableList(this.hand);
 	}
 
 	// Can be revised later to add in random order
 	public void addCard(Card card) {
 		this.deck.add(card);
-
 	}
 
 	public List<Card> drawNum(int numToDraw) throws IndexOutOfBoundsException {

@@ -1,12 +1,11 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JFrame;
+
+import main.SupplyDeck.CardTuple;
 
 public class GameWindow implements GamePanel.Delegate {
 
@@ -18,31 +17,13 @@ public class GameWindow implements GamePanel.Delegate {
 
   private JFrame applicationFrame;
   private GamePanel panel;
-
-  private PlayerDeck playerDeck = new PlayerDeck();
-  private SupplyDeck supplyDeck;
+  private GameController game;
 
   public GameWindow() {
     panel = new GamePanel(this);
-    panel.setCardsInHand(Arrays.asList(new String[] {"One", "Two", "Three", "Four", "Five"}));
-
-    List<Card> cards =
-        Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_FESTIVAL),
-            Card.makeCard(Card.CARD_NAME_LABORATORY), Card.makeCard(Card.CARD_NAME_MARKET),
-            Card.makeCard(Card.CARD_NAME_SMITHY), Card.makeCard(Card.CARD_NAME_VILLAGE),
-            Card.makeCard(Card.CARD_NAME_WOODCUTTER)});
-    supplyDeck = new SupplyDeck(cards);
-
-    String[] names =
-        new String[] {"Copper (10)", "Silver (10)", "Gold (10)", "Estate (12)", "Duchy (14)", "Province (14)", "Curse (Inf)"};
-    panel.setResourceCardsInSupply(Arrays.asList(names));
-
     panel.addActionLine("Game Started!");
-    panel.addActionLine("Player 1's Turn Begin");
-
-    panel.setNumberOfActions(1);
-    panel.setNumberOfBuys(1);
-    panel.setNumberOfCoins(0);
+    
+    game = new GameController();
 
     applicationFrame = new JFrame(APPLICATION_NAME);
     applicationFrame.setContentPane(panel);
@@ -52,20 +33,36 @@ public class GameWindow implements GamePanel.Delegate {
     updateUI();
   }
 
-  private void updateUI() {
-    List<String> actionCardRoster = new ArrayList<String>();
-    for (SupplyDeck.CardTuple tuple : supplyDeck.getActionCardRoster())
-      actionCardRoster.add(tuple.userDescription());
+  private List<String> namesForCardTuples(List<CardTuple> tuples) {
+    List<String> names = new ArrayList<String>();
+    for (CardTuple tuple : tuples)
+      names.add(tuple.userDescription());
     
-    panel.setActionCardsInSupply(actionCardRoster);
+    return names;
+  }
+  
+  private void updateUI() {
+    applicationFrame.setTitle(APPLICATION_NAME + ": " + game.getCurrentTurn().getPlayer().getName());
+    
+    SupplyDeck supplyDeck = game.getSupplyDeck();
+    panel.setActionCardsInSupply(namesForCardTuples(supplyDeck.getActionCardRoster()));
+    panel.setResourceCardsInSupply(namesForCardTuples(supplyDeck.getResourceCardRoster()));
+    
+    List<String> handCardRoster = new ArrayList<String>();
+    List<Card> handCards = game.getCurrentTurn().getPlayer().getDeck().getHand();
+    for (Card card : handCards)
+      handCardRoster.add(card.getName());
+    panel.setCardsInHand(handCardRoster);
+    
+    GameContext context = game.getCurrentTurn().getCurrentContext();
+    panel.setNumberOfActions(context.getActionCount());
+    panel.setNumberOfBuys(context.getBuyCount());
+    panel.setNumberOfCoins(context.getTreasureCount());
   }
 
   @Override
   public void userSelectedActionSupplyCardAtIndex(int index) {
     panel.addActionLine("Bought action card at index " + index);
-
-    Card card = supplyDeck.buyActionCardAtIndex(index);
-    playerDeck.addCard(card);
 
     updateUI();
   }
@@ -73,15 +70,24 @@ public class GameWindow implements GamePanel.Delegate {
   @Override
   public void userSelectedResourceSupplyCardAtIndex(int index) {
     panel.addActionLine("Bought resource card at index " + index);
+    
+    updateUI();
   }
 
   @Override
   public void userSelectedCardInHandAtIndex(int index) {
     panel.addActionLine("Play card " + index);
+    
+    updateUI();
   }
 
   @Override
   public void userClickedEndTurnButton() {
-    panel.addActionLine("Switch to next player...");
+    panel.addActionLine(game.getCurrentTurn().getPlayer().getName() + " ended their turn.");
+    panel.addActionLine("");
+    
+    game.endCurrentTurn();
+    
+    updateUI();
   }
 }
