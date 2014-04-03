@@ -15,27 +15,27 @@ public class GameController {
   private List<Player> players = new ArrayList<Player>();
 
   private TurnController currentTurn;
-  
+
   public GameController() {
     players.add(new Player("Player 1"));
     players.add(new Player("Player 2"));
-    
+
     currentTurn = new TurnController(players.get(0));
   }
 
   public TurnController getCurrentTurn() {
     return this.currentTurn;
   }
-  
+
   public SupplyDeck getSupplyDeck() {
     return this.supplyDeck;
   }
-  
+
   public void endCurrentTurn() {
     int currentPlayerIndex = players.indexOf(currentTurn.getPlayer());
     int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
-    
+
     currentTurn = new TurnController(players.get(nextPlayerIndex));
   }
-  
+
 }

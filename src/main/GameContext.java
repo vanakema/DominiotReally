@@ -6,7 +6,7 @@ package main;
  * the new current state.
  */
 public class GameContext {
-  
+
   private int treasureCount;
   private int actionCount;
   private int buyCount;
@@ -22,7 +22,7 @@ public class GameContext {
 
   /**
    * Clone constructor. Creates a new GameContext that is a duplicate of the argument. For possible
-   * undoing up a card, which may or may not be implemented. 
+   * undoing up a card, which may or may not be implemented.
    */
   public GameContext(GameContext context) {
     this.treasureCount = context.treasureCount;
@@ -53,5 +53,5 @@ public class GameContext {
   public void adjustBuyCountByDelta(int delta) {
     this.buyCount += delta;
   }
-  
+
 }

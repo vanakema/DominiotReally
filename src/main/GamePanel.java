@@ -36,7 +36,9 @@ public class GamePanel extends JPanel {
   private ActionListener actionSupplyListener = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent event) {
-      int index = Arrays.asList(GamePanel.this.actionSupplyPanel.getComponents()).indexOf(event.getSource());
+      int index =
+          Arrays.asList(GamePanel.this.actionSupplyPanel.getComponents())
+              .indexOf(event.getSource());
       GamePanel.this.delegate.userSelectedActionSupplyCardAtIndex(index);
     }
   };
@@ -45,7 +47,9 @@ public class GamePanel extends JPanel {
   private ActionListener resourceSupplyListener = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent event) {
-      int index = Arrays.asList(GamePanel.this.resourceSupplyPanel.getComponents()).indexOf(event.getSource());
+      int index =
+          Arrays.asList(GamePanel.this.resourceSupplyPanel.getComponents()).indexOf(
+              event.getSource());
       GamePanel.this.delegate.userSelectedResourceSupplyCardAtIndex(index);
     }
   };
@@ -54,7 +58,8 @@ public class GamePanel extends JPanel {
   private ActionListener handListener = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent event) {
-      int index = Arrays.asList(GamePanel.this.handPanel.getComponents()).indexOf(event.getSource());
+      int index =
+          Arrays.asList(GamePanel.this.handPanel.getComponents()).indexOf(event.getSource());
       GamePanel.this.delegate.userSelectedCardInHandAtIndex(index);
     }
   };
@@ -96,7 +101,7 @@ public class GamePanel extends JPanel {
   void setResourceCardsInSupply(List<String> cardNames) {
     setSupplyCardsInPanel(cardNames, resourceSupplyListener, resourceSupplyPanel);
   }
-  
+
   void setCardsInHand(List<String> cardNames) {
     setSupplyCardsInPanel(cardNames, handListener, handPanel);
   }
