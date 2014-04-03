@@ -70,4 +70,9 @@ public class SupplyDeck {
 	public List<CardTuple> getResourceCardRoster() {		
 		return Collections.unmodifiableList(this.resourceCards);
 	}
+	public Card buyResourceCardAtIndex(int index){
+		CardTuple tuple = this.resourceCards.get(index);
+		tuple.decrementSupply();
+		return tuple.getCard();
+	}
 }
