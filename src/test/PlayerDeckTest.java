@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import junit.framework.Assert;
+
 import main.Card;
 import main.PlayerDeck;
 
@@ -60,6 +62,13 @@ public class PlayerDeckTest {
     PlayerDeck deck = new PlayerDeck();
     List<Card> hand = deck.getHand();
     assertEquals(5, hand.size());
+  }
+  
+  @Test
+  public void testAddCard() {
+    PlayerDeck deck = new PlayerDeck();
+    deck.addCard(Card.makeCard(Card.CARD_NAME_GOLD));
+    Assert.assertTrue(deck.getDiscard().contains(Card.makeCard(Card.CARD_NAME_GOLD)));
   }
 
 }

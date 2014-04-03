@@ -27,6 +27,7 @@ public class PlayerDeck {
 
   public List<Card> getHand() {
     if (this.hand.size() == 0)
+      
       this.drawNum(PlayerDeck.STANDARD_HAND_SIZE);
 
     return Collections.unmodifiableList(this.hand);
@@ -34,7 +35,7 @@ public class PlayerDeck {
 
   // Can be revised later to add in random order
   public void addCard(Card card) {
-    this.deck.add(card);
+    this.discardDeck.add(card);
   }
 
   public List<Card> drawNum(int numToDraw) throws IndexOutOfBoundsException {
@@ -75,7 +76,10 @@ public class PlayerDeck {
     Collections.shuffle(this.discardDeck);
     this.deck.addAll(this.discardDeck);
     this.discardDeck.clear();
-
+  }
+  
+  public List<Card> getDiscard() {
+    return this.discardDeck;
   }
 
 }
