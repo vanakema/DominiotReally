@@ -20,7 +20,7 @@ public class GameController {
     players.add(new Player("Player 1"));
     players.add(new Player("Player 2"));
 
-    currentTurn = new TurnController(players.get(0));
+    currentTurn = new TurnController(players.get(0), supplyDeck);
   }
 
   public TurnController getCurrentTurn() {
@@ -35,7 +35,7 @@ public class GameController {
     int currentPlayerIndex = players.indexOf(currentTurn.getPlayer());
     int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
 
-    currentTurn = new TurnController(players.get(nextPlayerIndex));
+    currentTurn = new TurnController(players.get(nextPlayerIndex), supplyDeck);
   }
 
 }

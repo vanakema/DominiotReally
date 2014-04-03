@@ -20,7 +20,7 @@ public class SupplyDeck {
     }
 
     public String userDescription() {
-      return String.format("%s (%s)", this.card.getName(), this.supply);
+      return String.format("%s $%d (%s)", this.card.getName(), this.card.getCost(), this.supply);
     }
 
     public Card getCard() {

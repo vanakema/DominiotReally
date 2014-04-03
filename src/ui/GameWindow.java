@@ -67,15 +67,25 @@ public class GameWindow implements GamePanel.Delegate {
 
   @Override
   public void userSelectedActionSupplyCardAtIndex(int index) {
-    panel.addActionLine("Bought action card at index " + index);
+    if (game.getCurrentTurn().tryPurchaseActionCardAtIndex(index)) {
+      CardTuple tuple = game.getSupplyDeck().getResourceCardRoster().get(index);
+      panel.addActionLine("Bought one " + tuple.getCard().getName() + ".");
+    } else {
+      panel.addActionLine("Cannot buy that card.");
+    }
 
     updateUI();
   }
 
   @Override
   public void userSelectedResourceSupplyCardAtIndex(int index) {
-    panel.addActionLine("Bought resource card at index " + index);
-
+    if (game.getCurrentTurn().tryPurchaseResourceCardAtIndex(index)) {
+      CardTuple tuple = game.getSupplyDeck().getResourceCardRoster().get(index);
+      panel.addActionLine("Bought one " + tuple.getCard().getName() + ".");
+    } else {
+      panel.addActionLine("Cannot buy that card.");
+    }
+    
     updateUI();
   }
 
