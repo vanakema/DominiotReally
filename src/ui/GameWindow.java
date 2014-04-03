@@ -1,10 +1,14 @@
-package main;
+package ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 
+import main.Card;
+import main.GameContext;
+import main.GameController;
+import main.SupplyDeck;
 import main.SupplyDeck.CardTuple;
 
 public class GameWindow implements GamePanel.Delegate {
