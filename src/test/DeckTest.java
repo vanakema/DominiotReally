@@ -97,6 +97,9 @@ public class DeckTest {
 		hand = deck1.drawNum(7);
 		
 		assertEquals(7,hand.size());
+		
+		hand = deck1.drawNum(2);
+		assertEquals(2,hand.size());
 	}
 	
 	@Test

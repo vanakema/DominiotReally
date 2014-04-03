@@ -25,9 +25,7 @@ public class PlayerDeck {
 		// running to original hand.size()
 		if (!hand.isEmpty()) { // to avoid dumping hand on first turn
 			for (int i = 0; i < handSize; i++) {
-				if (hand.get(0) != null) { // to avoid empty spaces in hand
-					this.discardDeck.add(hand.remove(0));
-				}
+				this.discardDeck.add(hand.remove(0));
 			}
 		}
 
@@ -41,9 +39,6 @@ public class PlayerDeck {
 		} else {
 			int remainingToDraw = numToDraw - this.deck.size();
 			this.hand.addAll(this.deck);
-			while (this.deck.size() != 0) {
-				this.discardDeck.add(this.deck.remove(0));
-			}
 			shuffleDeck();
 			for (int i = 0; i < remainingToDraw; i++) {
 				this.hand.add(this.deck.remove(0));
