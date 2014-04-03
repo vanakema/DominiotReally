@@ -3,7 +3,7 @@ package main;
 public class Player {
 
   private String name;
-  private PlayerDeck deck = new PlayerDeck();
+  private PlayerDeck playerDeck = new PlayerDeck();
 
   public Player(String name) {
     this.name = name;
@@ -13,8 +13,8 @@ public class Player {
     return this.name;
   }
 
-  public PlayerDeck getDeck() {
-    return this.deck;
+  public PlayerDeck getPlayerDeck() {
+    return this.playerDeck;
   }
 
 }
