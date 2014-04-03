@@ -13,7 +13,7 @@ import org.junit.Test;
 public class PlayerDeckTest {
 
   @Test
-  public void sizeTest() {
+  public void testSize() {
     PlayerDeck deck1 = new PlayerDeck();
 
     assertEquals(10, deck1.getSize());
@@ -37,7 +37,7 @@ public class PlayerDeckTest {
   }
 
   @Test
-  public void notEnoughCardsTest() {
+  public void testNotEnoughCards() {
     PlayerDeck deck1 = new PlayerDeck();
     List<Card> hand = deck1.drawNum(3);
     assertEquals(3, hand.size());
@@ -46,12 +46,17 @@ public class PlayerDeckTest {
   }
 
   @Test
-  public void ShuffleTest() {
+  public void testShuffle() {
     PlayerDeck deck = new PlayerDeck();
     List<Card> hand = deck.drawNum(10);
     hand = deck.drawNum(5);
 
     assertEquals(5, hand.size());
+  }
+  
+  @Test
+  public void testGethand() {
+    
   }
 
 }
