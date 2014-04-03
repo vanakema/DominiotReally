@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public abstract class Card {
+public abstract class Card implements Cloneable {
 
   private String name;
   private String description;
@@ -26,6 +26,14 @@ public abstract class Card {
 
   public int getCost() {
     return this.cost;
+  }
+  
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof Card)
+      return false;
+    
+    return ((Card)o).name.equals(this.name);
   }
 
   public abstract void performAction(GameContext context);
@@ -67,11 +75,17 @@ public abstract class Card {
 
   public static final Card makeCard(String name) {
     if (cards.containsKey(name)) {
-      return cards.get(name);
+      return makeCard(cards.get(name));
     } else {
       throw new NoSuchElementException();
     }
-
-
+  }
+  
+  public static final Card makeCard(Card card) {
+    try {
+      return (Card) card.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException("Someone removed Clonable from Card", e);
+    }
   }
 }
