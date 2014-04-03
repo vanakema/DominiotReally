@@ -14,7 +14,7 @@ public class SupplyDeck {
     private Card card;
     private int supply;
 
-    CardTuple(Card card, int supply) {
+    private CardTuple(Card card, int supply) {
       this.card = card;
       this.supply = supply;
     }
@@ -74,9 +74,7 @@ public class SupplyDeck {
   }
 
   public Card buyActionCardAtIndex(int index) {
-    CardTuple tuple = this.actionCards.get(index);
-    tuple.decrementSupply();
-    return tuple.getCard();
+    return buyCardAtIndexInCollection(index, actionCards);
   }
 
   public List<CardTuple> getResourceCardRoster() {
@@ -84,8 +82,15 @@ public class SupplyDeck {
   }
 
   public Card buyResourceCardAtIndex(int index) {
-    CardTuple tuple = this.resourceCards.get(index);
+    return buyCardAtIndexInCollection(index, resourceCards);
+  }
+  
+  private Card buyCardAtIndexInCollection(int index, List<CardTuple> cardCollection) {
+    CardTuple tuple = cardCollection.get(index);
+    Card returnValue = tuple.getSupply() > 0 ? tuple.getCard() : null;
+    
     tuple.decrementSupply();
-    return tuple.getCard();
+    
+    return returnValue;
   }
 }

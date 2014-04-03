@@ -62,4 +62,19 @@ public class SupplyDeckTest {
     assertEquals(Card.CARD_NAME_WOODCUTTER + " (10)", cardTuples.get(5).userDescription());
 
   }
+  
+  @Test
+  public void testBuyTooManyCards() {
+    SupplyDeck supplyDeck = new SupplyDeck(cards);
+    
+    // Buy all the cards so we're out
+    while (supplyDeck.getActionCardRoster().get(0).getSupply() > 0)
+      supplyDeck.buyActionCardAtIndex(0);
+    
+    Card card = supplyDeck.buyActionCardAtIndex(0);
+    assertNull(card);
+    
+    CardTuple tuple = supplyDeck.getActionCardRoster().get(0);
+    assertEquals(0, tuple.getSupply());
+  }
 }
