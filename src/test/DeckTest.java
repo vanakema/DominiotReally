@@ -37,18 +37,21 @@ public class DeckTest {
 	}
 	
 	@Test
+	public void notEnoughCardsTest(){
+		PlayerDeck deck1 = makeDeck();
+		List<Card> hand = deck1.drawNum(3);
+		assertEquals(3, hand.size());
+		hand = deck1.drawNum(11);
+		assertEquals(10,hand.size());
+	}
+	
+	@Test
 	public void ShuffleTest(){
 		PlayerDeck deck = makeDeck();
 		List<Card> hand = deck.drawNum(10);
 		hand = deck.drawNum(5);
 		
 		assertEquals(5,hand.size());
-	}
-	
-	@Test(expected=IndexOutOfBoundsException.class)
-	public void testIndexOutOfBoundsException(){
-		PlayerDeck emptyDeck = new PlayerDeck();
-		List<Card> hand = emptyDeck.drawNum(5);
 	}
 	
 	public PlayerDeck makeDeck() {

@@ -39,11 +39,15 @@ public class PlayerDeck {
 		} else {
 			int remainingToDraw = numToDraw - this.deck.size();
 			this.hand.addAll(this.deck);
+			this.deck.clear();
 			shuffleDeck();
-			for (int i = 0; i < remainingToDraw; i++) {
-				this.hand.add(this.deck.remove(0));
+			if (this.deck.size() > numToDraw) {
+				for (int i = 0; i < remainingToDraw; i++) {
+					this.hand.add(this.deck.remove(0));
+				}
+			}else{
+				this.hand.addAll(this.deck);
 			}
-
 			// if not enough cards add more
 			return this.hand;
 		}
