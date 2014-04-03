@@ -54,7 +54,7 @@ public class GameWindow implements GamePanel.Delegate {
     panel.setResourceCardsInSupply(namesForCardTuples(supplyDeck.getResourceCardRoster()));
 
     List<String> handCardRoster = new ArrayList<String>();
-    List<Card> handCards = game.getCurrentTurn().getPlayer().getDeck().getHand();
+    List<Card> handCards = game.getCurrentTurn().getPlayer().getPlayerDeck().getHand();
     for (Card card : handCards)
       handCardRoster.add(card.getName());
     panel.setCardsInHand(handCardRoster);
