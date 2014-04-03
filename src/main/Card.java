@@ -30,7 +30,7 @@ public abstract class Card implements Cloneable {
   
   @Override
   public boolean equals(Object o) {
-    if (o instanceof Card)
+    if (!(o instanceof Card))
       return false;
     
     return ((Card)o).name.equals(this.name);

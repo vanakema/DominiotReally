@@ -92,4 +92,26 @@ public class CardTest {
     assertEquals(((TreasureCard)card).getValue(), ((TreasureCard)clone).getValue());
     assertFalse("Clone object should not be equal to its original", card == clone);
   }
+  
+  @Test
+  public void testCardEquality() {
+    Card c1 = Card.makeCard(Card.CARD_NAME_GOLD);
+    assertTrue(c1.equals(c1));
+  }
+  
+  @Test
+  public void testCardEqualityForSameCards() {
+    Card c1 = Card.makeCard(Card.CARD_NAME_GOLD);
+    Card c2 = Card.makeCard(Card.CARD_NAME_GOLD);
+    assertTrue(c1.equals(c2));
+    assertTrue(c2.equals(c1));
+  }
+  
+  @Test
+  public void testCardEqualityForDifferentCards() {
+    Card c1 = Card.makeCard(Card.CARD_NAME_GOLD);
+    Card c2 = Card.makeCard(Card.CARD_NAME_SILVER);
+    assertFalse(c1.equals(c2));
+    assertFalse(c2.equals(c1));
+  }
 }
