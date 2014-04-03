@@ -18,4 +18,15 @@ public class TurnController {
     return this.currentContext;
   }
 
+  /**
+   * Check if there are still actions left, get card at `index` from player's hand, perform action
+   * of card on context, decrement context values correctly.
+   * 
+   * @param index
+   * @return did playing card succeed
+   */
+  public boolean tryPlayingCardAtIndex(int index) {
+    return false;
+  }
+
 }
