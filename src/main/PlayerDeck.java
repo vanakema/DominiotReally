@@ -21,13 +21,22 @@ public class PlayerDeck {
     Collections.shuffle(deck);
   }
 
+  /**
+   * Iterates through all cards the deck contains and counts up all the victory points.
+   * 
+   * @return how many victory points are contained by this deck.
+   */
+  public int countVictoryPoints() {
+    return 0;
+  }
+
   public int getSize() {
     return this.deck.size();
   }
 
   public List<Card> getHand() {
     if (this.hand.size() == 0)
-      
+
       this.drawNum(PlayerDeck.STANDARD_HAND_SIZE);
 
     return Collections.unmodifiableList(this.hand);
@@ -77,7 +86,7 @@ public class PlayerDeck {
     this.deck.addAll(this.discardDeck);
     this.discardDeck.clear();
   }
-  
+
   public List<Card> getDiscard() {
     return this.discardDeck;
   }
