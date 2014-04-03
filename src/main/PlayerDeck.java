@@ -21,11 +21,12 @@ public class PlayerDeck {
 	}
 
 	public List<Card> drawNum(int numToDraw) throws IndexOutOfBoundsException {
-
-		if (!this.hand.isEmpty()) { // to avoid dumping hand on first turn
-			for (int i = 0; i < this.hand.size(); i++) {
-				if (this.hand.get(0) != null) { // to avoid empty spaces in hand
-					this.discardDeck.add(this.hand.remove(0));
+		int handSize = hand.size();// to avoid prevent the loop from
+		// running to original hand.size()
+		if (!hand.isEmpty()) { // to avoid dumping hand on first turn
+			for (int i = 0; i < handSize; i++) {
+				if (hand.get(0) != null) { // to avoid empty spaces in hand
+					this.discardDeck.add(hand.remove(0));
 				}
 			}
 		}
@@ -39,7 +40,7 @@ public class PlayerDeck {
 			return hand;
 		} else {
 			int remainingToDraw = numToDraw - this.deck.size();
-			this.hand = this.deck;
+			this.hand.addAll(this.deck);
 			while (this.deck.size() != 0) {
 				this.discardDeck.add(this.deck.remove(0));
 			}
@@ -49,13 +50,13 @@ public class PlayerDeck {
 			}
 
 			// if not enough cards add more
-			throw new IndexOutOfBoundsException();
+			return this.hand;
 		}
 	}
 
 	private void shuffleDeck() {
 		Collections.shuffle(this.discardDeck);
-		this.deck = this.discardDeck;
+		this.deck.addAll(this.discardDeck);
 		this.discardDeck.clear();
 
 	}

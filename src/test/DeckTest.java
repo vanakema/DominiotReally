@@ -88,13 +88,24 @@ public class DeckTest {
 		
 		assertEquals(5,deck1.getSize());
 		
-		List<Card> hand2 = deck1.drawNum(5);
+		hand = deck1.drawNum(5);
 		
 		assertEquals(0, deck1.getSize());
 		
 		assertEquals(5, hand.size());
-		assertEquals(5, hand2.size());
 		
+		hand = deck1.drawNum(7);
+		
+		assertEquals(7,hand.size());
+	}
+	
+	@Test
+	public void ShuffleTest(){
+		PlayerDeck deck = makeDeck();
+		List<Card> hand = deck.drawNum(10);
+		hand = deck.drawNum(5);
+		
+		assertEquals(5,hand.size());
 	}
 	
 	@Test(expected=IndexOutOfBoundsException.class)
@@ -118,8 +129,6 @@ PlayerDeck deck1 = new PlayerDeck();
 		Card newCard10 = Card.makeCard(Card.CARD_NAME_ESTATE);
 		
 		deck1.addCard(newCard1);
-		assertEquals(1, deck1.getSize());
-		
 		deck1.addCard(newCard2);
 		deck1.addCard(newCard3);
 		deck1.addCard(newCard4);
