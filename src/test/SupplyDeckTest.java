@@ -54,12 +54,12 @@ public class SupplyDeckTest {
   public void testUserDescription() {
     SupplyDeck supplyDeck = new SupplyDeck(cards);
     List<CardTuple> cardTuples = supplyDeck.getActionCardRoster();
-    assertEquals(Card.CARD_NAME_FESTIVAL + " (10)", cardTuples.get(0).userDescription());
-    assertEquals(Card.CARD_NAME_LABORATORY + " (10)", cardTuples.get(1).userDescription());
-    assertEquals(Card.CARD_NAME_MARKET + " (10)", cardTuples.get(2).userDescription());
-    assertEquals(Card.CARD_NAME_SMITHY + " (10)", cardTuples.get(3).userDescription());
-    assertEquals(Card.CARD_NAME_VILLAGE + " (10)", cardTuples.get(4).userDescription());
-    assertEquals(Card.CARD_NAME_WOODCUTTER + " (10)", cardTuples.get(5).userDescription());
+    assertEquals(Card.CARD_NAME_FESTIVAL + " $5 (10)", cardTuples.get(0).userDescription());
+    assertEquals(Card.CARD_NAME_LABORATORY + " $5 (10)", cardTuples.get(1).userDescription());
+    assertEquals(Card.CARD_NAME_MARKET + " $5 (10)", cardTuples.get(2).userDescription());
+    assertEquals(Card.CARD_NAME_SMITHY + " $4 (10)", cardTuples.get(3).userDescription());
+    assertEquals(Card.CARD_NAME_VILLAGE + " $3 (10)", cardTuples.get(4).userDescription());
+    assertEquals(Card.CARD_NAME_WOODCUTTER + " $3 (10)", cardTuples.get(5).userDescription());
 
   }
   
