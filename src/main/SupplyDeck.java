@@ -43,7 +43,7 @@ public class SupplyDeck {
   private static final int DEFAULT_ACTION_CARD_COUNT = 10;
   private static final String[] DEFAULT_RESOURCE_CARD_NAMES = new String[] {Card.CARD_NAME_COPPER,
       Card.CARD_NAME_SILVER, Card.CARD_NAME_GOLD, Card.CARD_NAME_ESTATE, Card.CARD_NAME_DUCHY,
-      Card.CARD_NAME_PROVINCE};
+      Card.CARD_NAME_PROVINCE, Card.CARD_NAME_CURSE};
   private static final Integer[] DEFAULT_RESOURCE_CARD_COUNT = new Integer[] {60, 40, 30, 24, 12,
       12};
 

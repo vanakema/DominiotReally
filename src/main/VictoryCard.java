@@ -21,6 +21,10 @@ public class VictoryCard extends Card {
   public static VictoryCard makeProvince() {
     return new VictoryCard(CARD_NAME_PROVINCE, "Victory", 8, 6);
   }
+  
+  public static VictoryCard makeCurse() {
+    return new VictoryCard(CARD_NAME_CURSE, "Victory", 0, -1);
+  }
 
   public int getVictoryPointValue() {
     return this.victoryPointValue;
