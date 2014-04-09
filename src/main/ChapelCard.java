@@ -5,8 +5,8 @@ import java.util.List;
 
 public class ChapelCard extends ActionCard {
   
-  protected ChapelCard(String name, String description, int cost) {
-    super(name, description, cost);
+  protected ChapelCard() {
+    super(Card.CARD_NAME_CHAPEL, "Trash up to 4 cards from your hand.", 2);
     
   }
 
@@ -27,8 +27,10 @@ public class ChapelCard extends ActionCard {
 
   @Override
   public void performAction(GameContext context) {
-    // TODO Auto-generated method stub
-    List<Card> hand = context.getPlayer().getPlayerDeck().hand;
+    PlayerDeck deck = context.getPlayer().getPlayerDeck();
+    deck.trashCardAtIndex(0);
+    
+    
   }
 
 }

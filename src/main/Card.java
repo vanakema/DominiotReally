@@ -45,6 +45,7 @@ public abstract class Card implements Cloneable {
   public static final String CARD_NAME_VILLAGE = "Village";
   public static final String CARD_NAME_WOODCUTTER = "Woodcutter";
   public static final String CARD_NAME_MINE = "Mine";
+  public static final String CARD_NAME_CHAPEL = "Chapel";
 
   public static final String CARD_NAME_ESTATE = "Estate";
   public static final String CARD_NAME_DUCHY = "Duchy";
@@ -64,6 +65,7 @@ public abstract class Card implements Cloneable {
     cards.put(CARD_NAME_VILLAGE, BoringActionCard.makeVillage());
     cards.put(CARD_NAME_WOODCUTTER, BoringActionCard.makeWoodcutter());
     cards.put(CARD_NAME_MINE, new MineCard());
+    cards.put(CARD_NAME_CHAPEL, new ChapelCard());
 
     cards.put(CARD_NAME_ESTATE, VictoryCard.makeEstate());
     cards.put(CARD_NAME_DUCHY, VictoryCard.makeDuchy());
