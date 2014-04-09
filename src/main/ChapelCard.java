@@ -29,7 +29,7 @@ public class ChapelCard extends ActionCard {
     for (int trashesRemaining = 4; trashesRemaining > 0; trashesRemaining--) {
       int index = context.decideCardInHand("Trash a card from your hand?", true);
       if (index != GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED) {
-        deck.trashCardAtIndex(index);
+        deck.trashCardInHandAtIndex(index);
       } else {
         break;
       }

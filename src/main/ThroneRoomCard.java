@@ -10,7 +10,7 @@ public class ThroneRoomCard extends ActionCard {
   @Override
   public void performAction(GameContext context) {
     super.performAction(context);
-    
+    int index = context.decideCardInHand("What card do you want to play twice?", true);
     
   }
 
