@@ -28,8 +28,17 @@ public class MoneylenderCard extends ActionCard {
 
   @Override
   public void performAction(GameContext context) {
+    // **************************************
+    // NEED REVISED -- PRE-CHOICE LOGIC BUILD
+    // **************************************
     PlayerDeck deck = context.getPlayer().getPlayerDeck();
-    
+    for(int i = 0; i< deck.hand.size(); i++){
+      if(deck.hand.get(i).getName() == Card.CARD_NAME_COPPER ){
+        hasCopper = true;
+        deck.trashCardAtIndex(i);
+        break;
+      }
+    }
 
   }
 
