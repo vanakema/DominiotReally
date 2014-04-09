@@ -111,15 +111,15 @@ public class PlayerDeck {
     return this.discardDeck;
   }
   
-  public void trashCardAtIndex(int index) {
+  public void trashCardInHandAtIndex(int index) {
     this.hand.remove(index);
   }
   
-  public void discardCardAtIndex(int index){
+  public void discardCardInHandAtIndex(int index){
     this.discardDeck.add(this.hand.remove(index));
   }
 
-  public void insertCard(Card cardToInsert) {
+  public void insertCardIntoHand(Card cardToInsert) {
     this.hand.add(cardToInsert);
   }
 

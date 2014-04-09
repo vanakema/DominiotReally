@@ -29,7 +29,7 @@ public class ChapelCard extends ActionCard {
     // NEED REVISED -- PRE-CHOICE LOGIC BUILD
     // **************************************
     PlayerDeck deck = context.getPlayer().getPlayerDeck();
-    deck.trashCardAtIndex(0);
+    deck.trashCardInHandAtIndex(0);
   }
 
 }

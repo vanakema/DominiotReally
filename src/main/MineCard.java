@@ -23,14 +23,24 @@ public class MineCard extends ActionCard {
 
   @Override
   public void performAction(GameContext context) {
-    //TODO: Make so it takes an index, and 
+    //TODO: Make so it takes an index, and checks if that is a proper treasure card
     Card oldCard;
     int handSize = context.getPlayer().getPlayerDeck().getHand().size();
     for(int i = 0 ; i<handSize ; i++) {
       oldCard = context.getPlayer().getPlayerDeck().getHand().get(i);
       if(oldCard.getName().equals(CARD_NAME_COPPER)) {
-        context.getPlayer().getPlayerDeck().trashCardAtIndex(i);
-//        context.getPlayer().getPlayerDeck().insertCard(context)
+        boolean silverAdded = context.getTurnController().tryForceInsertResourceCardIntoHand(1);
+        if(silverAdded) {
+          context.getPlayer().getPlayerDeck().trashCardInHandAtIndex(i);
+          break;
+        }
+      }
+      else if(oldCard.getName().equals(CARD_NAME_SILVER)) {
+        boolean goldAdded = context.getTurnController().tryForceInsertResourceCardIntoHand(2);
+        if(goldAdded) {
+          context.getPlayer().getPlayerDeck().trashCardInHandAtIndex(i);
+          break;
+        }
       }
     }
 

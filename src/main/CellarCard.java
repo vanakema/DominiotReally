@@ -32,7 +32,7 @@ public class CellarCard extends ActionCard {
     // NEED REVISED -- PRE-CHOICE LOGIC BUILD
     // **************************************
     PlayerDeck deck = context.getPlayer().getPlayerDeck();
-    deck.discardCardAtIndex(0);
+    deck.discardCardInHandAtIndex(0);
     deck.drawNum(1);
   }
 

@@ -53,6 +53,17 @@ public class TurnController {
     return tryPurchaseCardHelper(supplyDeck.buyResourceCardAtIndex(index));
   }
   
+  public boolean tryForceInsertResourceCardIntoHand(int index) {
+    Card cardToBuy = supplyDeck.buyResourceCardAtIndex(index);
+    if (cardToBuy == null) {
+      return false;
+    }
+    else {
+      this.player.getPlayerDeck().getHand().add(cardToBuy);
+      return true;
+    }
+  }
+  
   /**
    * Check if there are still actions left, get card at `index` from player's hand, perform action
    * of card on context, decrement context values correctly.
