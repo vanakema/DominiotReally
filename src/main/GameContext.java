@@ -10,14 +10,14 @@ public class GameContext {
   private int treasureCount;
   private int actionCount;
   private int buyCount;
-  private Player player;
+  private TurnController turnController;
 
   /**
    * Creates a new GameContext with all fields default initialized for the first turn of a new game.
    */
-  public GameContext(Player player) {
+  public GameContext(TurnController turnController) {
     this();
-    this.player = player;
+    this.turnController = turnController;
   }
 
   public GameContext(){
@@ -34,7 +34,7 @@ public class GameContext {
     this.treasureCount = context.treasureCount;
     this.actionCount = context.actionCount;
     this.buyCount = context.buyCount;
-    this.player = context.player;
+    this.turnController = context.turnController;
   }
 
   public int getActionCount() {
@@ -61,8 +61,12 @@ public class GameContext {
     this.buyCount += delta;
   }
   
-  public Player getPlayer(){
-      return this.player;
+  public TurnController getTurnController(){
+      return this.turnController;
+  }
+  
+  public Player getPlayer() {
+    return this.turnController.getPlayer();
   }
 
 }

@@ -23,7 +23,16 @@ public class MineCard extends ActionCard {
 
   @Override
   public void performAction(GameContext context) {
-//    if(context.)
+    //TODO: Make so it takes an index, and 
+    Card oldCard;
+    int handSize = context.getPlayer().getPlayerDeck().getHand().size();
+    for(int i = 0 ; i<handSize ; i++) {
+      oldCard = context.getPlayer().getPlayerDeck().getHand().get(i);
+      if(oldCard.getName().equals(CARD_NAME_COPPER)) {
+        context.getPlayer().getPlayerDeck().trashCardAtIndex(i);
+//        context.getPlayer().getPlayerDeck().insertCard(context)
+      }
+    }
 
   }
 
