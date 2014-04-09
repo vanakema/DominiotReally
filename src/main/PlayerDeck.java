@@ -110,5 +110,13 @@ public class PlayerDeck {
   public List<Card> getDiscard() {
     return this.discardDeck;
   }
+  
+  public void trashCardAtIndex(int index) {
+    this.hand.remove(index);
+  }
+
+  public void insertCard(Card cardToInsert) {
+    this.hand.add(cardToInsert);
+  }
 
 }
