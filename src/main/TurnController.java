@@ -13,7 +13,7 @@ public class TurnController {
   public TurnController(Player player, SupplyDeck supplyDeck) {
     this.player = player;
     this.supplyDeck = supplyDeck;
-    this.currentContext = new GameContext();
+    this.currentContext = new GameContext(this.player);
   }
 
   public Player getPlayer() {

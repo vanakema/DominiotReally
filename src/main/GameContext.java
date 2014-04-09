@@ -10,16 +10,22 @@ public class GameContext {
   private int treasureCount;
   private int actionCount;
   private int buyCount;
+  private Player player;
 
   /**
    * Creates a new GameContext with all fields default initialized for the first turn of a new game.
    */
-  public GameContext() {
+  public GameContext(Player player) {
+    this();
+    this.player = player;
+  }
+
+  public GameContext(){
     this.treasureCount = 0;
     this.actionCount = 1;
     this.buyCount = 1;
   }
-
+  
   /**
    * Clone constructor. Creates a new GameContext that is a duplicate of the argument. For possible
    * undoing up a card, which may or may not be implemented.
@@ -28,6 +34,7 @@ public class GameContext {
     this.treasureCount = context.treasureCount;
     this.actionCount = context.actionCount;
     this.buyCount = context.buyCount;
+    this.player = context.player;
   }
 
   public int getActionCount() {
@@ -52,6 +59,10 @@ public class GameContext {
 
   public void adjustBuyCountByDelta(int delta) {
     this.buyCount += delta;
+  }
+  
+  public Player getPlayer(){
+      return this.player;
   }
 
 }
