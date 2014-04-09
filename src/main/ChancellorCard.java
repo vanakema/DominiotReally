@@ -12,7 +12,7 @@ public class ChancellorCard extends ActionCard {
   public void performAction(GameContext context) {
     super.performAction(context);
     
-    if (context.getDecision("Put your deck into the discard pile?")) {
+    if (context.decideBoolean("Put your deck into the discard pile?")) {
       System.out.println("Threw out some cards!");
     }
   }

@@ -8,7 +8,11 @@ package main;
 public class GameContext {
 
   public static interface DecisionDelegate {
-    public boolean getDecision(GameContext context, String question);
+    public static final int CARD_IN_HAND_IGNORED = -1;
+    
+    public boolean decideBoolean(GameContext context, String question);
+    
+    public int decideCardInHand(GameContext context, String question, boolean canIgnore);
   }
   
   private int treasureCount;
@@ -84,11 +88,18 @@ public class GameContext {
     this.decisionDelegate = decisionDelegate;
   }
   
-  public boolean getDecision(String question) {
+  public boolean decideBoolean(String question) {
     if (decisionDelegate == null)
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
     
-    return decisionDelegate.getDecision(this, question);
+    return decisionDelegate.decideBoolean(this, question);
+  }
+  
+  public int decideCardInHand(String question, boolean canIgnore) {
+    if (decisionDelegate == null)
+      throw new RuntimeException("Attempting to make a decision without a decision delegate");
+    
+    return decisionDelegate.decideCardInHand(this, question, canIgnore);
   }
 
 }

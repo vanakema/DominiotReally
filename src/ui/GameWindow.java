@@ -110,7 +110,20 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
   }
 
   @Override
-  public boolean getDecision(GameContext context, String question) {
-    return (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, question, "Make Decision", JOptionPane.YES_NO_OPTION));
+  public boolean decideBoolean(GameContext context, String question) {
+    return (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(panel, question, "Make Decision", JOptionPane.YES_NO_OPTION));
+  }
+
+  @Override
+  public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
+    List<String> cards = new ArrayList<String>();
+    for (Card card : game.getCurrentTurn().getPlayer().getPlayerDeck().getHand())
+      cards.add(card.getName());
+    
+    if (canIgnore)
+      cards.add("Cancel");
+    
+    int result = JOptionPane.showOptionDialog(panel, question, "Select a Card from Hand", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, cards.toArray(), 0);
+    return (canIgnore && result == cards.size() - 1) ? GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED : result;
   }
 }

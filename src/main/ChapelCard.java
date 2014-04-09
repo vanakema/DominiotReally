@@ -25,11 +25,15 @@ public class ChapelCard extends ActionCard {
 
   @Override
   public void performAction(GameContext context) {
-    // **************************************
-    // NEED REVISED -- PRE-CHOICE LOGIC BUILD
-    // **************************************
     PlayerDeck deck = context.getPlayer().getPlayerDeck();
-    deck.trashCardInHandAtIndex(0);
+    for (int trashesRemaining = 4; trashesRemaining > 0; trashesRemaining--) {
+      int index = context.decideCardInHand("Trash a card from your hand?", true);
+      if (index != GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED) {
+        deck.trashCardAtIndex(index);
+      } else {
+        break;
+      }
+    }
   }
 
 }
