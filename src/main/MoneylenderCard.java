@@ -35,7 +35,7 @@ public class MoneylenderCard extends ActionCard {
     for(int i = 0; i< deck.hand.size(); i++){
       if(deck.hand.get(i).getName() == Card.CARD_NAME_COPPER ){
         hasCopper = true;
-        deck.trashCardAtIndex(i);
+        deck.trashCardInHandAtIndex(i);
         break;
       }
     }
