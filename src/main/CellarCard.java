@@ -1,26 +1,29 @@
 package main;
 
+public class CellarCard extends ActionCard {
 
-public class ChapelCard extends ActionCard {
 
-  protected ChapelCard() {
-    super(Card.CARD_NAME_CHAPEL, "Trash up to 4 cards from your hand.", 2);
+
+  protected CellarCard() {
+    super(Card.CARD_NAME_CELLAR,
+        "+1 Action. Discard any number of cards. 1+ Card per card discarded.", 2);
 
   }
 
   @Override
   public void addAdditionalActions(GameContext context) {
-    // No Additional Actions
+    context.adjustActionCountByDelta(1);
+
   }
 
   @Override
   public void addAdditionalBuys(GameContext context) {
-    // No Additional Buys
+    // No additional buys
   }
 
   @Override
   public void addAdditionalCoins(GameContext context) {
-    // No Additional Coins
+    // No additional Coins
   }
 
   @Override
@@ -29,7 +32,8 @@ public class ChapelCard extends ActionCard {
     // NEED REVISED -- PRE-CHOICE LOGIC BUILD
     // **************************************
     PlayerDeck deck = context.getPlayer().getPlayerDeck();
-    deck.trashCardAtIndex(0);
+    deck.discardCardAtIndex(0);
+    deck.drawNum(1);
   }
 
 }
