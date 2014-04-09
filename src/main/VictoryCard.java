@@ -5,7 +5,7 @@ public class VictoryCard extends Card {
   int victoryPointValue;
 
   private VictoryCard(String name, String description, int cost, int value) {
-    super(name, description, cost);
+    super(name, description, cost, Card.CARD_TYPE_VICTORYCARD);
 
     this.victoryPointValue = value;
   }

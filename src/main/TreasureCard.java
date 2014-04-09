@@ -5,7 +5,7 @@ public class TreasureCard extends Card {
   int value;
 
   private TreasureCard(String name, String description, int cost, int value) {
-    super(name, description, cost);
+    super(name, description, cost, Card.CARD_TYPE_TREASURECARD);
 
     this.value = value;
   }

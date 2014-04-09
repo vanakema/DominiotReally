@@ -9,11 +9,13 @@ public abstract class Card implements Cloneable {
   private String name;
   private String description;
   private int cost;
+  private String type;
 
-  protected Card(String name, String description, int cost) {
+  protected Card(String name, String description, int cost, String type) {
     this.name = name;
     this.description = description;
     this.cost = cost;
+    this.type = type;
   }
 
   public String getName() {
@@ -28,6 +30,10 @@ public abstract class Card implements Cloneable {
     return this.cost;
   }
   
+  public String getType() {
+    return this.type;
+  }
+  
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof Card))
@@ -37,6 +43,10 @@ public abstract class Card implements Cloneable {
   }
 
   public abstract void performAction(GameContext context);
+  
+  public static final String CARD_TYPE_ACTIONCARD = "ActionCard";
+  public static final String CARD_TYPE_TREASURECARD = "TreasureCard";
+  public static final String CARD_TYPE_VICTORYCARD = "VictoryCard";
 
   public static final String CARD_NAME_FESTIVAL = "Festival";
   public static final String CARD_NAME_LABORATORY = "Laboratory";
@@ -49,6 +59,7 @@ public abstract class Card implements Cloneable {
   public static final String CARD_NAME_CELLAR = "Cellar";
   public static final String CARD_NAME_MONEYLENDER = "Moneylender";
   public static final String CARD_NAME_CHANCELLOR = "Chancellor";
+  public static final String CARD_NAME_THRONE_ROOM = "Throne Room";
 
   public static final String CARD_NAME_ESTATE = "Estate";
   public static final String CARD_NAME_DUCHY = "Duchy";

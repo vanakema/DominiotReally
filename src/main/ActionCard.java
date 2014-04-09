@@ -10,7 +10,7 @@ package main;
 public abstract class ActionCard extends Card {
 
   protected ActionCard(String name, String description, int cost) {
-    super(name, description, cost);
+    super(name, description, cost, Card.CARD_TYPE_ACTIONCARD);
   }
 
   protected int additionalActions = 0;

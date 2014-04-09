@@ -10,10 +10,11 @@ public class TurnController {
   private SupplyDeck supplyDeck;
   private GameContext currentContext;
 
-  public TurnController(Player player, SupplyDeck supplyDeck, GameContext.DecisionDelegate decisionDelegate) {
+  public TurnController(Player player, SupplyDeck supplyDeck,
+      GameContext.DecisionDelegate decisionDelegate) {
     this.player = player;
     this.supplyDeck = supplyDeck;
-    
+
     this.currentContext = new GameContext(this);
     this.currentContext.setDecisionDelegate(decisionDelegate);
   }
@@ -25,16 +26,16 @@ public class TurnController {
   public GameContext getCurrentContext() {
     return this.currentContext;
   }
-  
+
   private boolean canBuyCardAtIndexInRoster(int index, List<CardTuple> roster) {
     return this.getCurrentContext().getTreasureCount() >= roster.get(index).getCard().getCost();
   }
-  
+
   private boolean tryPurchaseCardHelper(Card card) {
     if (card == null)
       return false;
-    
-    this.getCurrentContext().adjustTreasureCountByDelta(- card.getCost());
+
+    this.getCurrentContext().adjustTreasureCountByDelta(-card.getCost());
     player.getPlayerDeck().addCard(card);
     return true;
   }
@@ -42,28 +43,27 @@ public class TurnController {
   public boolean tryPurchaseActionCardAtIndex(int index) {
     if (!canBuyCardAtIndexInRoster(index, supplyDeck.getActionCardRoster()))
       return false;
-    
+
     return tryPurchaseCardHelper(supplyDeck.buyActionCardAtIndex(index));
   }
-  
+
   public boolean tryPurchaseResourceCardAtIndex(int index) {
     if (!canBuyCardAtIndexInRoster(index, supplyDeck.getResourceCardRoster()))
       return false;
-    
+
     return tryPurchaseCardHelper(supplyDeck.buyResourceCardAtIndex(index));
   }
-  
+
   public boolean tryForceInsertResourceCardIntoHand(int index) {
     Card cardToBuy = supplyDeck.buyResourceCardAtIndex(index);
     if (cardToBuy == null) {
       return false;
-    }
-    else {
+    } else {
       this.player.getPlayerDeck().getHand().add(cardToBuy);
       return true;
     }
   }
-  
+
   /**
    * Check if there are still actions left, get card at `index` from player's hand, perform action
    * of card on context, decrement context values correctly.
@@ -75,6 +75,7 @@ public class TurnController {
     if (this.currentContext.getActionCount() > 0) {
       Card selectedCard = this.player.getPlayerDeck().getHand().get(index);
       selectedCard.performAction(this.currentContext);
+      this.player.getPlayerDeck().discardCardInHandAtIndex(index);
       this.currentContext.adjustActionCountByDelta(-1);
       return true;
     }
@@ -82,6 +83,18 @@ public class TurnController {
     else {
       return false;
     }
+  }
+
+  /**
+   * Does no checks if you can play the card, and it does not decrement any action counters. This is
+   * for special action cards where this does not matter. Does not remove the card either
+   * 
+   * @param index
+   * @return did playing card succeed
+   */
+  public void forcePlayingCardAtIndex(int index) {
+    Card selectedCard = this.player.getPlayerDeck().getHand().get(index);
+    selectedCard.performAction(this.currentContext);
   }
 
 }
