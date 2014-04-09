@@ -23,6 +23,11 @@ public class SupplyDeck {
       return String.format("%s $%d (%s)", this.card.getName(), this.card.getCost(), this.supply);
     }
 
+    @Override
+    public String toString() {
+      return this.userDescription();
+    }
+    
     public Card getCard() {
       return this.card;
     }
@@ -87,7 +92,7 @@ public class SupplyDeck {
   
   private Card buyCardAtIndexInCollection(int index, List<CardTuple> cardCollection) {
     CardTuple tuple = cardCollection.get(index);
-    Card returnValue = tuple.getSupply() > 0 ? tuple.getCard() : null;
+    Card returnValue = tuple.getSupply() > 0 ? Card.makeCard(tuple.getCard()) : null;
     
     tuple.decrementSupply();
     

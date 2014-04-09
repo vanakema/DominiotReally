@@ -39,29 +39,4 @@ public class BoringActionCard extends ActionCard {
     return new BoringActionCard(CARD_NAME_WOODCUTTER, "Action: +1 Buy, +2 Coins", 3, 0, 1, 2, 0);
   }
 
-  @Override
-  public void addAdditionalActions(GameContext context) {
-    context.adjustActionCountByDelta(this.additionalActions);
-
-  }
-
-  @Override
-  public void addAdditionalBuys(GameContext context) {
-    context.adjustBuyCountByDelta(this.additionalBuys);
-  }
-
-  @Override
-  public void addAdditionalCoins(GameContext context) {
-    context.adjustTreasureCountByDelta(this.additionalCoins);
-
-  }
-
-  @Override
-  public void performAction(GameContext context) {
-    addAdditionalActions(context);
-    addAdditionalBuys(context);
-    addAdditionalCoins(context);
-
-  }
-
 }

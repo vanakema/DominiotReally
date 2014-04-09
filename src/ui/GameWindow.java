@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import main.Card;
 import main.GameContext;
@@ -11,7 +12,7 @@ import main.GameController;
 import main.SupplyDeck;
 import main.SupplyDeck.CardTuple;
 
-public class GameWindow implements GamePanel.Delegate {
+public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDelegate {
 
   public static void main(String[] args) {
     new GameWindow();
@@ -27,7 +28,7 @@ public class GameWindow implements GamePanel.Delegate {
     panel = new GamePanel(this);
     panel.addActionLine("Game Started!");
 
-    game = new GameController();
+    game = new GameController(this);
 
     applicationFrame = new JFrame(APPLICATION_NAME);
     applicationFrame.setContentPane(panel);
@@ -68,7 +69,7 @@ public class GameWindow implements GamePanel.Delegate {
   @Override
   public void userSelectedActionSupplyCardAtIndex(int index) {
     if (game.getCurrentTurn().tryPurchaseActionCardAtIndex(index)) {
-      CardTuple tuple = game.getSupplyDeck().getResourceCardRoster().get(index);
+      CardTuple tuple = game.getSupplyDeck().getActionCardRoster().get(index);
       panel.addActionLine("Bought one " + tuple.getCard().getName() + ".");
     } else {
       panel.addActionLine("Cannot buy that card.");
@@ -106,5 +107,10 @@ public class GameWindow implements GamePanel.Delegate {
     game.endCurrentTurn();
 
     updateUI();
+  }
+
+  @Override
+  public boolean getDecision(GameContext context, String question) {
+    return (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, question, "Make Decision", JOptionPane.YES_NO_OPTION));
   }
 }

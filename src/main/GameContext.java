@@ -7,10 +7,16 @@ package main;
  */
 public class GameContext {
 
+  public static interface DecisionDelegate {
+    public boolean getDecision(GameContext context, String question);
+  }
+  
   private int treasureCount;
   private int actionCount;
   private int buyCount;
+
   private TurnController turnController;
+  private DecisionDelegate decisionDelegate;
 
   /**
    * Creates a new GameContext with all fields default initialized for the first turn of a new game.
@@ -35,6 +41,7 @@ public class GameContext {
     this.actionCount = context.actionCount;
     this.buyCount = context.buyCount;
     this.turnController = context.turnController;
+    this.decisionDelegate = context.decisionDelegate;
   }
 
   public int getActionCount() {
@@ -61,12 +68,27 @@ public class GameContext {
     this.buyCount += delta;
   }
   
-  public TurnController getTurnController(){
-      return this.turnController;
-  }
-  
   public Player getPlayer() {
     return this.turnController.getPlayer();
+  }
+
+  public TurnController getTurnController() {
+    return this.turnController;
+  }
+  
+  public DecisionDelegate getDecisionDelegate() {
+    return this.decisionDelegate;
+  }
+  
+  public void setDecisionDelegate(DecisionDelegate decisionDelegate) {
+    this.decisionDelegate = decisionDelegate;
+  }
+  
+  public boolean getDecision(String question) {
+    if (decisionDelegate == null)
+      throw new RuntimeException("Attempting to make a decision without a decision delegate");
+    
+    return decisionDelegate.getDecision(this, question);
   }
 
 }

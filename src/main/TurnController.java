@@ -10,10 +10,12 @@ public class TurnController {
   private SupplyDeck supplyDeck;
   private GameContext currentContext;
 
-  public TurnController(Player player, SupplyDeck supplyDeck) {
+  public TurnController(Player player, SupplyDeck supplyDeck, GameContext.DecisionDelegate decisionDelegate) {
     this.player = player;
     this.supplyDeck = supplyDeck;
+    
     this.currentContext = new GameContext(this);
+    this.currentContext.setDecisionDelegate(decisionDelegate);
   }
 
   public Player getPlayer() {

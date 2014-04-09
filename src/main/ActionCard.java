@@ -13,15 +13,29 @@ public abstract class ActionCard extends Card {
     super(name, description, cost);
   }
 
-  public int additionalActions = 0;
-  public int additionalBuys = 0;
-  public int additionalCoins = 0;
-  public int numCardsDraw = 0;
+  protected int additionalActions = 0;
+  protected int additionalBuys = 0;
+  protected int additionalCoins = 0;
+  protected int numCardsDraw = 0;
 
-  public abstract void addAdditionalActions(GameContext context);
+  public void addAdditionalActions(GameContext context) {
+    context.adjustActionCountByDelta(this.additionalActions);
+  }
 
-  public abstract void addAdditionalBuys(GameContext context);
+  public void addAdditionalBuys(GameContext context) {
+    context.adjustBuyCountByDelta(this.additionalBuys);
+  }
 
-  public abstract void addAdditionalCoins(GameContext context);
+  public void addAdditionalCoins(GameContext context) {
+    context.adjustTreasureCountByDelta(this.additionalCoins);
+
+  }
+
+  @Override
+  public void performAction(GameContext context) {
+    addAdditionalActions(context);
+    addAdditionalBuys(context);
+    addAdditionalCoins(context);
+  }
 
 }
