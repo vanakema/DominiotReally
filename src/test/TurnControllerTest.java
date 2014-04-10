@@ -5,6 +5,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import main.Card;
+import main.GameContext;
 import main.Player;
 import main.SupplyDeck;
 import main.TurnController;
@@ -33,5 +34,46 @@ public class TurnControllerTest extends TestCase {
   @Test
   public void testGetPlayer() {
     assertEquals(player, turnController.getPlayer());
+  }
+  
+  @Test
+  public void testGetCurrentContext() {
+    assertNotNull(turnController.getCurrentContext());
+  }
+  
+  @Test
+  public void testPlayingCardConsumesOneFromHand() {
+    int beforeHandCount = player.getPlayerDeck().getHand().size();
+    assertTrue(turnController.tryPlayingCardAtIndex(player.getPlayerDeck().getHand().size() - 1));
+    assertEquals(beforeHandCount - 1, player.getPlayerDeck().getHand().size());
+  }
+  
+  @Test
+  public void testThatPlayingAndInvalidCardIndexIsHandled() {
+    assertFalse(turnController.tryPlayingCardAtIndex(player.getPlayerDeck().getHand().size()));
+  }
+  
+  @Test
+  public void testThatPlayingACardWithNoActionsIsHandled() {
+    while (turnController.getCurrentContext().getActionCount() > 0) {
+      assertTrue(turnController.tryPlayingCardAtIndex(0));
+    }
+    
+    assertFalse(turnController.tryPlayingCardAtIndex(0));
+  }
+  
+  @Test
+  public void testThatBuyingACardWorks() {
+    // Purchase a copper because they are always $0
+    assertTrue(turnController.tryPurchaseResourceCardAtIndex(0));
+  }
+  
+  @Test
+  public void testThatBuyingACardWithoutBuysFails() {
+    while (turnController.getCurrentContext().getBuyCount() > 0) {
+      assertTrue(turnController.tryPurchaseResourceCardAtIndex(0));
+    }
+    
+    assertFalse(turnController.tryPurchaseResourceCardAtIndex(0));
   }
 }

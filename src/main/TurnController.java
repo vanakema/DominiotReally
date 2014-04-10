@@ -35,6 +35,7 @@ public class TurnController {
     if (card == null)
       return false;
 
+    this.getCurrentContext().adjustBuyCountByDelta(-1);
     this.getCurrentContext().adjustTreasureCountByDelta(-card.getCost());
     this.getCurrentContext().invalidateLumpSumTreasure();
     
@@ -74,24 +75,22 @@ public class TurnController {
    * @return did playing card succeed
    */
   public boolean tryPlayingCardAtIndex(int index) {
-    if (this.currentContext.getActionCount() > 0) {
-      GameContext context = new GameContext(this.currentContext);
-      Card selectedCard = this.player.getPlayerDeck().getHand().get(index);
-      selectedCard.performAction(context);
-      context.adjustActionCountByDelta(-1);
-      
-      if (context.getShouldTrashCurrentCard())
-        this.player.getPlayerDeck().trashCardInHandAtIndex(index);
-      else
-        this.player.getPlayerDeck().discardCardInHandAtIndex(index);
-      
-      this.currentContext = context;
-      return true;
-    }
-
-    else {
+    PlayerDeck deck = this.player.getPlayerDeck();
+    if (index >= deck.getHand().size() || this.currentContext.getActionCount() <= 0)
       return false;
-    }
+    
+    GameContext context = new GameContext(this.currentContext);
+    Card selectedCard = deck.getHand().get(index);
+    selectedCard.performAction(context);
+    context.adjustActionCountByDelta(-1);
+    
+    if (context.getShouldTrashCurrentCard())
+      deck.trashCardInHandAtIndex(index);
+    else
+      deck.discardCardInHandAtIndex(index);
+    
+    this.currentContext = context;
+    return true;
   }
 
   /**
