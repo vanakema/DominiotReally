@@ -61,6 +61,7 @@ public abstract class Card implements Cloneable {
   public static final String CARD_NAME_CHANCELLOR = "Chancellor";
   public static final String CARD_NAME_THRONE_ROOM = "Throne Room";
   public static final String CARD_NAME_WORKSHOP = "Workshop";
+  public static final String CARD_NAME_REMODEL = "Remodel";
 
   public static final String CARD_NAME_ESTATE = "Estate";
   public static final String CARD_NAME_DUCHY = "Duchy";
@@ -85,6 +86,7 @@ public abstract class Card implements Cloneable {
     cards.put(CARD_NAME_MONEYLENDER, new MoneylenderCard());
     cards.put(CARD_NAME_CHANCELLOR, new ChancellorCard());
     cards.put(CARD_NAME_WORKSHOP, new WorkshopCard());
+    cards.put(CARD_NAME_REMODEL, new RemodelCard());
 
     cards.put(CARD_NAME_ESTATE, VictoryCard.makeEstate());
     cards.put(CARD_NAME_DUCHY, VictoryCard.makeDuchy());
