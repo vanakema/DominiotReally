@@ -36,6 +36,8 @@ public class TurnController {
       return false;
 
     this.getCurrentContext().adjustTreasureCountByDelta(-card.getCost());
+    this.getCurrentContext().invalidateLumpSumTreasure();
+    
     player.getPlayerDeck().addCard(card);
     return true;
   }

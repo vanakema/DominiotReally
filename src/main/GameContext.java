@@ -21,6 +21,9 @@ public class GameContext {
 
   private TurnController turnController;
   private DecisionDelegate decisionDelegate;
+  
+  private int lumpSumTreasureCount;
+  private boolean useLumpSumTreasure;
 
   /**
    * Creates a new GameContext with all fields default initialized for the first turn of a new game.
@@ -53,7 +56,7 @@ public class GameContext {
   }
 
   public int getTreasureCount() {
-    return this.treasureCount;
+    return useLumpSumTreasure ? this.lumpSumTreasureCount : this.treasureCount;
   }
 
   public int getBuyCount() {
@@ -65,7 +68,8 @@ public class GameContext {
   }
 
   public void adjustTreasureCountByDelta(int delta) {
-    this.treasureCount += delta;
+    if (!useLumpSumTreasure)
+      this.treasureCount += delta;
   }
 
   public void adjustBuyCountByDelta(int delta) {
@@ -100,6 +104,16 @@ public class GameContext {
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
     
     return decisionDelegate.decideCardInHand(this, question, canIgnore);
+  }
+  
+  public void setLumpSumTreasureCount(int count) {
+    lumpSumTreasureCount = count;
+    useLumpSumTreasure = true;
+  }
+  
+  public void invalidateLumpSumTreasure() {
+    lumpSumTreasureCount = 0;
+    useLumpSumTreasure = false;
   }
 
 }
