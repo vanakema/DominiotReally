@@ -116,8 +116,7 @@ public class GamePanel extends JPanel {
       panel.add(button);
     }
 
-    panel.revalidate();
-    this.doLayout();
+    panel.updateUI();
   }
 
   void setNumberOfActions(int count) {
