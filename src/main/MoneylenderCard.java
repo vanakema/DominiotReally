@@ -2,7 +2,7 @@ package main;
 
 public class MoneylenderCard extends ActionCard {
 
-  protected MoneylenderCard() {
+  public MoneylenderCard() {
     super(Card.CARD_NAME_MONEYLENDER, "Trash a Copper from your hand. If you do, +$3.", 4);
   }
 
