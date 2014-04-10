@@ -20,38 +20,38 @@ public class PlayerDeckTest {
 
     assertEquals(10, deck1.getSize());
 
-    List<Card> hand = deck1.drawNum(5);
+    List<Card> hand = deck1.drawNumAndDiscardOldHand(5);
 
     assertEquals(5, deck1.getSize());
 
-    hand = deck1.drawNum(5);
+    hand = deck1.drawNumAndDiscardOldHand(5);
 
     assertEquals(0, deck1.getSize());
 
     assertEquals(5, hand.size());
 
-    hand = deck1.drawNum(7);
+    hand = deck1.drawNumAndDiscardOldHand(7);
 
     assertEquals(7, hand.size());
 
-    hand = deck1.drawNum(2);
+    hand = deck1.drawNumAndDiscardOldHand(2);
     assertEquals(2, hand.size());
   }
 
   @Test
   public void testNotEnoughCards() {
     PlayerDeck deck1 = new PlayerDeck();
-    List<Card> hand = deck1.drawNum(3);
+    List<Card> hand = deck1.drawNumAndDiscardOldHand(3);
     assertEquals(3, hand.size());
-    hand = deck1.drawNum(11);
+    hand = deck1.drawNumAndDiscardOldHand(11);
     assertEquals(10, hand.size());
   }
 
   @Test
   public void testShuffle() {
     PlayerDeck deck = new PlayerDeck();
-    List<Card> hand = deck.drawNum(10);
-    hand = deck.drawNum(5);
+    List<Card> hand = deck.drawNumAndDiscardOldHand(10);
+    hand = deck.drawNumAndDiscardOldHand(5);
 
     assertEquals(5, hand.size());
   }
@@ -79,7 +79,7 @@ public class PlayerDeckTest {
     deck.addCard(Card.makeCard(Card.CARD_NAME_PROVINCE));
     assertEquals(9, deck.countVictoryPoints());
 
-    List<Card> hand = deck.drawNum(9);
+    List<Card> hand = deck.drawNumAndDiscardOldHand(9);
     assertEquals(9, deck.countVictoryPoints());
 
     deck.addCard(Card.makeCard(Card.CARD_NAME_DUCHY));

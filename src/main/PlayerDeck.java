@@ -57,9 +57,13 @@ public class PlayerDeck {
   public List<Card> getHand() {
     if (this.hand.size() == 0)
 
-      this.drawNum(PlayerDeck.STANDARD_HAND_SIZE);
+      this.drawNumAndDiscardOldHand(PlayerDeck.STANDARD_HAND_SIZE);
 
     return Collections.unmodifiableList(this.hand);
+  }
+  
+  public List<Card> getDrawDeck() {
+    return Collections.unmodifiableList(this.deck);
   }
 
   // Can be revised later to add in random order
@@ -67,7 +71,7 @@ public class PlayerDeck {
     this.discardDeck.add(card);
   }
 
-  public List<Card> drawNum(int numToDraw) throws IndexOutOfBoundsException {
+  public List<Card> drawNumAndDiscardOldHand(int numToDraw) throws IndexOutOfBoundsException {
     int handSize = hand.size();// to avoid prevent the loop from
     // running to original hand.size()
     if (!hand.isEmpty()) { // to avoid dumping hand on first turn
@@ -98,6 +102,27 @@ public class PlayerDeck {
       }
       // if not enough cards add more
       return this.hand;
+    }
+  }
+  
+  public void drawNum(int numToDraw) {
+    if (this.deck.size() - numToDraw >= 0) {
+      for (int i = 0; i < numToDraw; i++) {
+        this.hand.add(this.deck.remove(0));
+      }
+    } else {
+      int remainingToDraw = numToDraw - this.deck.size();
+      this.hand.addAll(this.deck);
+      this.deck.clear();
+      shuffleDeck();
+      if (this.deck.size() > numToDraw) {
+        for (int i = 0; i < remainingToDraw; i++) {
+          this.hand.add(this.deck.remove(0));
+        }
+      } else {
+        this.hand.addAll(this.deck);
+        this.deck.clear();
+      }
     }
   }
 
