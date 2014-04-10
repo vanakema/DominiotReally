@@ -75,10 +75,17 @@ public class TurnController {
    */
   public boolean tryPlayingCardAtIndex(int index) {
     if (this.currentContext.getActionCount() > 0) {
+      GameContext context = new GameContext(this.currentContext);
       Card selectedCard = this.player.getPlayerDeck().getHand().get(index);
-      selectedCard.performAction(this.currentContext);
-      this.player.getPlayerDeck().discardCardInHandAtIndex(index);
-      this.currentContext.adjustActionCountByDelta(-1);
+      selectedCard.performAction(context);
+      context.adjustActionCountByDelta(-1);
+      
+      if (context.getShouldTrashCurrentCard())
+        this.player.getPlayerDeck().trashCardInHandAtIndex(index);
+      else
+        this.player.getPlayerDeck().discardCardInHandAtIndex(index);
+      
+      this.currentContext = context;
       return true;
     }
 
