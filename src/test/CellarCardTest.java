@@ -57,7 +57,7 @@ public class CellarCardTest extends TestCase {
         return false;
       }
     });
-    context.getPlayer().getPlayerDeck().drawNum(5);
+    context.getPlayer().getPlayerDeck().drawNumAndDiscardOldHand(5);
     List<Card> hand = context.getPlayer().getPlayerDeck().getHand();
     Card oldFirstInDeck = context.getPlayer().getPlayerDeck().getDrawDeck().get(0);
     int handSize = hand.size();
