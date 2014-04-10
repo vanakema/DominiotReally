@@ -95,15 +95,13 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
     if (game.getCurrentTurn().tryPlayingCardAtIndex(index)) {
       panel.addActionLine("Play card " + index);
     }
-    
+
     updateUI();
   }
 
   @Override
   public void userClickedEndTurnButton() {
-    panel.addActionLine(game.getCurrentTurn().getPlayer().getName() + " ended their turn.");
-    panel.addActionLine("");
-
+    panel.addActionLine(game.getCurrentTurn().getPlayer().getName() + " ended their turn.\n");
     game.endCurrentTurn();
 
     updateUI();
@@ -111,19 +109,23 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
 
   @Override
   public boolean decideBoolean(GameContext context, String question) {
-    return (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(panel, question, "Make Decision", JOptionPane.YES_NO_OPTION));
+    return (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(panel, question,
+        "Make Decision", JOptionPane.YES_NO_OPTION));
   }
 
   @Override
   public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
     List<String> cards = new ArrayList<String>();
     for (Card card : game.getCurrentTurn().getPlayer().getPlayerDeck().getHand())
-      cards.add(card.getName());
-    
+      cards.add(String.format("%s $%d", card.getName(), card.getCost()));
+
     if (canIgnore)
       cards.add("Cancel");
-    
-    int result = JOptionPane.showOptionDialog(panel, question, "Select a Card from Hand", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, cards.toArray(), 0);
-    return (canIgnore && result == cards.size() - 1) ? GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED : result;
+
+    int result =
+        JOptionPane.showOptionDialog(panel, question, "Select a Card from Hand",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, cards.toArray(), 0);
+    return (canIgnore && result == cards.size() - 1) ? GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED
+        : result;
   }
 }
