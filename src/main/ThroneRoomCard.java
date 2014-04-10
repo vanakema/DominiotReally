@@ -13,6 +13,7 @@ public class ThroneRoomCard extends ActionCard {
     if (index != GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED) {
       context.getTurnController().forcePlayingCardAtIndex(index);
       context.getTurnController().forcePlayingCardAtIndex(index);
+      context.getPlayer().getPlayerDeck().discardCardInHandAtIndex(index);
     }
     
   }

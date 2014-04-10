@@ -9,22 +9,8 @@ public class ChapelCard extends ActionCard {
   }
 
   @Override
-  public void addAdditionalActions(GameContext context) {
-    // No Additional Actions
-  }
-
-  @Override
-  public void addAdditionalBuys(GameContext context) {
-    // No Additional Buys
-  }
-
-  @Override
-  public void addAdditionalCoins(GameContext context) {
-    // No Additional Coins
-  }
-
-  @Override
   public void performAction(GameContext context) {
+    super.performAction(context);
     PlayerDeck deck = context.getPlayer().getPlayerDeck();
     for (int trashesRemaining = 4; trashesRemaining > 0; trashesRemaining--) {
       int index = context.decideCardInHand("Trash a card from your hand?", true);

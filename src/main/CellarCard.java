@@ -7,33 +7,23 @@ public class CellarCard extends ActionCard {
   protected CellarCard() {
     super(Card.CARD_NAME_CELLAR,
         "+1 Action. Discard any number of cards. 1+ Card per card discarded.", 2);
+    this.additionalActions = 1;
 
-  }
-
-  @Override
-  public void addAdditionalActions(GameContext context) {
-    context.adjustActionCountByDelta(1);
-
-  }
-
-  @Override
-  public void addAdditionalBuys(GameContext context) {
-    // No additional buys
-  }
-
-  @Override
-  public void addAdditionalCoins(GameContext context) {
-    // No additional Coins
   }
 
   @Override
   public void performAction(GameContext context) {
-    // **************************************
-    // NEED REVISED -- PRE-CHOICE LOGIC BUILD
-    // **************************************
+    super.performAction(context);
     PlayerDeck deck = context.getPlayer().getPlayerDeck();
-    deck.discardCardInHandAtIndex(0);
-    deck.drawNum(1);
+    while (true) {
+      int index = context.decideCardInHand("Choose a card to trash, and draw a new one after.", true);
+      if (index != GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED) {
+        deck.trashCardInHandAtIndex(index);
+        deck.drawNum(1);
+      } else {
+        break;
+      }
+    }
   }
 
 }

@@ -118,6 +118,12 @@ public class PlayerDeck {
   public void discardCardInHandAtIndex(int index){
     this.discardDeck.add(this.hand.remove(index));
   }
+  public void discardDrawPile() {
+    int drawPileSize = this.deck.size();
+    for(int i = 0; i < drawPileSize; i++) {
+      this.discardDeck.add(this.deck.remove(i));
+    }
+  }
 
   public void insertCardIntoHand(Card cardToInsert) {
     this.hand.add(cardToInsert);
