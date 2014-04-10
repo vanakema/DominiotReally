@@ -13,22 +13,22 @@ import org.junit.Test;
 
 public class ChapelCardTest {
   
-    //ChapelCard card = new ChapelCard();
+    ChapelCard card = new ChapelCard();
     GameContext con = new GameContext();
     
   @Test
   public void testName(){
-   // assertEquals("Chapel", card.getName());
+    assertEquals("Chapel", card.getName());
   }
   
   @Test
   public void testCost(){
-    //assertEquals(2,card.getCost());
+    assertEquals(2,card.getCost());
   }
   
   @Test
   public void testDescription(){
-   // assertEquals("Trash up to 4 cards from your hand.", card.getDescription());
+    assertEquals("Trash up to 4 cards from your hand.", card.getDescription());
   }
   
   @Test

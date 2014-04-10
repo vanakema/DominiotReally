@@ -3,7 +3,7 @@ package main;
 
 public class ChapelCard extends ActionCard {
 
-  protected ChapelCard() {
+  public ChapelCard() {
     super(Card.CARD_NAME_CHAPEL, "Trash up to 4 cards from your hand.", 2);
 
   }
