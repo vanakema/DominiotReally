@@ -73,7 +73,6 @@ public class TurnControllerTest extends TestCase {
     while (turnController.getCurrentContext().getBuyCount() > 0) {
       assertTrue(turnController.tryPurchaseResourceCardAtIndex(0));
     }
-    
     assertFalse(turnController.tryPurchaseResourceCardAtIndex(0));
   }
 }

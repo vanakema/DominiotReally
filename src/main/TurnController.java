@@ -28,7 +28,7 @@ public class TurnController {
   }
 
   private boolean canBuyCardAtIndexInRoster(int index, List<CardTuple> roster) {
-    return this.getCurrentContext().getTreasureCount() >= roster.get(index).getCard().getCost();
+    return (this.getCurrentContext().getTreasureCount() >= roster.get(index).getCard().getCost() && this.getCurrentContext().getBuyCount() > 0);
   }
 
   private boolean tryPurchaseCardHelper(Card card) {
