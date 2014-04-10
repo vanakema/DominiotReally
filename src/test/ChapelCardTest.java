@@ -14,6 +14,7 @@ import main.Player;
 import main.PlayerDeck;
 import main.SupplyDeck;
 import main.TurnController;
+import main.GameContext.DecisionDelegate;
 
 import org.junit.Test;
 
@@ -40,6 +41,7 @@ public class ChapelCardTest extends TestCase {
     context = new GameContext(controller);
   }
 
+  
 
 
   @Test
@@ -59,7 +61,34 @@ public class ChapelCardTest extends TestCase {
 
   @Test
   public void testPerformAction() {
+    context.setDecisionDelegate(new DecisionDelegate() {
+      int count =0;
+      @Override
+      public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
+        if(count == 4) {
+          
+          return GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED;
+        }
+        else {
+          count++;
+          return 0;
+        }
+      }
+      
+      @Override
+      public boolean decideBoolean(GameContext context, String question) {
+        return false;
+      }
+    });
+    context.getPlayer().getPlayerDeck().drawNumAndDiscardOldHand(5);
+    List<Card> hand = context.getPlayer().getPlayerDeck().getHand();
+    int handSize = hand.size();
+    assertEquals(handSize,5);
     
+    Card chapel = Card.makeCard(Card.CARD_NAME_CHAPEL);
+    chapel.performAction(context);
+    
+    assertEquals(1,hand.size());
 
   }
 
