@@ -2,10 +2,10 @@ package main;
 
 public class MineCard extends ActionCard {
 
-  protected MineCard() {
+  public MineCard() {
     super(
         Card.CARD_NAME_MINE,
-        "Trash a Treasure card from your hand. Gain a Treasure card costing up to 3 Coins more; put it into your hand.",
+        "Trash a Treasure card from your hand. Gain a Treasure card costing up to $3 more; put it into your hand.",
         5);
   }
 
