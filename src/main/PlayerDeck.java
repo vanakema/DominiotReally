@@ -59,7 +59,8 @@ public class PlayerDeck {
 
       this.drawNumAndDiscardOldHand(PlayerDeck.STANDARD_HAND_SIZE);
 
-    return Collections.unmodifiableList(this.hand);
+    //return Collections.unmodifiableList(this.hand);
+    return this.hand;
   }
   
   public List<Card> getDiscardDeck(){
