@@ -8,6 +8,7 @@ import java.util.List;
 import junit.framework.Assert;
 
 import main.Card;
+import main.ChapelCard;
 import main.PlayerDeck;
 
 import org.junit.Test;
@@ -62,6 +63,11 @@ public class PlayerDeckTest {
     PlayerDeck deck = new PlayerDeck();
     List<Card> hand = deck.getHand();
     assertEquals(5, hand.size());
+    
+    deck.drawNumAndDiscardOldHand(0);
+    deck.drawNum(8);
+    assertEquals(8,hand.size());
+    
   }
 
   @Test
@@ -90,6 +96,51 @@ public class PlayerDeckTest {
 
     deck.addCard(Card.makeCard(Card.CARD_NAME_CURSE));
     assertEquals(11, deck.countVictoryPoints());
+  }
+  
+  @Test
+  public void testDiscardCardInHandAtIndex(){
+    PlayerDeck deck = new PlayerDeck();
+    assertEquals(10,deck.getSize());
+    
+    List<Card> hand = deck.getHand();
+    assertEquals(5,hand.size());
+    
+    deck.drawNum(deck.getSize());
+    assertEquals(10,hand.size());
+    
+    ChapelCard chapel = new ChapelCard();
+    deck.addCard(chapel);
+    
+    deck.drawNum(1);
+    assertEquals(11,hand.size());
+    
+    deck.discardCardInHandAtIndex(hand.size()-1);
+    assertEquals(10,hand.size());
+    assertEquals(false, hand.contains(chapel));
+  }
+  
+  @Test
+  public void testDiscardDrawPile(){
+    PlayerDeck deck = new PlayerDeck();
+    assertEquals(10,deck.getSize());
+    
+    deck.discardDrawPile();
+    
+    assertEquals(0,deck.getSize());
+    assertEquals(10,deck.getDiscardDeck().size());
+  }
+  
+  @Test
+  public void testInsertCardIntoHand(){
+    PlayerDeck deck = new PlayerDeck();
+    assertEquals(10,deck.getSize());
+    
+    ChapelCard chapel = new ChapelCard();
+    deck.insertCardIntoHand(chapel);
+    assertEquals(1,deck.getHand().size());
+    
+    
   }
 
 }

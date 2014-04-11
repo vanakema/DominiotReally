@@ -62,6 +62,10 @@ public class PlayerDeck {
     return Collections.unmodifiableList(this.hand);
   }
   
+  public List<Card> getDiscardDeck(){
+    return Collections.unmodifiableList(this.discardDeck);
+  }
+  
   public List<Card> getDrawDeck() {
     return Collections.unmodifiableList(this.deck);
   }
@@ -115,7 +119,7 @@ public class PlayerDeck {
       this.hand.addAll(this.deck);
       this.deck.clear();
       shuffleDeck();
-      if (this.deck.size() > numToDraw) {
+      if (this.deck.size() > remainingToDraw) {
         for (int i = 0; i < remainingToDraw; i++) {
           this.hand.add(this.deck.remove(0));
         }
@@ -146,7 +150,7 @@ public class PlayerDeck {
   public void discardDrawPile() {
     int drawPileSize = this.deck.size();
     for(int i = 0; i < drawPileSize; i++) {
-      this.discardDeck.add(this.deck.remove(i));
+      this.discardDeck.add(this.deck.remove(0));
     }
   }
 
