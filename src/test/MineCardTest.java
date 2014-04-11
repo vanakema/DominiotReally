@@ -11,6 +11,7 @@ import main.MineCard;
 import main.Player;
 import main.SupplyDeck;
 import main.TurnController;
+import main.GameContext.DecisionDelegate;
 import junit.framework.TestCase;
 
 public class MineCardTest extends TestCase {
@@ -52,7 +53,43 @@ public class MineCardTest extends TestCase {
         "Trash a Treasure card from your hand. Gain a Treasure card costing up to $3 more; put it into your hand.",
         card.getDescription());
   }
-  
-  
+
+  @Test
+  public void testPerformAction() {
+    context.setDecisionDelegate(new DecisionDelegate() {
+      int count = 0;
+
+      @Override
+      public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
+        if (count == 4) {
+
+          return GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED;
+        } else {
+          count++;
+          return 0;
+        }
+      }
+
+      @Override
+      public boolean decideBoolean(GameContext context, String question) {
+        return false;
+      }
+    });
+    context.getPlayer().getPlayerDeck().drawNumAndDiscardOldHand(10);
+    List<Card> hand = context.getPlayer().getPlayerDeck().getHand();
+    int handSize = hand.size();
+    assertEquals(handSize,10);
+    
+    Card lastCard = hand.get(9);
+    
+    Card mine = Card.makeCard(Card.CARD_NAME_MINE);
+    mine.performAction(context);
+    
+    if(lastCard.getName()== Card.CARD_NAME_COPPER){
+      assertEquals(true,hand.contains(Card.makeCard(Card.CARD_NAME_SILVER)));
+    }else if(lastCard.getName() == Card.CARD_NAME_SILVER){
+      assertEquals(true,hand.contains(Card.makeCard(Card.CARD_NAME_GOLD)));
+    }
+  }
 
 }
