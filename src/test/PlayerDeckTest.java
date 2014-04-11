@@ -170,17 +170,5 @@ public class PlayerDeckTest {
     assertEquals(0,deck.getSize());
     assertEquals(10,deck.getDiscardDeck().size());
   }
-  
-  @Test
-  public void testInsertCardIntoHand(){
-    PlayerDeck deck = new PlayerDeck();
-    assertEquals(10,deck.getSize());
-    
-    ChapelCard chapel = new ChapelCard();
-    deck.insertCardIntoHand(chapel);
-    assertEquals(1,deck.getHand().size());
-    
-    
-  }
 
 }
