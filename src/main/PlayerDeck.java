@@ -105,7 +105,7 @@ public class PlayerDeck {
     }
   }
   
-  public void drawNum(int numToDraw) {
+  public List<Card> drawNum(int numToDraw) {
     if (this.deck.size() - numToDraw >= 0) {
       for (int i = 0; i < numToDraw; i++) {
         this.hand.add(this.deck.remove(0));
@@ -124,6 +124,7 @@ public class PlayerDeck {
         this.deck.clear();
       }
     }
+    return this.hand;
   }
 
   private void shuffleDeck() {
@@ -146,7 +147,7 @@ public class PlayerDeck {
   public void discardDrawPile() {
     int drawPileSize = this.deck.size();
     for(int i = 0; i < drawPileSize; i++) {
-      this.discardDeck.add(this.deck.remove(i));
+      this.discardDeck.add(this.deck.remove(0));
     }
   }
 

@@ -70,6 +70,46 @@ public class PlayerDeckTest {
     deck.addCard(Card.makeCard(Card.CARD_NAME_GOLD));
     Assert.assertTrue(deck.getDiscard().contains(Card.makeCard(Card.CARD_NAME_GOLD)));
   }
+  
+  @Test
+  public void testJustDrawNum() {
+    PlayerDeck deck = new PlayerDeck();
+    assertEquals(10, deck.getDrawDeck().size());
+    List<Card> hand = deck.drawNum(10);
+    assertEquals(10, hand.size());
+    for(int i = 0; i < 5; i++) {
+      deck.discardCardInHandAtIndex(0);
+    }
+    assertEquals(5, hand.size());
+    deck.drawNum(5);
+    assertEquals(10, hand.size());
+    for(int i = 0; i < 5; i++) {
+      deck.discardCardInHandAtIndex(0);
+    }
+    assertEquals(5, hand.size());
+    deck.drawNum(3);
+    assertEquals(8, hand.size());
+    
+  }
+  
+  @Test
+  public void testDiscardDrawDeck() {
+    PlayerDeck deck = new PlayerDeck();
+    assertEquals(10, deck.getDrawDeck().size());
+    deck.discardDrawPile();
+    assertEquals(0, deck.getDrawDeck().size());
+  }
+  
+  @Test
+  public void testInsertCardIntoHand() {
+    PlayerDeck deck = new PlayerDeck();
+    assertEquals(10, deck.getDrawDeck().size());
+    deck.drawNumAndDiscardOldHand(PlayerDeck.STANDARD_HAND_SIZE);
+    assertEquals(PlayerDeck.STANDARD_HAND_SIZE, deck.getHand().size());
+    deck.insertCardIntoHand(Card.makeCard(Card.CARD_NAME_CHANCELLOR));
+    assertEquals(deck.getHand().get(deck.getHand().size()-1), Card.makeCard(Card.CARD_NAME_CHANCELLOR));
+    assertEquals(PlayerDeck.STANDARD_HAND_SIZE + 1, deck.getHand().size());
+  }
 
   @Test
   public void testCountVictoryPoints() {

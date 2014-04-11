@@ -62,7 +62,7 @@ public class TurnController {
     if (cardToBuy == null) {
       return false;
     } else {
-      this.player.getPlayerDeck().getHand().add(cardToBuy);
+      this.player.getPlayerDeck().insertCardIntoHand(cardToBuy);
       return true;
     }
   }
