@@ -39,9 +39,9 @@ public class PlayerDeck {
         victoryPoints += card.getVictoryPointValue();
       }
     }
-    // loops through current Hand
+    // loops through current discardDeck
     for (int j = 0; j < this.discardDeck.size(); j++) {
-      if (this.deck.get(j).getName() == "Gardens") {
+      if (this.discardDeck.get(j).getName() == "Gardens") {
         gardenCardCounter++;
       }
       if (this.discardDeck.get(j) instanceof VictoryCard) {
@@ -49,9 +49,9 @@ public class PlayerDeck {
         victoryPoints += card.getVictoryPointValue();
       }
     }
-    // loops through current DiscardDeck
+    // loops through current hand
     for (int k = 0; k < this.hand.size(); k++) {
-      if (this.deck.get(k).getName() == "Gardens") {
+      if (this.hand.get(k).getName() == "Gardens") {
         gardenCardCounter++;
       }
       if (this.hand.get(k) instanceof VictoryCard) {

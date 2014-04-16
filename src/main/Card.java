@@ -92,6 +92,7 @@ public abstract class Card implements Cloneable {
     cards.put(CARD_NAME_WORKSHOP, new WorkshopCard());
     cards.put(CARD_NAME_REMODEL, new RemodelCard());
     cards.put(CARD_NAME_FEAST, new FeastCard());
+    cards.put(CARD_NAME_GARDENS, new GardensCard());
 
     cards.put(CARD_NAME_ESTATE, VictoryCard.makeEstate());
     cards.put(CARD_NAME_DUCHY, VictoryCard.makeDuchy());

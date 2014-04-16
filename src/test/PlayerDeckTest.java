@@ -120,6 +120,7 @@ public class PlayerDeckTest {
   @Test
   public void testCountVictoryPoints() {
     PlayerDeck deck = new PlayerDeck();
+    assertEquals(10,deck.getSize());
     assertEquals(3, deck.countVictoryPoints());
 
     deck.addCard(Card.makeCard(Card.CARD_NAME_PROVINCE));
@@ -136,6 +137,22 @@ public class PlayerDeckTest {
 
     deck.addCard(Card.makeCard(Card.CARD_NAME_CURSE));
     assertEquals(11, deck.countVictoryPoints());
+    
+    deck.addCard(Card.makeCard(Card.CARD_NAME_GARDENS));
+    assertEquals(12,deck.countVictoryPoints());
+    
+    for(int i=0;i<10;i++){
+      deck.addCard(Card.makeCard(Card.CARD_NAME_COPPER));
+    }
+    
+    assertEquals(13,deck.countVictoryPoints());
+    
+    deck.addCard(Card.makeCard(Card.CARD_NAME_CURSE));
+    assertEquals(12,deck.countVictoryPoints());
+    
+    
+    
+    
   }
   
   @Test
