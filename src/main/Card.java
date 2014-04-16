@@ -69,6 +69,8 @@ public abstract class Card implements Cloneable {
   public static final String CARD_NAME_DUCHY = "Duchy";
   public static final String CARD_NAME_PROVINCE = "Province";
   public static final String CARD_NAME_CURSE = "Curse";
+  
+  public static final String CARD_NAME_WITCH = "Witch";
 
   public static final String CARD_NAME_COPPER = "Copper";
   public static final String CARD_NAME_SILVER = "Silver";
