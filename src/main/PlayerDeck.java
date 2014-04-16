@@ -28,24 +28,44 @@ public class PlayerDeck {
    */
   public int countVictoryPoints() {
     int victoryPoints = 0;
+    int gardenCardCounter = 0;
+    // loops through current Deck
     for (int i = 0; i < this.deck.size(); i++) {
+      if (this.deck.get(i).getName() == "Gardens") {
+        gardenCardCounter++;
+      }
       if (this.deck.get(i) instanceof VictoryCard) {
         VictoryCard card = (VictoryCard) this.deck.get(i);
         victoryPoints += card.getVictoryPointValue();
       }
     }
+    // loops through current Hand
     for (int j = 0; j < this.discardDeck.size(); j++) {
+      if (this.deck.get(j).getName() == "Gardens") {
+        gardenCardCounter++;
+      }
       if (this.discardDeck.get(j) instanceof VictoryCard) {
         VictoryCard card = (VictoryCard) this.discardDeck.get(j);
         victoryPoints += card.getVictoryPointValue();
       }
     }
-    for(int k=0; k<this.hand.size();k++){
-      if(this.hand.get(k) instanceof VictoryCard){
+    // loops through current DiscardDeck
+    for (int k = 0; k < this.hand.size(); k++) {
+      if (this.deck.get(k).getName() == "Gardens") {
+        gardenCardCounter++;
+      }
+      if (this.hand.get(k) instanceof VictoryCard) {
         VictoryCard card = (VictoryCard) this.hand.get(k);
-        victoryPoints+= card.getVictoryPointValue();
+        victoryPoints += card.getVictoryPointValue();
       }
     }
+    // gets size of every part of Deck
+    int deckSize = this.deck.size() + this.hand.size() + this.discardDeck.size();
+    // does the floor calculation for number of victory points player should get from gardensCard
+    int victoryPointsFromGardensCard = (int) Math.floor(deckSize / 10);
+    // adds victoryPoints gained from gardens card multiplied by number of gardensCard to
+    // victoryPoints
+    victoryPoints += (victoryPointsFromGardensCard * gardenCardCounter);
 
     return victoryPoints;
   }
@@ -59,14 +79,14 @@ public class PlayerDeck {
 
       this.drawNumAndDiscardOldHand(PlayerDeck.STANDARD_HAND_SIZE);
 
-    //return Collections.unmodifiableList(this.hand);
+    // return Collections.unmodifiableList(this.hand);
     return this.hand;
   }
-  
-  public List<Card> getDiscardDeck(){
+
+  public List<Card> getDiscardDeck() {
     return Collections.unmodifiableList(this.discardDeck);
   }
-  
+
   public List<Card> getDrawDeck() {
     return Collections.unmodifiableList(this.deck);
   }
@@ -109,7 +129,7 @@ public class PlayerDeck {
       return this.hand;
     }
   }
-  
+
   public List<Card> drawNum(int numToDraw) {
     if (this.deck.size() - numToDraw >= 0) {
       for (int i = 0; i < numToDraw; i++) {
@@ -141,17 +161,18 @@ public class PlayerDeck {
   public List<Card> getDiscard() {
     return this.discardDeck;
   }
-  
+
   public void trashCardInHandAtIndex(int index) {
     this.hand.remove(index);
   }
-  
-  public void discardCardInHandAtIndex(int index){
+
+  public void discardCardInHandAtIndex(int index) {
     this.discardDeck.add(this.hand.remove(index));
   }
+
   public void discardDrawPile() {
     int drawPileSize = this.deck.size();
-    for(int i = 0; i < drawPileSize; i++) {
+    for (int i = 0; i < drawPileSize; i++) {
       this.discardDeck.add(this.deck.remove(0));
     }
   }
