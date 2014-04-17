@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.SupplyDeck.CardTuple;
 import main.cards.Card;
 
 public class GameController {
@@ -24,8 +25,9 @@ public class GameController {
     this.players.add(new Player("Player 1"));
     this.players.add(new Player("Player 2"));
 
-    this.decisionDelegate = decisionDelegate;    
-    this.currentTurn = new TurnController(players.get(0), players.get(1), supplyDeck, this.decisionDelegate);
+    this.decisionDelegate = decisionDelegate;
+    this.currentTurn =
+        new TurnController(players.get(0), players.get(1), supplyDeck, this.decisionDelegate);
   }
 
   public TurnController getCurrentTurn() {
@@ -41,7 +43,21 @@ public class GameController {
     int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
     int opponentPlayerIndex = (currentPlayerIndex + 2) % players.size();
 
-    currentTurn = new TurnController(players.get(nextPlayerIndex), players.get(opponentPlayerIndex), supplyDeck, this.decisionDelegate);
+    currentTurn =
+        new TurnController(players.get(nextPlayerIndex), players.get(opponentPlayerIndex),
+            supplyDeck, this.decisionDelegate);
   }
-  
+
+  private static final Card ENDGAME_CARD = Card.makeCard(Card.CARD_NAME_PROVINCE);
+
+  public boolean isActiveGame() {
+    List<CardTuple> resourceCards = this.supplyDeck.getResourceCardRoster();
+    for (CardTuple tuple : resourceCards) {
+      if (ENDGAME_CARD.equals(tuple.getCard()) && tuple.getSupply() == 0) {
+        return false;
+      }
+    }
+    
+    return true;
+  }
 }

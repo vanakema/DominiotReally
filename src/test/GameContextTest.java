@@ -1,9 +1,7 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import main.GameContext;
-import main.cards.ActionCard;
-import main.cards.BoringActionCard;
 import main.cards.Card;
 
 import org.junit.Test;
