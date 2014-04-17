@@ -59,11 +59,42 @@ public class GameControllerTest {
         .getResourceCardRoster().get(providenceCardIndex).getCard());
 
     // Simulate deplete of supply deck
-    while (gameController.getSupplyDeck().buyResourceCardAtIndex(providenceCardIndex) != null);
+    while (gameController.getSupplyDeck().buyResourceCardAtIndex(providenceCardIndex) != null)
+      assert(gameController.isActiveGame());
 
     assertEquals(0, gameController.getSupplyDeck().getResourceCardRoster().get(providenceCardIndex)
         .getSupply());
     assertFalse(gameController.isActiveGame());
   }
 
+  @Test
+  public void testEndsGameWhenThreeActionSupplyPilesAreDepleted() {
+    for (int idx = 0; idx < 3; ++idx)
+      while (gameController.getSupplyDeck().buyActionCardAtIndex(idx) != null)
+        assert(gameController.isActiveGame());
+    
+    assertFalse(gameController.isActiveGame());
+  }
+  
+  @Test
+  public void testEndsGameWhenThreeResourceSupplyPilesAreDepleted() {
+    for (int idx = 0; idx < 3; ++idx)
+      while (gameController.getSupplyDeck().buyResourceCardAtIndex(idx) != null)
+        assert(gameController.isActiveGame());
+    
+    assertFalse(gameController.isActiveGame());
+  }
+  
+  @Test
+  public void testEndsGameWhenThreeSupplyPilesSplitBetweenResourceAndActionAreDepleted() {
+    while (gameController.getSupplyDeck().buyActionCardAtIndex(0) != null)
+      assert(gameController.isActiveGame());
+    
+    for (int idx = 0; idx < 2; ++idx)
+      while (gameController.getSupplyDeck().buyResourceCardAtIndex(idx) != null)
+        assert(gameController.isActiveGame());
+    
+    assertFalse(gameController.isActiveGame());
+  }
+  
 }

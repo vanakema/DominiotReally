@@ -51,13 +51,26 @@ public class GameController {
   private static final Card ENDGAME_CARD = Card.makeCard(Card.CARD_NAME_PROVINCE);
 
   public boolean isActiveGame() {
+    int numberOfEmptyPiles = 0;
+    
     List<CardTuple> resourceCards = this.supplyDeck.getResourceCardRoster();
     for (CardTuple tuple : resourceCards) {
       if (ENDGAME_CARD.equals(tuple.getCard()) && tuple.getSupply() == 0) {
         return false;
       }
+      
+      if (tuple.getSupply() == 0) {
+        numberOfEmptyPiles++;
+      }
     }
     
-    return true;
+    List<CardTuple> actionCards = this.supplyDeck.getActionCardRoster();
+    for (CardTuple tuple : actionCards) {
+      if (tuple.getSupply() == 0) {
+        numberOfEmptyPiles++;
+      }
+    }
+    
+    return (numberOfEmptyPiles < 3);
   }
 }
