@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import main.cards.Card;
+
 /**
  * This class tracks a collection of cards representing the unowned game objects. Cards are `bought'
  * from this deck by players and added to their deck, at which time they are removed from the supply

@@ -1,4 +1,6 @@
-package main;
+package main.cards;
+
+import main.GameContext;
 
 public class ChancellorCard extends ActionCard {
 

@@ -3,6 +3,7 @@ package main;
 import java.util.List;
 
 import main.SupplyDeck.CardTuple;
+import main.cards.Card;
 
 public class TurnController {
 

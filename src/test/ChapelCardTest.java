@@ -6,15 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
-
-import main.Card;
 import main.GameContext;
-import main.ChapelCard;
 import main.Player;
 import main.PlayerDeck;
 import main.SupplyDeck;
 import main.TurnController;
 import main.GameContext.DecisionDelegate;
+import main.cards.Card;
+import main.cards.ChapelCard;
 
 import org.junit.Test;
 

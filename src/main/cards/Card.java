@@ -1,8 +1,10 @@
-package main;
+package main.cards;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+
+import main.GameContext;
 
 public abstract class Card implements Cloneable {
 

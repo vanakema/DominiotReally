@@ -1,4 +1,5 @@
-package main;
+package main.cards;
+
 
 
 public class GardensCard extends ActionCard {

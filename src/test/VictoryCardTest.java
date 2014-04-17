@@ -1,9 +1,8 @@
 package test;
 
 import static org.junit.Assert.*;
-
 import main.GameContext;
-import main.VictoryCard;
+import main.cards.VictoryCard;
 
 import org.junit.Test;
 

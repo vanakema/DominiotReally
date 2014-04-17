@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import main.Card;
 import main.GameContext;
-import main.MoneylenderCard;
 import main.Player;
 import main.SupplyDeck;
 import main.TurnController;
 import main.GameContext.DecisionDelegate;
+import main.cards.Card;
+import main.cards.MoneylenderCard;
 import junit.framework.TestCase;
 
 public class MoneylenderCardTest extends TestCase{

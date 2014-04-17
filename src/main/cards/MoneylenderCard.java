@@ -1,4 +1,7 @@
-package main;
+package main.cards;
+
+import main.GameContext;
+import main.PlayerDeck;
 
 public class MoneylenderCard extends ActionCard {
 
@@ -11,8 +14,8 @@ public class MoneylenderCard extends ActionCard {
     super.performAction(context);
     PlayerDeck deck = context.getPlayer().getPlayerDeck();
     boolean hasCopper = false;
-    for (int i = 0; i < deck.hand.size(); i++) {
-      if (deck.hand.get(i).getName() == Card.CARD_NAME_COPPER) {
+    for (int i = 0; i < deck.getHand().size(); i++) {
+      if (deck.getHand().get(i).getName() == Card.CARD_NAME_COPPER) {
         hasCopper = true;
         deck.trashCardInHandAtIndex(i);
         break;

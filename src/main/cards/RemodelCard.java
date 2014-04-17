@@ -1,4 +1,7 @@
-package main;
+package main.cards;
+
+import main.GameContext;
+import main.PlayerDeck;
 
 public class RemodelCard extends ActionCard {
 

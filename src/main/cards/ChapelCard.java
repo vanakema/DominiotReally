@@ -1,4 +1,8 @@
-package main;
+package main.cards;
+
+import main.GameContext;
+import main.PlayerDeck;
+import main.GameContext.DecisionDelegate;
 
 
 public class ChapelCard extends ActionCard {

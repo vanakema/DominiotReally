@@ -1,7 +1,9 @@
 /**
  * 
  */
-package main;
+package main.cards;
+
+import main.GameContext;
 
 /**
  * @author vanakema

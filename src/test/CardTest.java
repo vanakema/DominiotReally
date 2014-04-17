@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.NoSuchElementException;
 
-import main.Card;
-import main.TreasureCard;
+import main.cards.Card;
+import main.cards.TreasureCard;
 
 import org.junit.Test;
 

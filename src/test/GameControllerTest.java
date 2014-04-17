@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
 
-import main.Card;
 import main.GameContext;
 import main.GameController;
 import main.Player;
 import main.SupplyDeck;
 import main.TurnController;
+import main.cards.Card;
 
 import org.junit.Before;
 import org.junit.Test;

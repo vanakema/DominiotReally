@@ -6,11 +6,11 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import main.Card;
 import main.GameContext;
 import main.GameController;
 import main.SupplyDeck;
 import main.SupplyDeck.CardTuple;
+import main.cards.Card;
 
 public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDelegate {
 

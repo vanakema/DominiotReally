@@ -6,10 +6,9 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import junit.framework.Assert;
-
-import main.Card;
-import main.ChapelCard;
 import main.PlayerDeck;
+import main.cards.Card;
+import main.cards.ChapelCard;
 
 import org.junit.Test;
 

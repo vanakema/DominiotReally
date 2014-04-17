@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.cards.Card;
+
 public class GameController {
 
   private static final List<Card> mockCards = Arrays.asList(new Card[] {

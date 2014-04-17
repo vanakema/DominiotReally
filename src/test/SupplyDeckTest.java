@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
 
-import main.Card;
 import main.SupplyDeck;
 import main.SupplyDeck.CardTuple;
+import main.cards.Card;
 
 import org.junit.Test;
 

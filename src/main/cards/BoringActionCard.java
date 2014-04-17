@@ -1,4 +1,5 @@
-package main;
+package main.cards;
+
 
 public class BoringActionCard extends ActionCard {
 

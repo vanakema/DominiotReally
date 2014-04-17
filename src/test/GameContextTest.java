@@ -1,11 +1,10 @@
 package test;
 
 import static org.junit.Assert.*;
-
-import main.ActionCard;
-import main.BoringActionCard;
-import main.Card;
 import main.GameContext;
+import main.cards.ActionCard;
+import main.cards.BoringActionCard;
+import main.cards.Card;
 
 import org.junit.Test;
 

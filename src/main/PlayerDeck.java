@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import main.cards.Card;
+import main.cards.VictoryCard;
+
 public class PlayerDeck {
 
   List<Card> deck = new ArrayList<Card>();
