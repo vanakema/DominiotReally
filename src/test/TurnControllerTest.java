@@ -28,7 +28,7 @@ public class TurnControllerTest extends TestCase {
         Card.makeCard(Card.CARD_NAME_WOODCUTTER)});
     supplyDeck = new SupplyDeck(cards);
 
-    turnController = new TurnController(player, supplyDeck, null);
+    turnController = new TurnController(player, null, supplyDeck, null);
   }
   
   @Test

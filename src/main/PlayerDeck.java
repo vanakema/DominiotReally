@@ -74,6 +74,7 @@ public class PlayerDeck {
     return this.deck.size();
   }
 
+  boolean once;
   public List<Card> getHand() {
     if (this.hand.size() == 0)
 
@@ -149,6 +150,7 @@ public class PlayerDeck {
         this.deck.clear();
       }
     }
+    
     return this.hand;
   }
 

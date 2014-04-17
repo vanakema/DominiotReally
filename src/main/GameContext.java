@@ -125,4 +125,8 @@ public class GameContext {
     return trashCurrentCard;
   }
   
+  public boolean curseOpponent() {
+    return this.turnController.curseOpponent();
+  }
+  
 }

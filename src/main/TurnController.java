@@ -7,12 +7,14 @@ import main.SupplyDeck.CardTuple;
 public class TurnController {
 
   private Player player;
+  private Player opponent;
   private SupplyDeck supplyDeck;
   private GameContext currentContext;
 
-  public TurnController(Player player, SupplyDeck supplyDeck,
+  public TurnController(Player player, Player opponent, SupplyDeck supplyDeck,
       GameContext.DecisionDelegate decisionDelegate) {
     this.player = player;
+    this.opponent = opponent;
     this.supplyDeck = supplyDeck;
 
     this.currentContext = new GameContext(this);
@@ -22,7 +24,7 @@ public class TurnController {
   public Player getPlayer() {
     return this.player;
   }
-
+  
   public GameContext getCurrentContext() {
     return this.currentContext;
   }
@@ -58,11 +60,15 @@ public class TurnController {
   }
 
   public boolean tryForceInsertResourceCardIntoHand(int index) {
+    return tryForceInsertResourceCardIntoHand(this.player, index);
+  }
+  
+  private boolean tryForceInsertResourceCardIntoHand(Player destinationPlayer, int index) {
     Card cardToBuy = supplyDeck.buyResourceCardAtIndex(index);
     if (cardToBuy == null) {
       return false;
     } else {
-      this.player.getPlayerDeck().insertCardIntoHand(cardToBuy);
+      destinationPlayer.getPlayerDeck().insertCardIntoHand(cardToBuy);
       return true;
     }
   }
@@ -103,6 +109,24 @@ public class TurnController {
   public void forcePlayingCardAtIndex(int index) {
     Card selectedCard = this.player.getPlayerDeck().getHand().get(index);
     selectedCard.performAction(this.currentContext);
+  }
+  
+  public boolean curseOpponent() {
+    int curseCardIndex = -1;
+    Card curseCard = Card.makeCard(Card.CARD_NAME_CURSE);
+    List<CardTuple> roster = this.supplyDeck.getResourceCardRoster();
+    
+    for (int idx = 0; idx < roster.size(); ++idx) {
+      if (roster.get(idx).getCard().equals(curseCard)) {
+        curseCardIndex = idx;
+        break;
+      }
+    }
+    
+    if (curseCardIndex < 0)
+      return false;
+      
+    return tryForceInsertResourceCardIntoHand(this.opponent, curseCardIndex);
   }
 
 }

@@ -37,7 +37,7 @@ public class ChapelCardTest extends TestCase {
     Card.makeCard(Card.CARD_NAME_WOODCUTTER)});
     
     supplyDeck = new SupplyDeck(cards);
-    controller = new TurnController(player, supplyDeck, null);
+    controller = new TurnController(player, null, supplyDeck, null);
     context = new GameContext(controller);
   }
 

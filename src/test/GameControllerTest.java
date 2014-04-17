@@ -30,7 +30,7 @@ public class GameControllerTest {
         Card.makeCard(Card.CARD_NAME_SMITHY), Card.makeCard(Card.CARD_NAME_VILLAGE),
         Card.makeCard(Card.CARD_NAME_WOODCUTTER)});
     supplyDeck = new SupplyDeck(cards);
-    turnController = new TurnController(player, supplyDeck, null);
+    turnController = new TurnController(player, null, supplyDeck, null);
     context = new GameContext(turnController);
     gameController = new GameController(context.getDecisionDelegate());
   }

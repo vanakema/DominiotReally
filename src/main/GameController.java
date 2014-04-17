@@ -23,7 +23,7 @@ public class GameController {
     this.players.add(new Player("Player 2"));
 
     this.decisionDelegate = decisionDelegate;    
-    this.currentTurn = new TurnController(players.get(0), supplyDeck, this.decisionDelegate);
+    this.currentTurn = new TurnController(players.get(0), players.get(1), supplyDeck, this.decisionDelegate);
   }
 
   public TurnController getCurrentTurn() {
@@ -37,8 +37,9 @@ public class GameController {
   public void endCurrentTurn() {
     int currentPlayerIndex = players.indexOf(currentTurn.getPlayer());
     int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
+    int opponentPlayerIndex = (currentPlayerIndex + 2) % players.size();
 
-    currentTurn = new TurnController(players.get(nextPlayerIndex), supplyDeck, this.decisionDelegate);
+    currentTurn = new TurnController(players.get(nextPlayerIndex), players.get(opponentPlayerIndex), supplyDeck, this.decisionDelegate);
   }
   
 }
