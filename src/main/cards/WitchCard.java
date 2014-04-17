@@ -4,7 +4,7 @@ import main.GameContext;
 
 public class WitchCard extends ActionCard {
 
-  public WitchCard(String name, String description, int cost) {
+  public WitchCard() {
     super(Card.CARD_NAME_WITCH, "+2 Cards, Each other player gains a Curse card.", 5);
     this.numCardsDraw = 2;
   }

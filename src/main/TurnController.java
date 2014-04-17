@@ -2,6 +2,7 @@ package main;
 
 import java.util.List;
 
+import main.PlayerDeck.PlayerDeckType;
 import main.SupplyDeck.CardTuple;
 import main.cards.Card;
 
@@ -61,15 +62,15 @@ public class TurnController {
   }
 
   public boolean tryForceInsertResourceCardIntoHand(int index) {
-    return tryForceInsertResourceCardIntoHand(this.player, index);
+    return tryForceInsertResourceCardIntoHand(this.player, PlayerDeckType.HAND, index);
   }
   
-  private boolean tryForceInsertResourceCardIntoHand(Player destinationPlayer, int index) {
+  private boolean tryForceInsertResourceCardIntoHand(Player destinationPlayer, PlayerDeckType deckType, int index) {
     Card cardToBuy = supplyDeck.buyResourceCardAtIndex(index);
     if (cardToBuy == null) {
       return false;
     } else {
-      destinationPlayer.getPlayerDeck().insertCardIntoHand(cardToBuy);
+      destinationPlayer.getPlayerDeck().addCard(cardToBuy, deckType);
       return true;
     }
   }
@@ -127,7 +128,7 @@ public class TurnController {
     if (curseCardIndex < 0)
       return false;
       
-    return tryForceInsertResourceCardIntoHand(this.opponent, curseCardIndex);
+    return tryForceInsertResourceCardIntoHand(this.opponent, PlayerDeckType.DISCARD, curseCardIndex);
   }
 
 }

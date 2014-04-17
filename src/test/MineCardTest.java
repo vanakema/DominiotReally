@@ -10,6 +10,7 @@ import main.Player;
 import main.SupplyDeck;
 import main.TurnController;
 import main.GameContext.DecisionDelegate;
+import main.PlayerDeck.PlayerDeckType;
 import main.cards.Card;
 
 import org.junit.Before;
@@ -54,7 +55,7 @@ public class MineCardTest {
         return false;
       }
     });
-    context.getPlayer().getPlayerDeck().insertCardIntoHand(Card.makeCard(Card.CARD_NAME_COPPER));
+    context.getPlayer().getPlayerDeck().addCard(Card.makeCard(Card.CARD_NAME_COPPER), PlayerDeckType.HAND);
     List<Card> hand = context.getPlayer().getPlayerDeck().getHand();
     Card oldFirstInDeck = context.getPlayer().getPlayerDeck().getDrawDeck().get(0);
     int handSize = hand.size();

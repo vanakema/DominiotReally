@@ -7,6 +7,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 import main.PlayerDeck;
+import main.PlayerDeck.PlayerDeckType;
 import main.cards.Card;
 import main.cards.ChapelCard;
 
@@ -111,7 +112,7 @@ public class PlayerDeckTest {
     assertEquals(10, deck.getDrawDeck().size());
     deck.drawNumAndDiscardOldHand(PlayerDeck.STANDARD_HAND_SIZE);
     assertEquals(PlayerDeck.STANDARD_HAND_SIZE, deck.getHand().size());
-    deck.insertCardIntoHand(Card.makeCard(Card.CARD_NAME_CHANCELLOR));
+    deck.addCard(Card.makeCard(Card.CARD_NAME_CHANCELLOR), PlayerDeckType.HAND);
     assertEquals(deck.getHand().get(deck.getHand().size()-1), Card.makeCard(Card.CARD_NAME_CHANCELLOR));
     assertEquals(PlayerDeck.STANDARD_HAND_SIZE + 1, deck.getHand().size());
   }
@@ -185,6 +186,34 @@ public class PlayerDeckTest {
     
     assertEquals(0,deck.getSize());
     assertEquals(10,deck.getDiscardDeck().size());
+  }
+  
+  private Card anyCard() {
+    return Card.makeCard(Card.CARD_NAME_CELLAR);
+  }
+  
+  @Test
+  public void testAddingCardToHand() {
+    PlayerDeck deck = new PlayerDeck();
+    int currentHandSize = deck.getHand().size();
+    deck.addCard(anyCard(), PlayerDeckType.HAND);
+    assertEquals(currentHandSize + 1, deck.getHand().size());
+  }
+  
+  @Test
+  public void testAddingCardToDrawDeck() {
+    PlayerDeck deck = new PlayerDeck();
+    int currentDeckSize = deck.getDrawDeck().size();
+    deck.addCard(anyCard(), PlayerDeckType.DRAW);
+    assertEquals(currentDeckSize + 1, deck.getDrawDeck().size());
+  }
+  
+  @Test
+  public void testAddingCardToDiscardDeck() {
+    PlayerDeck deck = new PlayerDeck();
+    int currentDiscardSize = deck.getDiscardDeck().size();
+    deck.addCard(anyCard(), PlayerDeckType.DISCARD);
+    assertEquals(currentDiscardSize + 1, deck.getDiscardDeck().size());
   }
 
 }

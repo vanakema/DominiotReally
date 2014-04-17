@@ -78,6 +78,7 @@ public class PlayerDeck {
   }
 
   boolean once;
+
   public List<Card> getHand() {
     if (this.hand.size() == 0)
 
@@ -97,7 +98,7 @@ public class PlayerDeck {
 
   // Can be revised later to add in random order
   public void addCard(Card card) {
-    this.discardDeck.add(card);
+    addCard(card, PlayerDeckType.DISCARD);
   }
 
   public List<Card> drawNumAndDiscardOldHand(int numToDraw) throws IndexOutOfBoundsException {
@@ -153,7 +154,7 @@ public class PlayerDeck {
         this.deck.clear();
       }
     }
-    
+
     return this.hand;
   }
 
@@ -182,8 +183,22 @@ public class PlayerDeck {
     }
   }
 
-  public void insertCardIntoHand(Card cardToInsert) {
-    this.hand.add(cardToInsert);
+  public void addCard(Card cardToInsert, PlayerDeckType type) {
+    switch (type) {
+      case HAND:
+        this.hand.add(cardToInsert);
+        break;
+      case DISCARD:
+        this.discardDeck.add(cardToInsert);
+        break;
+      case DRAW:
+        this.deck.add(cardToInsert);
+        break;
+    }
+  }
+
+  public enum PlayerDeckType {
+    HAND, DISCARD, DRAW
   }
 
 }
