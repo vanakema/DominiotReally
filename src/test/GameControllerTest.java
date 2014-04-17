@@ -58,9 +58,10 @@ public class GameControllerTest {
     assertEquals(Card.makeCard(Card.CARD_NAME_PROVINCE), gameController.getSupplyDeck()
         .getResourceCardRoster().get(providenceCardIndex).getCard());
 
+    assertEquals(true, gameController.isActiveGame());
+    
     // Simulate deplete of supply deck
-    while (gameController.getSupplyDeck().buyResourceCardAtIndex(providenceCardIndex) != null)
-      assert(gameController.isActiveGame());
+    while (gameController.getSupplyDeck().buyResourceCardAtIndex(providenceCardIndex) != null);
 
     assertEquals(0, gameController.getSupplyDeck().getResourceCardRoster().get(providenceCardIndex)
         .getSupply());
@@ -69,32 +70,56 @@ public class GameControllerTest {
 
   @Test
   public void testEndsGameWhenThreeActionSupplyPilesAreDepleted() {
+    assertEquals(true, gameController.isActiveGame());
+    
     for (int idx = 0; idx < 3; ++idx)
-      while (gameController.getSupplyDeck().buyActionCardAtIndex(idx) != null)
-        assert(gameController.isActiveGame());
+      while (gameController.getSupplyDeck().buyActionCardAtIndex(idx) != null);
     
     assertFalse(gameController.isActiveGame());
   }
   
   @Test
   public void testEndsGameWhenThreeResourceSupplyPilesAreDepleted() {
+    assertEquals(true, gameController.isActiveGame());
+    
     for (int idx = 0; idx < 3; ++idx)
-      while (gameController.getSupplyDeck().buyResourceCardAtIndex(idx) != null)
-        assert(gameController.isActiveGame());
+      while (gameController.getSupplyDeck().buyResourceCardAtIndex(idx) != null);
     
     assertFalse(gameController.isActiveGame());
   }
   
   @Test
   public void testEndsGameWhenThreeSupplyPilesSplitBetweenResourceAndActionAreDepleted() {
-    while (gameController.getSupplyDeck().buyActionCardAtIndex(0) != null)
-      assert(gameController.isActiveGame());
+    assertEquals(true, gameController.isActiveGame());
+    
+    while (gameController.getSupplyDeck().buyActionCardAtIndex(0) != null);
+    
+    assertEquals(true, gameController.isActiveGame());
     
     for (int idx = 0; idx < 2; ++idx)
-      while (gameController.getSupplyDeck().buyResourceCardAtIndex(idx) != null)
-        assert(gameController.isActiveGame());
+      while (gameController.getSupplyDeck().buyResourceCardAtIndex(idx) != null);
     
     assertFalse(gameController.isActiveGame());
+  }
+  
+  @Test
+  public void testThatNewGamesBeginInATie() {
+    assertEquals(gameController.getWinningPlayer(), null);
+  }
+  
+  @Test
+  public void testThatAddingOneVictoryCardGivesAPlayerWinningStatus() {
+    gameController.getPlayer(0).getPlayerDeck().addCard(Card.makeCard(Card.CARD_NAME_ESTATE));
+    assertEquals(gameController.getPlayer(0), gameController.getWinningPlayer());
+  }
+  
+  @Test
+  public void testThatWinningPlayerChangesCorrectly() {
+    gameController.getPlayer(0).getPlayerDeck().addCard(Card.makeCard(Card.CARD_NAME_ESTATE));
+    assertEquals(gameController.getPlayer(0), gameController.getWinningPlayer());
+    
+    gameController.getPlayer(1).getPlayerDeck().addCard(Card.makeCard(Card.CARD_NAME_PROVINCE));
+    assertEquals(gameController.getPlayer(1), gameController.getWinningPlayer());
   }
   
 }

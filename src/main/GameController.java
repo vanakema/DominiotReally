@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import main.SupplyDeck.CardTuple;
@@ -72,5 +73,34 @@ public class GameController {
     }
     
     return (numberOfEmptyPiles < 3);
+  }
+  
+  public Player getWinningPlayer() {
+    // Calculate the scores of all players
+    List<Integer> scores = new ArrayList<>();
+    for (int idx = 0; idx < players.size(); ++idx)
+      scores.add(players.get(idx).getPlayerDeck().countVictoryPoints());
+    
+    // If the max two scores are equal, we have a tie, return null
+    List<Integer> scores2 = new ArrayList<>(scores);
+    Collections.sort(scores2);
+    if (scores.size() >= 2 && scores2.get(0) == scores2.get(1))
+      return null;
+    
+    // Otherwise find the index of the max score and return that player
+    int maxPlayerIndex = 0;
+    int maxPlayerScore = scores.get(0);
+    for (int idx = 1; idx < players.size(); ++idx) {
+      if (scores.get(idx) > maxPlayerScore) {
+        maxPlayerIndex = idx;
+        maxPlayerScore = scores.get(idx);
+      }
+    }
+    
+    return players.get(maxPlayerIndex);
+  }
+  
+  public Player getPlayer(int index) {
+    return this.players.get(index);
   }
 }
