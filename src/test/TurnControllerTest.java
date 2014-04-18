@@ -31,6 +31,13 @@ public class TurnControllerTest extends TestCase {
     turnController = new TurnController(player, null, supplyDeck, null);
   }
   
+  //Make changes so it has a context to check for the true condition 
+  @Test
+  public void testTryPurchaseActionCardAtIndex() {
+    assertFalse(turnController.tryPurchaseActionCardAtIndex(0));
+//    assertTrue(turnController.tryPurchaseActionCardAtIndex(index));
+  }
+  
   @Test
   public void testGetPlayer() {
     assertEquals(player, turnController.getPlayer());
