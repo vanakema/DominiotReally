@@ -109,7 +109,7 @@ public class PlayerDeck {
         this.discardDeck.add(hand.remove(0));
       }
     }
-
+    
     // makes sure there are enough cards to draw
     if (this.deck.size() - numToDraw >= 0) {
       for (int i = 0; i < numToDraw; i++) {
@@ -186,7 +186,7 @@ public class PlayerDeck {
       this.discardDeck.add(this.deck.remove(0));
     }
   }
-  
+
   public void discardHand() {
     this.discardDeck.addAll(this.hand);
     this.hand.clear();
@@ -208,6 +208,32 @@ public class PlayerDeck {
 
   public enum PlayerDeckType {
     HAND, DISCARD, DRAW
+  }
+
+  public List<String> getCardDescriptions(PlayerDeckType type, int maxCard) {
+    List<Card> deck = null;
+    switch (type) {
+      case HAND:
+        deck = this.getHand();
+        break;
+      case DISCARD:
+        deck = this.getDiscardDeck();
+        break;
+      case DRAW:
+        deck = this.deck;
+        if (this.deck.size() < maxCard) {
+          this.shuffleDeck();
+        }
+        break;
+    }
+
+    List<String> descriptions = new ArrayList<String>();
+    for (int idx = 0; idx < Math.min(maxCard, deck.size()); ++idx) {
+      Card card = deck.get(idx);
+      descriptions.add(String.format("%s $%d", card.getName(), card.getCost()));
+    }
+
+    return descriptions;
   }
 
 }

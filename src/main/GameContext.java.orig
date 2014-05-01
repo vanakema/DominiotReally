@@ -116,15 +116,25 @@ public class GameContext {
   public boolean decideCardInOpponentDeck(String question) {
     if (decisionDelegate == null)
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
+<<<<<<< HEAD
 
+    return false;
+=======
+    
     return this.decisionDelegate.decideCardInDeck(this, turnController.getOpponent().getPlayerDeck(), question);
+>>>>>>> 5e204b554ec44fa91b9af2aa9a2eb9d8e288b9f9
   }
 
   public boolean decideCardInOwnDeck(String question) {
     if (decisionDelegate == null)
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
+<<<<<<< HEAD
 
+    return false;
+=======
+    
     return this.decisionDelegate.decideCardInDeck(this, turnController.getPlayer().getPlayerDeck(), question);
+>>>>>>> 5e204b554ec44fa91b9af2aa9a2eb9d8e288b9f9
   }
 
   public void invalidateLumpSumTreasure() {

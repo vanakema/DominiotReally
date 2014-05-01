@@ -216,22 +216,7 @@ public class PlayerDeckTest {
   }
   
   @Test
-  public void testGettingDescriptionsForHand() {
-    PlayerDeck deck = new PlayerDeck();
-    List<String> descriptions = deck.getCardDescriptions(PlayerDeckType.HAND, Integer.MAX_VALUE);
-    
-    assertEquals(5, descriptions.size());
-  }
-  
-  @Test
-  public void testGettignDescriptionsForHandWithSmallerNumberOfCards() {
-    PlayerDeck deck = new PlayerDeck();
-    List<String> descriptions = deck.getCardDescriptions(PlayerDeckType.HAND, 1);
-    
-    assertEquals(1, descriptions.size());
-  }
-  
-  @Test
+<<<<<<< HEAD
   public void testDiscardCardInDeckAtIndex(){
     PlayerDeck deck = new PlayerDeck();
     
@@ -256,6 +241,21 @@ public class PlayerDeckTest {
     }
     assertEquals(true, containsCellarStill);
     
+=======
+  public void testGettingDescriptionsForHand() {
+    PlayerDeck deck = new PlayerDeck();
+    List<String> descriptions = deck.getCardDescriptions(PlayerDeckType.HAND, Integer.MAX_VALUE);
+    
+    assertEquals(5, descriptions.size());
+  }
+  
+  @Test
+  public void testGettignDescriptionsForHandWithSmallerNumberOfCards() {
+    PlayerDeck deck = new PlayerDeck();
+    List<String> descriptions = deck.getCardDescriptions(PlayerDeckType.HAND, 1);
+    
+    assertEquals(1, descriptions.size());
+>>>>>>> 85b6f872b5fe6c65d2cae051c930c2bae7c857b2
   }
 
 }
