@@ -30,9 +30,12 @@ public class ThiefCardTest {
     List<Card> playerDeckCards =
         Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_COPPER),
             Card.makeCard(Card.CARD_NAME_GOLD)});
+    List<Card> opponentDeckCards =
+        Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_GOLD)});
 
     player = new Player("Test Player", playerDeckCards);
-    opponent = new Player("Test Opponent");
+    opponent = new Player("Test Opponent", opponentDeckCards);
 
     List<Card> cards =
         Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_FESTIVAL),
@@ -41,7 +44,7 @@ public class ThiefCardTest {
             Card.makeCard(Card.CARD_NAME_WOODCUTTER)});
 
     supplyDeck = new SupplyDeck(cards);
-    controller = new TurnController(player, null, supplyDeck, null);
+    controller = new TurnController(player, opponent, supplyDeck, null);
     context = new GameContext(controller);
   }
 
@@ -65,7 +68,7 @@ public class ThiefCardTest {
   }
 
   @Test
-  public void testPerformActionOnPlayer() {
+  public void testPerformActionPlayer() {
     context.setDecisionDelegate(new TestDecisionDelegate() {
       int count = 0;
 
@@ -74,8 +77,22 @@ public class ThiefCardTest {
           int numberOfCards) {
         return 1;
       }
+
+      @Override
+      public boolean decideBoolean(GameContext context, String question) {
+        return true;
+      }
     });
-    int size = 
+    int oldSizeOfPlayerDiscardPile = context.getPlayer().getPlayerDeck().getDiscardDeck().size();
+    int oldSizeOfOpponentDrawDeck =
+        context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size();
+    card.performAction(context);
+    int newSizeOfPlayerDiscardPile = context.getPlayer().getPlayerDeck().getDiscardDeck().size();
+    int newSizeOfOpponentHand =
+        context.getTurnController().getOpponent().getPlayerDeck().getDiscardDeck().size();
+
+    assertEquals(oldSizeOfPlayerDiscardPile + 1, newSizeOfPlayerDiscardPile);
+    assertEquals(oldSizeOfOpponentDrawDeck - 1, newSizeOfOpponentHand);
 
   }
 
