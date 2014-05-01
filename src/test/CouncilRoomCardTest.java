@@ -52,7 +52,14 @@ public class CouncilRoomCardTest {
   
   @Test
   public void testActionsToOpponent() {
-//    int oldHandSize = turnController
+    int oldHandSize = turnController.getOpponent().getPlayerDeck().getHand().size();
+    
+    Card councilRoom = Card.makeCard(Card.CARD_NAME_COUNCILROOM);
+    councilRoom.performAction(context);
+    
+    int newHandSize = turnController.getOpponent().getPlayerDeck().getHand().size();
+    
+    assertEquals(oldHandSize +1, newHandSize);
   }
 
 }
