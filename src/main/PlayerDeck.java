@@ -171,6 +171,10 @@ public class PlayerDeck {
   public void trashCardInHandAtIndex(int index) {
     this.hand.remove(index);
   }
+  
+  public void trashCardInDeckAtIndex(int index){
+    this.deck.remove(index);
+  }
 
   public void discardCardInHandAtIndex(int index) {
     this.discardDeck.add(this.hand.remove(index));

@@ -111,6 +111,20 @@ public class GameContext {
     useLumpSumTreasure = true;
   }
   
+  public boolean decideCardInOpponentDeck(String question){
+    if (decisionDelegate == null)
+      throw new RuntimeException("Attempting to make a decision without a decision delegate");
+    
+    return false;
+  }
+  
+  public boolean decideCardInOwnDeck(String question){
+    if (decisionDelegate == null)
+      throw new RuntimeException("Attempting to make a decision without a decision delegate");
+    
+    return false;
+  }
+  
   public void invalidateLumpSumTreasure() {
     lumpSumTreasureCount = 0;
     useLumpSumTreasure = false;
