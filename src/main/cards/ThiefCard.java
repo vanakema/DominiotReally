@@ -20,14 +20,20 @@ public class ThiefCard extends ActionCard {
       boolean choseATreasureCard = false;
       while (choseATreasureCard != true) {
         int indexToTrash = context.decideCardInOpponentDeck("Choose a TREASURE card to trash", 2);
-        if (context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck()
-            .get(indexToTrash).getType() == Card.CARD_TYPE_TREASURECARD) {
+        Card cardToTrash =
+            context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck()
+                .get(indexToTrash);
+        if (cardToTrash.getType() == Card.CARD_TYPE_TREASURECARD) {
+          boolean keep = context.decideBoolean("Do you want to keep that card?");
+          if (keep) {
+            context.getTurnController().getPlayer().getPlayerDeck().addCard(cardToTrash);
+          }
           context.getTurnController().getOpponent().getPlayerDeck()
               .trashCardInDeckAtIndex(indexToTrash);
+          context.getTurnController().getOpponent().getPlayerDeck().discardCardInDeckAtIndex(0);
           choseATreasureCard = true;
         }
       }
     }
   }
-
 }

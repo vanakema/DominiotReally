@@ -23,6 +23,10 @@ public class PlayerDeck {
 
     Collections.shuffle(deck);
   }
+  
+  public PlayerDeck(List<Card> listDeck) {
+    deck.addAll(listDeck);
+  }
 
   /**
    * Iterates through all cards the deck contains and counts up all the victory points.
@@ -178,6 +182,10 @@ public class PlayerDeck {
 
   public void discardCardInHandAtIndex(int index) {
     this.discardDeck.add(this.hand.remove(index));
+  }
+  
+  public void discardCardInDeckAtIndex(int index) {
+    this.discardDeck.add(this.deck.remove(index));
   }
 
   public void discardDrawPile() {
