@@ -9,19 +9,19 @@ public class GameContext {
 
   public static interface DecisionDelegate {
     public static final int CARD_IN_HAND_IGNORED = -1;
-    
+
     public boolean decideBoolean(GameContext context, String question);
-    
+
     public int decideCardInHand(GameContext context, String question, boolean canIgnore);
   }
-  
+
   private int treasureCount;
   private int actionCount;
   private int buyCount;
 
   private TurnController turnController;
   private DecisionDelegate decisionDelegate;
-  
+
   private int lumpSumTreasureCount;
   private boolean useLumpSumTreasure;
 
@@ -33,12 +33,12 @@ public class GameContext {
     this.turnController = turnController;
   }
 
-  public GameContext(){
+  public GameContext() {
     this.treasureCount = 0;
     this.actionCount = 1;
     this.buyCount = 1;
   }
-  
+
   /**
    * Clone constructor. Creates a new GameContext that is a duplicate of the argument. For possible
    * undoing up a card, which may or may not be implemented.
@@ -75,7 +75,7 @@ public class GameContext {
   public void adjustBuyCountByDelta(int delta) {
     this.buyCount += delta;
   }
-  
+
   public Player getPlayer() {
     return this.turnController.getPlayer();
   }
@@ -83,68 +83,70 @@ public class GameContext {
   public TurnController getTurnController() {
     return this.turnController;
   }
-  
+
   public DecisionDelegate getDecisionDelegate() {
     return this.decisionDelegate;
   }
-  
+
   public void setDecisionDelegate(DecisionDelegate decisionDelegate) {
     this.decisionDelegate = decisionDelegate;
   }
-  
+
   public boolean decideBoolean(String question) {
     if (decisionDelegate == null)
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
-    
+
     return decisionDelegate.decideBoolean(this, question);
   }
-  
+
   public int decideCardInHand(String question, boolean canIgnore) {
     if (decisionDelegate == null)
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
-    
+
     return decisionDelegate.decideCardInHand(this, question, canIgnore);
   }
-  
+
   public void setLumpSumTreasureCount(int count) {
     lumpSumTreasureCount = count;
     useLumpSumTreasure = true;
   }
-  
-  public boolean decideCardInOpponentDeck(String question){
+
+  public boolean decideCardInOpponentDeck(String question) {
     if (decisionDelegate == null)
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
-    
+
     return false;
   }
-  
-  public boolean decideCardInOwnDeck(String question){
+
+  public boolean decideCardInOwnDeck(String question) {
     if (decisionDelegate == null)
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
-    
+
     return false;
   }
-  
+
   public void invalidateLumpSumTreasure() {
     lumpSumTreasureCount = 0;
     useLumpSumTreasure = false;
   }
-  
-  private boolean trashCurrentCard = true; // TODO: Add test to ensure we do not transfer this to copies
+
+  private boolean trashCurrentCard = true; // TODO: Add test to ensure we do not transfer this to
+                                           // copies
+
   public void setShouldTrashCurrentCard() {
     trashCurrentCard = true;
   }
-  
+
   public boolean getShouldTrashCurrentCard() {
     return trashCurrentCard;
   }
-  
+
   public boolean curseOpponent() {
     return this.turnController.curseOpponent();
   }
-  
+
   public void opponentDrawNumCards(int num) {
     this.turnController.opponentDrawNumCards(num);
   }
-  
+
 }

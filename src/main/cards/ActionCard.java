@@ -32,12 +32,17 @@ public abstract class ActionCard extends Card {
     context.adjustTreasureCountByDelta(this.additionalCoins);
 
   }
+  
+  public void drawAdditionalCards(GameContext context) {
+    context.getPlayer().getPlayerDeck().drawNum(numCardsDraw);
+  }
 
   @Override
   public void performAction(GameContext context) {
     addAdditionalActions(context);
     addAdditionalBuys(context);
     addAdditionalCoins(context);
+    drawAdditionalCards(context);
   }
 
 }

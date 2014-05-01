@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import main.GameContext;
+import main.Player;
+import main.TurnController;
 import main.cards.Card;
 
 import org.junit.Test;
@@ -24,7 +26,9 @@ public class GameContextTest {
 
   @Test
   public void testIntegrationWithBoringCards_addAdditionalActions() {
-    GameContext context = new GameContext();
+    Player player = new Player("Test Player");
+    TurnController turnController = new TurnController(player, null, null, null);
+    GameContext context = new GameContext(turnController);
     Card lab = Card.makeCard(Card.CARD_NAME_LABORATORY);
     lab.performAction(context);
     assertEquals(2, context.getActionCount());
@@ -32,7 +36,9 @@ public class GameContextTest {
 
   @Test
   public void testIntegrationWithBoringCards_addAdditionalBuys() {
-    GameContext context = new GameContext();
+    Player player = new Player("Test Player");
+    TurnController turnController = new TurnController(player, null, null, null);
+    GameContext context = new GameContext(turnController);
     Card fest = Card.makeCard(Card.CARD_NAME_FESTIVAL);
     fest.performAction(context);
     assertEquals(2, context.getBuyCount());
@@ -40,7 +46,9 @@ public class GameContextTest {
 
   @Test
   public void testIntegrationWithBoringCards_addAdditionalCoins() {
-    GameContext context = new GameContext();
+    Player player = new Player("Test Player");
+    TurnController turnController = new TurnController(player, null, null, null);
+    GameContext context = new GameContext(turnController);
     Card woodCutter = Card.makeCard(Card.CARD_NAME_WOODCUTTER);
     woodCutter.performAction(context);
     assertEquals(2, context.getTreasureCount());
