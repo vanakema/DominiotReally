@@ -27,6 +27,10 @@ public class TurnController {
     return this.player;
   }
   
+  public Player getOpponent() {
+    return this.opponent;
+  }
+  
   public GameContext getCurrentContext() {
     return this.currentContext;
   }
