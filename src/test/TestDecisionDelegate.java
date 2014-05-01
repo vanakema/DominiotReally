@@ -24,4 +24,11 @@ public class TestDecisionDelegate implements DecisionDelegate {
     return false;
   }
 
+  @Override
+  public int decideCardInDeck(GameContext context, PlayerDeck deck, String question,
+      int numberOfCards) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
 }

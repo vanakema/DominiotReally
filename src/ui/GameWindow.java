@@ -124,7 +124,9 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
 
   @Override
   public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
-    List<String> cards = context.getPlayer().getPlayerDeck().getCardDescriptions(PlayerDeckType.HAND, Integer.MAX_VALUE);
+    List<String> cards =
+        context.getPlayer().getPlayerDeck()
+            .getCardDescriptions(PlayerDeckType.HAND, Integer.MAX_VALUE);
     if (canIgnore)
       cards.add("Cancel");
 
@@ -138,8 +140,18 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
   @Override
   public boolean decideCardInDeck(GameContext context, PlayerDeck deck, String question) {
     List<String> cardDescriptions = deck.getCardDescriptions(PlayerDeckType.DRAW, 1);
-    
+
     return (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(panel, question,
         cardDescriptions.get(0), JOptionPane.YES_NO_OPTION));
+  }
+
+  @Override
+  public int decideCardInDeck(GameContext context, PlayerDeck deck, String question,
+      int numberOfCards) {
+    List<String> cardDescriptions = deck.getCardDescriptions(PlayerDeckType.DRAW, numberOfCards);
+
+    return JOptionPane.showOptionDialog(panel, question, "Select a Card from Hand",
+        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, cardDescriptions.toArray(),
+        0);
   }
 }

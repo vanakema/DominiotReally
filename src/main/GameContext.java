@@ -15,6 +15,8 @@ public class GameContext {
     public int decideCardInHand(GameContext context, String question, boolean canIgnore);
 
     public boolean decideCardInDeck(GameContext context, PlayerDeck deck, String question);
+    
+    public int decideCardInDeck(GameContext context, PlayerDeck deck, String question, int numberOfCards);
   }
 
   private int treasureCount;
@@ -95,15 +97,13 @@ public class GameContext {
   }
 
   public boolean decideBoolean(String question) {
-    if (decisionDelegate == null)
-      throw new RuntimeException("Attempting to make a decision without a decision delegate");
+    assertValidDecisionDelegate();
 
     return decisionDelegate.decideBoolean(this, question);
   }
 
   public int decideCardInHand(String question, boolean canIgnore) {
-    if (decisionDelegate == null)
-      throw new RuntimeException("Attempting to make a decision without a decision delegate");
+    assertValidDecisionDelegate();
 
     return decisionDelegate.decideCardInHand(this, question, canIgnore);
   }
@@ -114,17 +114,28 @@ public class GameContext {
   }
 
   public boolean decideCardInOpponentDeck(String question) {
-    if (decisionDelegate == null)
-      throw new RuntimeException("Attempting to make a decision without a decision delegate");
-
+    assertValidDecisionDelegate();
     return this.decisionDelegate.decideCardInDeck(this, turnController.getOpponent().getPlayerDeck(), question);
   }
 
   public boolean decideCardInOwnDeck(String question) {
+    assertValidDecisionDelegate();
+    return this.decisionDelegate.decideCardInDeck(this, turnController.getPlayer().getPlayerDeck(), question);
+  }
+
+  private void assertValidDecisionDelegate() {
     if (decisionDelegate == null)
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
-
-    return this.decisionDelegate.decideCardInDeck(this, turnController.getPlayer().getPlayerDeck(), question);
+  }
+  
+  public int decideCardInOpponentDeck(String question, int numberOfCards) {
+    assertValidDecisionDelegate();
+    return this.decisionDelegate.decideCardInDeck(this, turnController.getOpponent().getPlayerDeck(), question, numberOfCards);
+  }
+  
+  public int decideCardInOwnDeck(String question, int numberOfCards) {
+    assertValidDecisionDelegate();
+    return this.decisionDelegate.decideCardInDeck(this, turnController.getPlayer().getPlayerDeck(), question, numberOfCards);
   }
 
   public void invalidateLumpSumTreasure() {
