@@ -1,10 +1,8 @@
 package test;
 
-import static org.junit.Assert.*;
-import main.cards.Card;
+import static org.junit.Assert.assertEquals;
 import main.cards.TreasureCard;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**

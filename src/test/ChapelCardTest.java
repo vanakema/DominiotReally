@@ -1,17 +1,13 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
 import main.GameContext;
 import main.Player;
-import main.PlayerDeck;
 import main.SupplyDeck;
 import main.TurnController;
-import main.GameContext.DecisionDelegate;
 import main.cards.Card;
 import main.cards.ChapelCard;
 
@@ -60,7 +56,7 @@ public class ChapelCardTest extends TestCase {
 
   @Test
   public void testPerformAction() {
-    context.setDecisionDelegate(new DecisionDelegate() {
+    context.setDecisionDelegate(new TestDecisionDelegate() {
       int count =0;
       @Override
       public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
@@ -72,11 +68,6 @@ public class ChapelCardTest extends TestCase {
           count++;
           return 0;
         }
-      }
-      
-      @Override
-      public boolean decideBoolean(GameContext context, String question) {
-        return false;
       }
     });
     context.getPlayer().getPlayerDeck().drawNumAndDiscardOldHand(5);

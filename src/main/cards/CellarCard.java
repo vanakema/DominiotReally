@@ -2,7 +2,6 @@ package main.cards;
 
 import main.GameContext;
 import main.PlayerDeck;
-import main.GameContext.DecisionDelegate;
 
 public class CellarCard extends ActionCard {
 

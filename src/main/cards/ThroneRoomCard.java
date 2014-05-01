@@ -1,7 +1,6 @@
 package main.cards;
 
 import main.GameContext;
-import main.GameContext.DecisionDelegate;
 
 public class ThroneRoomCard extends ActionCard {
 

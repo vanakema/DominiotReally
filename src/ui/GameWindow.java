@@ -8,7 +8,9 @@ import javax.swing.JOptionPane;
 
 import main.GameContext;
 import main.GameController;
+import main.PlayerDeck;
 import main.SupplyDeck;
+import main.PlayerDeck.PlayerDeckType;
 import main.SupplyDeck.CardTuple;
 import main.cards.Card;
 
@@ -122,10 +124,7 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
 
   @Override
   public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
-    List<String> cards = new ArrayList<String>();
-    for (Card card : game.getCurrentTurn().getPlayer().getPlayerDeck().getHand())
-      cards.add(String.format("%s $%d", card.getName(), card.getCost()));
-
+    List<String> cards = context.getPlayer().getPlayerDeck().getCardDescriptions(PlayerDeckType.HAND, Integer.MAX_VALUE);
     if (canIgnore)
       cards.add("Cancel");
 
@@ -134,5 +133,13 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
             JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, cards.toArray(), 0);
     return (canIgnore && result == cards.size() - 1) ? GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED
         : result;
+  }
+
+  @Override
+  public boolean decideCardInDeck(GameContext context, PlayerDeck deck, String question) {
+    List<String> cardDescriptions = deck.getCardDescriptions(PlayerDeckType.DRAW, 1);
+    
+    return (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(panel, question,
+        cardDescriptions.get(0), JOptionPane.YES_NO_OPTION));
   }
 }

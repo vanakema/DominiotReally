@@ -1,16 +1,16 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Arrays;
 import java.util.List;
 
 import main.GameContext;
 import main.Player;
+import main.PlayerDeck.PlayerDeckType;
 import main.SupplyDeck;
 import main.TurnController;
-import main.GameContext.DecisionDelegate;
-import main.PlayerDeck.PlayerDeckType;
 import main.cards.Card;
 
 import org.junit.Before;
@@ -37,7 +37,7 @@ public class MineCardTest {
 
   @Test
   public void testMineCopper() {
-    context.setDecisionDelegate(new DecisionDelegate() {
+    context.setDecisionDelegate(new TestDecisionDelegate() {
       boolean remaining = false;
       @Override
       public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
@@ -48,11 +48,6 @@ public class MineCardTest {
           remaining = true;
           return 0;
         }
-      }
-      
-      @Override
-      public boolean decideBoolean(GameContext context, String question) {
-        return false;
       }
     });
     context.getPlayer().getPlayerDeck().addCard(Card.makeCard(Card.CARD_NAME_COPPER), PlayerDeckType.HAND);

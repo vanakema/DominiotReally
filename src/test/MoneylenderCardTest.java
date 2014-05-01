@@ -3,16 +3,15 @@ package test;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-
+import junit.framework.TestCase;
 import main.GameContext;
 import main.Player;
 import main.SupplyDeck;
 import main.TurnController;
-import main.GameContext.DecisionDelegate;
 import main.cards.Card;
 import main.cards.MoneylenderCard;
-import junit.framework.TestCase;
+
+import org.junit.Test;
 
 public class MoneylenderCardTest extends TestCase{
   
@@ -54,7 +53,7 @@ public class MoneylenderCardTest extends TestCase{
   
   @Test
   public void testPerformAction(){
-    context.setDecisionDelegate(new DecisionDelegate() {
+    context.setDecisionDelegate(new TestDecisionDelegate() {
       int count =0;
       @Override
       public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
@@ -66,11 +65,6 @@ public class MoneylenderCardTest extends TestCase{
           count++;
           return 0;
         }
-      }
-      
-      @Override
-      public boolean decideBoolean(GameContext context, String question) {
-        return false;
       }
     });
     context.getPlayer().getPlayerDeck().drawNumAndDiscardOldHand(10);

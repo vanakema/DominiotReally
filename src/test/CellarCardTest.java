@@ -1,19 +1,14 @@
 package test;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
 import java.util.Arrays;
 import java.util.List;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 import main.GameContext;
-import main.GameContext.DecisionDelegate;
-import main.cards.Card;
 import main.Player;
 import main.SupplyDeck;
 import main.TurnController;
+import main.cards.Card;
 
 import org.junit.Test;
 
@@ -38,7 +33,7 @@ public class CellarCardTest extends TestCase {
   
   @Test
   public void testFirstCardTrash() {
-    context.setDecisionDelegate(new DecisionDelegate() {
+    context.setDecisionDelegate(new TestDecisionDelegate() {
       boolean remaining = false;
       @Override
       public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
@@ -49,11 +44,6 @@ public class CellarCardTest extends TestCase {
           remaining = true;
           return 0;
         }
-      }
-      
-      @Override
-      public boolean decideBoolean(GameContext context, String question) {
-        return false;
       }
     });
     context.getPlayer().getPlayerDeck().drawNumAndDiscardOldHand(5);
