@@ -24,7 +24,7 @@ public class SpyCard extends ActionCard {
     boolean trashTheirsOrNah = context.decideCardInOpponentDeck("Do you wish to trash this card?");
     
     if(trashTheirsOrNah){
-     // context.getP
+      context.getTurnController().getOpponent().getPlayerDeck().trashCardInDeckAtIndex(0);
     }
     
   }

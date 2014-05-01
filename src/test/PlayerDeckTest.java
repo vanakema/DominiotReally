@@ -215,5 +215,32 @@ public class PlayerDeckTest {
     deck.addCard(anyCard(), PlayerDeckType.DISCARD);
     assertEquals(currentDiscardSize + 1, deck.getDiscardDeck().size());
   }
+  
+  @Test
+  public void testDiscardCardInDeckAtIndex(){
+    PlayerDeck deck = new PlayerDeck();
+    
+    assertEquals(10,deck.getSize());
+    
+    for(int i=0;i<10;i++){
+      deck.trashCardInDeckAtIndex(0);
+    }
+    
+    assertEquals(0,deck.getSize());
+    
+    boolean containsCellarStill = false;
+    
+    deck.addCard(Card.makeCard(Card.CARD_NAME_CELLAR), PlayerDeckType.DRAW);
+    
+    assertEquals(1,deck.getSize());
+    
+    for(int j=0; j<deck.getSize();j++){
+      if(deck.getDrawDeck().get(j).getName() == Card.CARD_NAME_CELLAR){
+        containsCellarStill = true;
+      }
+    }
+    assertEquals(true, containsCellarStill);
+    
+  }
 
 }
