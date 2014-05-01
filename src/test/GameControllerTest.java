@@ -122,4 +122,12 @@ public class GameControllerTest {
     assertEquals(gameController.getPlayer(1), gameController.getWinningPlayer());
   }
   
+  @Test
+  public void testThatEndingGameNullsOutCurrentTurn() {
+    testEndsGameWhenAVictoryCardPileIsDepleted();
+    
+    gameController.endCurrentTurn();
+    assertEquals(null, gameController.getCurrentTurn());
+  }
+  
 }

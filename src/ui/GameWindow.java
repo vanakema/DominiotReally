@@ -47,6 +47,13 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
   }
 
   private void updateUI() {
+    if (game.getCurrentTurn() == null) {
+      applicationFrame.setTitle(APPLICATION_NAME + ": GAME OVER: "
+          + game.getWinningPlayer().getName() + " WINS!");
+      applicationFrame.setEnabled(false);
+      return;
+    }
+
     applicationFrame
         .setTitle(APPLICATION_NAME + ": " + game.getCurrentTurn().getPlayer().getName());
 

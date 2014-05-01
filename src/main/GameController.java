@@ -40,6 +40,11 @@ public class GameController {
   }
 
   public void endCurrentTurn() {
+    if (!isActiveGame()) {
+      currentTurn = null;
+      return;
+    }
+    
     int currentPlayerIndex = players.indexOf(currentTurn.getPlayer());
     int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
     int opponentPlayerIndex = (currentPlayerIndex + 2) % players.size();
