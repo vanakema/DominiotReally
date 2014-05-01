@@ -182,6 +182,11 @@ public class PlayerDeck {
       this.discardDeck.add(this.deck.remove(0));
     }
   }
+  
+  public void discardHand() {
+    this.discardDeck.addAll(this.hand);
+    this.hand.clear();
+  }
 
   public void addCard(Card cardToInsert, PlayerDeckType type) {
     switch (type) {
