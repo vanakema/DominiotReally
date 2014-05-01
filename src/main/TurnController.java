@@ -131,4 +131,9 @@ public class TurnController {
     return tryForceInsertResourceCardIntoHand(this.opponent, PlayerDeckType.DISCARD, curseCardIndex);
   }
 
+  public void opponentDrawNumCards(int num) {
+    opponent.getPlayerDeck().drawNum(num);
+    
+  }
+
 }

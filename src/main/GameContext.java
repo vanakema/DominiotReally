@@ -129,4 +129,8 @@ public class GameContext {
     return this.turnController.curseOpponent();
   }
   
+  public void opponentDrawNumCards(int num) {
+    this.turnController.opponentDrawNumCards(num);
+  }
+  
 }
