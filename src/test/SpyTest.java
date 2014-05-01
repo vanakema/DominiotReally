@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import main.GameContext;
 import main.Player;
+import main.PlayerDeck;
 import main.SupplyDeck;
 import main.TurnController;
 import main.cards.Card;
@@ -56,6 +57,18 @@ public class SpyTest extends TestCase {
   
   @Test
   public void testPerformAction(){
+    context.setDecisionDelegate(new TestDecisionDelegate() {
+      @Override
+      public boolean decideCardInDeck(GameContext context, PlayerDeck deck, String question) {
+          return true;
+      }
+    });
+    assertEquals(10, this.player.getPlayerDeck().getSize());
+    
+    Card spy = Card.makeCard(Card.CARD_NAME_SPY);
+    spy.performAction(context);
+    
+    assertEquals(9,this.player.getPlayerDeck().getSize());
     
   }
 
