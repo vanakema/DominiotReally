@@ -20,7 +20,7 @@ public class MoneylenderCardTest extends TestCase{
   TurnController controller;
   SupplyDeck supplyDeck;
   GameContext context;
-  MoneylenderCard card = new MoneylenderCard();
+  MoneylenderCard card = (MoneylenderCard) Card.makeCard(Card.CARD_NAME_MONEYLENDER);
 
   @Override
   protected void setUp() {
