@@ -13,8 +13,11 @@ public class TestDecisionDelegate implements DecisionDelegate {
   }
 
   @Override
+  public int decideCardInHand(GameContext context, PlayerDeck deck, String question, boolean canIgnore) {
+    return decideCardInHand(context, question, canIgnore);
+  }
+  
   public int decideCardInHand(GameContext context, String question, boolean canIgnore) {
-    // TODO Auto-generated method stub
     return 0;
   }
 

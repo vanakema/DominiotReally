@@ -12,7 +12,7 @@ public class GameContext {
 
     public boolean decideBoolean(GameContext context, String question);
 
-    public int decideCardInHand(GameContext context, String question, boolean canIgnore);
+    public int decideCardInHand(GameContext context, PlayerDeck deck, String question, boolean canIgnore);
 
     public boolean decideCardInDeck(GameContext context, PlayerDeck deck, String question);
     
@@ -104,8 +104,12 @@ public class GameContext {
 
   public int decideCardInHand(String question, boolean canIgnore) {
     assertValidDecisionDelegate();
-
-    return decisionDelegate.decideCardInHand(this, question, canIgnore);
+    return decisionDelegate.decideCardInHand(this, turnController.getPlayer().getPlayerDeck(), question, canIgnore);
+  }
+  
+  public int decideCardInOpponentHand(String question, boolean canIgnore) {
+    assertValidDecisionDelegate();
+    return decisionDelegate.decideCardInHand(this, turnController.getOpponent().getPlayerDeck(), question, canIgnore);
   }
 
   public void setLumpSumTreasureCount(int count) {
