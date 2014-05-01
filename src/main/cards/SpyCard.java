@@ -21,11 +21,11 @@ public class SpyCard extends ActionCard {
       context.getPlayer().getPlayerDeck().trashCardInDeckAtIndex(0);
     }
     
-//    boolean trashTheirsOrNah = context.decideCardInOpponentDeck("Do you wish to trash this card?");
-//    
-//    if(trashTheirsOrNah){
-//      context.getTurnController().getOpponent().getPlayerDeck().trashCardInDeckAtIndex(0);
-//    }
+    boolean trashTheirsOrNah = context.decideCardInOpponentDeck("Do you wish to trash this card?");
+    
+    if(trashTheirsOrNah){
+      context.getTurnController().getOpponent().getPlayerDeck().trashCardInDeckAtIndex(0);
+    }
     
   }
 

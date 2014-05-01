@@ -14,9 +14,10 @@ import main.cards.Card;
 import main.cards.SpyCard;
 import junit.framework.TestCase;
 
-public class SpyTest extends TestCase {
+public class SpyCardTest extends TestCase {
 
   Player player;
+  Player secondPlayer;
   List<Card> hand;
   TurnController controller;
   SupplyDeck supplyDeck;
@@ -26,6 +27,7 @@ public class SpyTest extends TestCase {
   @Override
   protected void setUp() {
     player = new Player("Test Player");
+    secondPlayer = new Player("Test Player2");
 
     List<Card> cards =
         Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_FESTIVAL),
@@ -34,7 +36,7 @@ public class SpyTest extends TestCase {
             Card.makeCard(Card.CARD_NAME_WOODCUTTER)});
 
     supplyDeck = new SupplyDeck(cards);
-    controller = new TurnController(player, null, supplyDeck, null);
+    controller = new TurnController(player, secondPlayer, supplyDeck, null);
     context = new GameContext(controller);
   }
 
@@ -54,22 +56,27 @@ public class SpyTest extends TestCase {
         "+1 Card; +1 Action  Each player (including you) reveals the top card of his deck and either discards it or puts it back, your choice.",
         card.getDescription());
   }
-  
+
   @Test
-  public void testPerformAction(){
+  public void testPerformAction() {
     context.setDecisionDelegate(new TestDecisionDelegate() {
       @Override
       public boolean decideCardInDeck(GameContext context, PlayerDeck deck, String question) {
-          return true;
+        return true;
       }
     });
     assertEquals(10, this.player.getPlayerDeck().getSize());
+    assertEquals(10, this.secondPlayer.getPlayerDeck().getSize());
     
+
     Card spy = Card.makeCard(Card.CARD_NAME_SPY);
     spy.performAction(context);
+
+    // should be 8 because thief draws one card to hand as well as remove top card
+    assertEquals(8, this.player.getPlayerDeck().getSize());
     
-    assertEquals(9,this.player.getPlayerDeck().getSize());
-    
+    assertEquals(9,this.secondPlayer.getPlayerDeck().getSize());
+
   }
 
 
