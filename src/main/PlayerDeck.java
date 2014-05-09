@@ -23,7 +23,7 @@ public class PlayerDeck {
 
     Collections.shuffle(deck);
   }
-  
+
   public PlayerDeck(List<Card> listDeck) {
     deck.addAll(listDeck);
   }
@@ -179,15 +179,15 @@ public class PlayerDeck {
   public void trashCardInHandAtIndex(int index) {
     this.hand.remove(index);
   }
-  
-  public void trashCardInDeckAtIndex(int index){
+
+  public void trashCardInDeckAtIndex(int index) {
     this.deck.remove(index);
   }
 
   public void discardCardInHandAtIndex(int index) {
     this.discardDeck.add(this.hand.remove(index));
   }
-  
+
   public void discardCardInDeckAtIndex(int index) {
     this.discardDeck.add(this.deck.remove(index));
   }
@@ -246,6 +246,70 @@ public class PlayerDeck {
     }
 
     return descriptions;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("DRAW: " + toString(this.deck));
+    sb.append("HAND: " + toString(this.hand));
+    sb.append("DISC: " + toString(this.discardDeck));
+    
+    return sb.toString();
+  }
+  
+  public String toString(PlayerDeckType type) {
+    switch (type) {
+      case DRAW: return toString(deck);
+      case HAND: return toString(hand);
+      case DISCARD: return toString(discardDeck);
+      default: return "";
+    }
+  }
+  
+  private String toString(List<Card> deck) {
+    StringBuilder sb = new StringBuilder();
+    for (Card c : deck)
+      sb.append(c.getName() + " ");
+    sb.append("\n");
+    
+    return sb.toString();
+  }
+  
+  // This requires tricky manipulation of inner-state that is best kept with
+  // the class definition.
+  public int adventurerCard_performActionHelper() {
+    System.out.println(this.toString());
+    
+    List<Card> discardScratchPile = new ArrayList<Card>();
+    List<Card> foundTreasureCards = new ArrayList<Card>();
+    adventurerCard_extractTreasureCardsFromDrawDeckIntoList(discardScratchPile, foundTreasureCards);
+
+    if (foundTreasureCards.size() < 2) {
+      shuffleDeck();
+      adventurerCard_extractTreasureCardsFromDrawDeckIntoList(discardScratchPile,
+          foundTreasureCards);
+    }
+
+    discardDeck.addAll(discardScratchPile);
+
+    for (Card c : foundTreasureCards)
+      deck.add(0, c);
+
+    System.out.println(this.toString());
+    return foundTreasureCards.size();
+  }
+
+  private void adventurerCard_extractTreasureCardsFromDrawDeckIntoList(
+      List<Card> discardScratchPile, List<Card> foundTreasureCards) {
+    while (deck.size() > 0 && foundTreasureCards.size() < 2) {
+      Card card = deck.remove(0);
+      if (card.getType() == Card.CARD_TYPE_TREASURECARD) {
+        foundTreasureCards.add(card);
+      } else {
+        discardScratchPile.add(card);
+      }
+    }
   }
 
 }
