@@ -66,10 +66,36 @@ public class TurnController {
   }
 
   public boolean tryForceInsertResourceCardIntoHand(int index) {
-    return tryForceInsertResourceCardIntoHand(this.player, PlayerDeckType.HAND, index);
+    return tryForceInsertResourceCardIntoPlayerDeck(this.player, PlayerDeckType.HAND, index);
   }
   
-  private boolean tryForceInsertResourceCardIntoHand(Player destinationPlayer, PlayerDeckType deckType, int index) {
+  public boolean tryForceInsertResourceCardIntoTopOfPlayerDrawDeck(int index) {
+    Card cardToInsert = supplyDeck.buyResourceCardAtIndex(index);
+    if (cardToInsert != null) {
+      this.player.getPlayerDeck().addCardToDrawDeckAtIndex(cardToInsert, 0);
+      return true;
+    }
+    return false;
+  }
+  
+  
+  public boolean tryToTakeAVictoryCardFromOpponentAndPutItOnTopOfHisDrawDeck() {
+    int handSize = this.opponent.getPlayerDeck().hand.size();
+    int iter = 0;
+    while (iter < handSize) {
+      Card currentCard = this.opponent.getPlayerDeck().hand.get(iter);
+      if (currentCard.getType() == Card.CARD_TYPE_VICTORYCARD) {
+        this.opponent.getPlayerDeck().deck.add(0, currentCard);
+        this.opponent.getPlayerDeck().hand.remove(iter);
+        return true;
+      }
+      iter++;
+    }
+    
+    return false;
+  }
+  
+  private boolean tryForceInsertResourceCardIntoPlayerDeck(Player destinationPlayer, PlayerDeckType deckType, int index) {
     Card cardToBuy = supplyDeck.buyResourceCardAtIndex(index);
     if (cardToBuy == null) {
       return false;
@@ -132,7 +158,7 @@ public class TurnController {
     if (curseCardIndex < 0)
       return false;
       
-    return tryForceInsertResourceCardIntoHand(this.opponent, PlayerDeckType.DISCARD, curseCardIndex);
+    return tryForceInsertResourceCardIntoPlayerDeck(this.opponent, PlayerDeckType.DISCARD, curseCardIndex);
   }
 
   public void opponentDrawNumCards(int num) {

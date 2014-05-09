@@ -104,6 +104,10 @@ public class PlayerDeck {
   public void addCard(Card card) {
     addCard(card, PlayerDeckType.DISCARD);
   }
+  
+  public void addCardToDrawDeckAtIndex(Card card, int index) {
+    this.deck.add(index, card);
+  }
 
   public List<Card> drawNumAndDiscardOldHand(int numToDraw) throws IndexOutOfBoundsException {
     int handSize = hand.size();// to avoid prevent the loop from
