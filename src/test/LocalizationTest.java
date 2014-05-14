@@ -28,13 +28,13 @@ public class LocalizationTest {
     Locale currentLocale = new  Locale("sp", "SP");
     ResourceBundle messages = ResourceBundle.getBundle("MessageBundle", currentLocale);;
     
- assertEquals(messages.getString("Bienes"), "Victoria: +1 Punto de Victoria");
+ assertEquals(messages.getString("Estate"), "Victoria: +1 Punto de Victoria");
     
-    assertEquals(messages.getString("leñador"), "Acción: +1 Compra, +2 Monedas");
+    assertEquals(messages.getString("Woodcutter"), "Acción: +1 Compra, +2 Monedas");
     
-    assertEquals(messages.getString("Bruja"), "Acción: +2 Tarjetas. Cada otro jugador gana una tarjeta de maldición.");
+    assertEquals(messages.getString("Witch"), "Acción: +2 Tarjetas. Cada otro jugador gana una tarjeta de maldición.");
     
-    assertEquals(messages.getString("Burócrata"), "Acción: Obtenga una tarjeta de plata; lo puso en la parte superior de tu mazo. Cada otro jugador muestra una carta de la victoria de su mano y la coloca en su mazo (o revela una mano sin cartas de Victoria).");
+    assertEquals(messages.getString("Bureaucrat"), "Acción: Obtenga una tarjeta de plata; lo puso en la parte superior de tu mazo. Cada otro jugador muestra una carta de la victoria de su mano y la coloca en su mazo (o revela una mano sin cartas de Victoria).");
     
     
   }
