@@ -1,8 +1,10 @@
 package main.cards;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
 
 import main.GameContext;
 
@@ -12,6 +14,7 @@ public abstract class Card implements Cloneable {
   private String description;
   private int cost;
   private String type;
+  private static final ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", new Locale("sp", "SP"));
 
   protected Card(String name, String description, int cost, String type) {
     this.name = name;
@@ -25,7 +28,7 @@ public abstract class Card implements Cloneable {
   }
 
   public String getDescription() {
-    return this.description;
+    return bundle.getString(this.name);
   }
 
   public int getCost() {
