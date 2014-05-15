@@ -95,16 +95,24 @@ public class PlayerDeck {
   public List<Card> getDiscardDeck() {
     return Collections.unmodifiableList(this.discardDeck);
   }
+  
+  public List<Card> getDiscardDeckForTestingOnly(){
+    return this.discardDeck;
+  }
 
   public List<Card> getDrawDeck() {
     return Collections.unmodifiableList(this.deck);
+  }
+  
+  public List<Card> getDrawDeckForTestingOnly(){
+    return this.deck;
   }
 
   // Can be revised later to add in random order
   public void addCard(Card card) {
     addCard(card, PlayerDeckType.DISCARD);
   }
-  
+
   public void addCardToDrawDeckAtIndex(Card card, int index) {
     this.deck.add(index, card);
   }
@@ -117,7 +125,7 @@ public class PlayerDeck {
         this.discardDeck.add(hand.remove(0));
       }
     }
-    
+
     // makes sure there are enough cards to draw
     if (this.deck.size() - numToDraw >= 0) {
       for (int i = 0; i < numToDraw; i++) {
@@ -254,33 +262,37 @@ public class PlayerDeck {
     sb.append("DRAW: " + toString(this.deck));
     sb.append("HAND: " + toString(this.hand));
     sb.append("DISC: " + toString(this.discardDeck));
-    
+
     return sb.toString();
   }
-  
+
   public String toString(PlayerDeckType type) {
     switch (type) {
-      case DRAW: return toString(deck);
-      case HAND: return toString(hand);
-      case DISCARD: return toString(discardDeck);
-      default: return "";
+      case DRAW:
+        return toString(deck);
+      case HAND:
+        return toString(hand);
+      case DISCARD:
+        return toString(discardDeck);
+      default:
+        return "";
     }
   }
-  
+
   private String toString(List<Card> deck) {
     StringBuilder sb = new StringBuilder();
     for (Card c : deck)
       sb.append(c.getName() + " ");
     sb.append("\n");
-    
+
     return sb.toString();
   }
-  
+
   // This requires tricky manipulation of inner-state that is best kept with
   // the class definition.
   public int adventurerCard_performActionHelper() {
     System.out.println(this.toString());
-    
+
     List<Card> discardScratchPile = new ArrayList<Card>();
     List<Card> foundTreasureCards = new ArrayList<Card>();
     adventurerCard_extractTreasureCardsFromDrawDeckIntoList(discardScratchPile, foundTreasureCards);

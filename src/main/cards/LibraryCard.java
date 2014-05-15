@@ -26,10 +26,12 @@ public class LibraryCard extends ActionCard {
         if(context.decideBoolean("Would you like to add "+ currentCard.getName() + " to your hand?")){
          deck.drawNum(1); 
         }else{
-          deck.getDiscardDeck().add(deck.getDrawDeck().remove(0));
+          deck.discardCardInDeckAtIndex(0);
         }
-        deck.drawNum(1);
+      }else{
+        deck.drawNum(1); 
       }
+      
     }    
   }
 }
