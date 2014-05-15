@@ -3,6 +3,7 @@ package main.cards;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
@@ -28,7 +29,12 @@ public abstract class Card implements Cloneable {
   }
 
   public String getDescription() {
-    return bundle.getString(this.name);
+    try {
+      return bundle.getString(this.name);
+    } catch (MissingResourceException ex) {
+      System.err.println("Could not find localized string for key \"" + this.name + "\"");
+      return "<Unlocalized_Description(" + this.name + ")>";
+    }
   }
 
   public int getCost() {
@@ -113,7 +119,6 @@ public abstract class Card implements Cloneable {
     cards.put(CARD_NAME_MILITIA, new MilitiaCard());
     cards.put(CARD_NAME_BUREAUCRAT, new BureaucratCard());
     cards.put(CARD_NAME_ADVENTURER, new AdventurerCard());
-    cards.put(CARD_NAME_MOAT, new MoatCard());
     cards.put(CARD_NAME_LIBRARY, new LibraryCard());
 
     cards.put(CARD_NAME_ESTATE, VictoryCard.makeEstate());

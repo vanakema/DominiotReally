@@ -40,14 +40,6 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
     updateUI();
   }
 
-  private List<String> namesForCardTuples(List<CardTuple> tuples) {
-    List<String> names = new ArrayList<String>();
-    for (CardTuple tuple : tuples)
-      names.add(tuple.userDescription());
-
-    return names;
-  }
-
   private void updateUI() {
     if (game.getCurrentTurn() == null) {
       applicationFrame.setTitle(APPLICATION_NAME + ": GAME OVER: "
@@ -60,14 +52,9 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
         .setTitle(APPLICATION_NAME + ": " + game.getCurrentTurn().getPlayer().getName());
 
     SupplyDeck supplyDeck = game.getSupplyDeck();
-    panel.setActionCardsInSupply(namesForCardTuples(supplyDeck.getActionCardRoster()));
-    panel.setResourceCardsInSupply(namesForCardTuples(supplyDeck.getResourceCardRoster()));
-
-    List<String> handCardRoster = new ArrayList<String>();
-    List<Card> handCards = game.getCurrentTurn().getPlayer().getPlayerDeck().getHand();
-    for (Card card : handCards)
-      handCardRoster.add(card.getName());
-    panel.setCardsInHand(handCardRoster);
+    panel.setActionCardsInSupply(supplyDeck.getActionCardRoster());
+    panel.setResourceCardsInSupply(supplyDeck.getResourceCardRoster());
+    panel.setCardsInHand(game.getCurrentTurn().getPlayer().getPlayerDeck().getHand());
 
     GameContext context = game.getCurrentTurn().getCurrentContext();
     panel.setNumberOfActions(context.getActionCount());

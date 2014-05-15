@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import main.SupplyDeck.CardTuple;
+import main.cards.Card;
+
 public class GamePanel extends JPanel {
 
   public static interface Delegate {
@@ -94,23 +97,34 @@ public class GamePanel extends JPanel {
     actionsTextArea.append("\n" + line);
   }
 
-  void setActionCardsInSupply(List<String> cardNames) {
+  void setActionCardsInSupply(List<CardTuple> cardNames) {
     setSupplyCardsInPanel(cardNames, actionSupplyListener, actionSupplyPanel);
   }
 
-  void setResourceCardsInSupply(List<String> cardNames) {
+  void setResourceCardsInSupply(List<CardTuple> cardNames) {
     setSupplyCardsInPanel(cardNames, resourceSupplyListener, resourceSupplyPanel);
   }
 
-  void setCardsInHand(List<String> cardNames) {
-    setSupplyCardsInPanel(cardNames, handListener, handPanel);
+  void setCardsInHand(List<Card> cards) {
+    handPanel.removeAll();
+    
+    for (Card card : cards) {
+      JButton button = new JButton(card.getName());
+      button.setToolTipText(card.getDescription());
+      button.addActionListener(handListener);
+      
+      handPanel.add(button);
+    }
+    
+    handPanel.updateUI();
   }
 
-  private void setSupplyCardsInPanel(List<String> cardNames, ActionListener listener, JPanel panel) {
+  private void setSupplyCardsInPanel(List<CardTuple> cards, ActionListener listener, JPanel panel) {
     panel.removeAll();
 
-    for (String name : cardNames) {
-      JButton button = new JButton(name);
+    for (CardTuple tuple : cards) {
+      JButton button = new JButton(tuple.userDescription());
+      button.setToolTipText(tuple.getCard().getDescription());
       button.addActionListener(listener);
 
       panel.add(button);
