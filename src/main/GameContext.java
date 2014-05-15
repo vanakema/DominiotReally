@@ -1,5 +1,7 @@
 package main;
 
+import main.cards.Card;
+
 /**
  * The game context holds the current state of the game. It undergoes a lifecycle enforced by the
  * TurnController whereby the current context is cloned, mutated, validated, and if valid becomes
@@ -12,11 +14,13 @@ public class GameContext {
 
     public boolean decideBoolean(GameContext context, String question);
 
-    public int decideCardInHand(GameContext context, PlayerDeck deck, String question, boolean canIgnore);
+    public int decideCardInHand(GameContext context, PlayerDeck deck, String question,
+        boolean canIgnore);
 
     public boolean decideCardInDeck(GameContext context, PlayerDeck deck, String question);
-    
-    public int decideCardInDeck(GameContext context, PlayerDeck deck, String question, int numberOfCards);
+
+    public int decideCardInDeck(GameContext context, PlayerDeck deck, String question,
+        int numberOfCards);
   }
 
   private int treasureCount;
@@ -104,12 +108,14 @@ public class GameContext {
 
   public int decideCardInHand(String question, boolean canIgnore) {
     assertValidDecisionDelegate();
-    return decisionDelegate.decideCardInHand(this, turnController.getPlayer().getPlayerDeck(), question, canIgnore);
+    return decisionDelegate.decideCardInHand(this, turnController.getPlayer().getPlayerDeck(),
+        question, canIgnore);
   }
-  
+
   public int decideCardInOpponentHand(String question, boolean canIgnore) {
     assertValidDecisionDelegate();
-    return decisionDelegate.decideCardInHand(this, turnController.getOpponent().getPlayerDeck(), question, canIgnore);
+    return decisionDelegate.decideCardInHand(this, turnController.getOpponent().getPlayerDeck(),
+        question, canIgnore);
   }
 
   public void setLumpSumTreasureCount(int count) {
@@ -119,27 +125,31 @@ public class GameContext {
 
   public boolean decideCardInOpponentDeck(String question) {
     assertValidDecisionDelegate();
-    return this.decisionDelegate.decideCardInDeck(this, turnController.getOpponent().getPlayerDeck(), question);
+    return this.decisionDelegate.decideCardInDeck(this, turnController.getOpponent()
+        .getPlayerDeck(), question);
   }
 
   public boolean decideCardInOwnDeck(String question) {
     assertValidDecisionDelegate();
-    return this.decisionDelegate.decideCardInDeck(this, turnController.getPlayer().getPlayerDeck(), question);
+    return this.decisionDelegate.decideCardInDeck(this, turnController.getPlayer().getPlayerDeck(),
+        question);
   }
 
   private void assertValidDecisionDelegate() {
     if (decisionDelegate == null)
       throw new RuntimeException("Attempting to make a decision without a decision delegate");
   }
-  
+
   public int decideCardInOpponentDeck(String question, int numberOfCards) {
     assertValidDecisionDelegate();
-    return this.decisionDelegate.decideCardInDeck(this, turnController.getOpponent().getPlayerDeck(), question, numberOfCards);
+    return this.decisionDelegate.decideCardInDeck(this, turnController.getOpponent()
+        .getPlayerDeck(), question, numberOfCards);
   }
-  
+
   public int decideCardInOwnDeck(String question, int numberOfCards) {
     assertValidDecisionDelegate();
-    return this.decisionDelegate.decideCardInDeck(this, turnController.getPlayer().getPlayerDeck(), question, numberOfCards);
+    return this.decisionDelegate.decideCardInDeck(this, turnController.getPlayer().getPlayerDeck(),
+        question, numberOfCards);
   }
 
   public void invalidateLumpSumTreasure() {
@@ -164,6 +174,14 @@ public class GameContext {
 
   public void opponentDrawNumCards(int num) {
     this.turnController.opponentDrawNumCards(num);
+  }
+
+  public boolean shouldPerformMaliciousActions() {
+    if (getTurnController().getOpponent().getPlayerDeck().getHand()
+        .contains(Card.makeCard(Card.CARD_NAME_MOAT))) {
+      return !decideBoolean("Attackee has a moat. Does the attackee want to use moat to nullify attack?");
+    }
+    return true;
   }
 
 }

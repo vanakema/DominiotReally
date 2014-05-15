@@ -13,25 +13,28 @@ public class ThiefCard extends ActionCard {
 
   public void performAction(GameContext context) {
     super.performAction(context);
-    Card card0 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(0);
-    Card card1 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(1);
-    if (card0.getType() == Card.CARD_TYPE_TREASURECARD
-        || card1.getType() == Card.CARD_TYPE_TREASURECARD) {
-      boolean choseATreasureCard = false;
-      while (choseATreasureCard != true) {
-        int indexToTrash = context.decideCardInOpponentDeck("Choose a TREASURE card to trash", 2);
-        Card cardToTrash =
-            context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck()
-                .get(indexToTrash);
-        if (cardToTrash.getType() == Card.CARD_TYPE_TREASURECARD) {
-          boolean keep = context.decideBoolean("Do you want to keep that card?");
-          if (keep) {
-            context.getTurnController().getPlayer().getPlayerDeck().addCard(cardToTrash);
+
+    if (context.shouldPerformMaliciousActions()) {
+      Card card0 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(0);
+      Card card1 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(1);
+      if (card0.getType() == Card.CARD_TYPE_TREASURECARD
+          || card1.getType() == Card.CARD_TYPE_TREASURECARD) {
+        boolean choseATreasureCard = false;
+        while (choseATreasureCard != true) {
+          int indexToTrash = context.decideCardInOpponentDeck("Choose a TREASURE card to trash", 2);
+          Card cardToTrash =
+              context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck()
+                  .get(indexToTrash);
+          if (cardToTrash.getType() == Card.CARD_TYPE_TREASURECARD) {
+            boolean keep = context.decideBoolean("Do you want to keep that card?");
+            if (keep) {
+              context.getTurnController().getPlayer().getPlayerDeck().addCard(cardToTrash);
+            }
+            context.getTurnController().getOpponent().getPlayerDeck()
+                .trashCardInDeckAtIndex(indexToTrash);
+            context.getTurnController().getOpponent().getPlayerDeck().discardCardInDeckAtIndex(0);
+            choseATreasureCard = true;
           }
-          context.getTurnController().getOpponent().getPlayerDeck()
-              .trashCardInDeckAtIndex(indexToTrash);
-          context.getTurnController().getOpponent().getPlayerDeck().discardCardInDeckAtIndex(0);
-          choseATreasureCard = true;
         }
       }
     }

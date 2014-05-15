@@ -15,13 +15,15 @@ public class BureaucratCard extends ActionCard {
   public void performAction(GameContext context) {
     super.performAction(context);
 
-    context.getTurnController().tryForceInsertResourceCardIntoTopOfPlayerDrawDeck(1);
-    boolean hadVictoryCard =
-        context.getTurnController().tryToTakeAVictoryCardFromOpponentAndPutItOnTopOfHisDrawDeck();
+    if (context.shouldPerformMaliciousActions()) {
+      context.getTurnController().tryForceInsertResourceCardIntoTopOfPlayerDrawDeck(1);
+      boolean hadVictoryCard =
+          context.getTurnController().tryToTakeAVictoryCardFromOpponentAndPutItOnTopOfHisDrawDeck();
 
-    if (!hadVictoryCard) {
-      context.decideCardInOpponentHand(
-          "Here is your opponent's hand. You can't do anything with it", true);
+      if (!hadVictoryCard) {
+        context.decideCardInOpponentHand(
+            "Here is your opponent's hand. You can't do anything with it", true);
+      }
     }
   }
 

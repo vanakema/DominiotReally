@@ -12,7 +12,9 @@ public class WitchCard extends ActionCard {
   @Override
   public void performAction(GameContext context) {
     super.performAction(context);
-    context.curseOpponent();
+    if(context.shouldPerformMaliciousActions()) {
+      context.curseOpponent();
+    }
   }
 
 }
