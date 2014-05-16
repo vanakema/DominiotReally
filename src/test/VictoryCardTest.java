@@ -20,9 +20,9 @@ public class VictoryCardTest {
 
   @Test
   public void testDescription() {
-    assertEquals("Victory", e.getDescription());
-    assertEquals("Victory", d.getDescription());
-    assertEquals("Victory", p.getDescription());
+    assertEquals("Victory: +1 Victory Point", e.getDescription());
+    assertEquals("Victory: +3 Victory Point", d.getDescription());
+    assertEquals("Victory: +6 Victory Point", p.getDescription());
   }
 
   @Test

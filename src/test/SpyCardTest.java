@@ -53,7 +53,7 @@ public class SpyCardTest extends TestCase {
   @Test
   public void testDescription() {
     assertEquals(
-        "+1 Card; +1 Action  Each player (including you) reveals the top card of his deck and either discards it or puts it back, your choice.",
+        "Action: +1 Card; +1 Action  Each player (including you) reveals the top card of his deck and either discards it or puts it back, your choice.",
         card.getDescription());
   }
 
@@ -64,18 +64,20 @@ public class SpyCardTest extends TestCase {
       public boolean decideCardInDeck(GameContext context, PlayerDeck deck, String question) {
         return true;
       }
+
     });
-    assertEquals(10, this.player.getPlayerDeck().getSize());
-    assertEquals(10, this.secondPlayer.getPlayerDeck().getSize());
+
+    int oldPlayerDeckSize = this.player.getPlayerDeck().getSize();
+    int oldOpponentDeckSize = this.secondPlayer.getPlayerDeck().getSize();
     
 
     Card spy = Card.makeCard(Card.CARD_NAME_SPY);
     spy.performAction(context);
 
     // should be 8 because thief draws one card to hand as well as remove top card
-    assertEquals(8, this.player.getPlayerDeck().getSize());
+    assertEquals(oldPlayerDeckSize-1, this.player.getPlayerDeck().getSize() + this.player.getPlayerDeck().getHand().size());
     
-    assertEquals(9,this.secondPlayer.getPlayerDeck().getSize());
+    assertEquals(oldOpponentDeckSize - 1,this.secondPlayer.getPlayerDeck().getSize() + this.secondPlayer.getPlayerDeck().getHand().size());
 
   }
 

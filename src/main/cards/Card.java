@@ -14,7 +14,7 @@ public abstract class Card implements Cloneable {
   private String description;
   private int cost;
   private String type;
-  private static final ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", new Locale("sp", "SP"));
+  private static final ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle", new Locale("en", "US"));
 
   protected Card(String name, String description, int cost, String type) {
     this.name = name;

@@ -31,9 +31,9 @@ public class TreasureCardTest {
 
   @Test
   public void descriptionTest() {
-    assertEquals("Treasure", c1.getDescription());
-    assertEquals("Treasure", s1.getDescription());
-    assertEquals("Treasure", g1.getDescription());
+    assertEquals("Treasure: +1 Coin", c1.getDescription());
+    assertEquals("Treasure: +2 Coin", s1.getDescription());
+    assertEquals("Treasure: +3 Coin", g1.getDescription());
   }
 
   @Test

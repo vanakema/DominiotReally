@@ -51,7 +51,7 @@ public class ChapelCardTest extends TestCase {
 
   @Test
   public void testDescription() {
-    assertEquals("Trash up to 4 cards from your hand.", card.getDescription());
+    assertEquals("Action: Trash up to 4 cards from your hand.", card.getDescription());
   }
 
   @Test

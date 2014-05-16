@@ -15,18 +15,18 @@ public class SpyCard extends ActionCard {
 
   public void performAction(GameContext context) {
     super.performAction(context);
-    boolean trashOwnOrNah = context.decideCardInOwnDeck("Do you wish to trash this card?");
+    boolean discardOwnOrNah = context.decideCardInOwnDeck("Do you wish to discard this card?");
 
-    if (trashOwnOrNah) {
-      context.getPlayer().getPlayerDeck().trashCardInDeckAtIndex(0);
+    if (discardOwnOrNah) {
+      context.getPlayer().getPlayerDeck().discardCardInDeckAtIndex(0);
     }
 
     if (context.shouldPerformMaliciousActions()) {
-      boolean trashTheirsOrNah =
+      boolean discardTheirsOrNah =
           context.decideCardInOpponentDeck("Do you wish to trash this card?");
 
-      if (trashTheirsOrNah) {
-        context.getTurnController().getOpponent().getPlayerDeck().trashCardInDeckAtIndex(0);
+      if (discardTheirsOrNah) {
+        context.getTurnController().getOpponent().getPlayerDeck().discardCardInDeckAtIndex(0);
       }
     }
 
