@@ -6,7 +6,7 @@ import main.PlayerDeck;
 public class MilitiaCard extends ActionCard {
 
   protected MilitiaCard() {
-    super(Card.CARD_NAME_MILITIA, "Each other player discards down to 3 cards in his hand.", 2);
+    super(Card.CARD_NAME_MILITIA, 2);
 
     this.additionalCoins = 2;
   }

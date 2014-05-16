@@ -45,11 +45,6 @@ public class MoneylenderCardTest extends TestCase{
   public void testCost() {
     assertEquals(4, card.getCost());
   }
-
-  @Test
-  public void testDescription() {
-    assertEquals("Action: Trash a Copper from your hand. If you do, +$3.", card.getDescription());
-  }
   
   @Test
   public void testPerformAction(){

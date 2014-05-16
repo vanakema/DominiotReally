@@ -7,7 +7,7 @@ import main.PlayerDeck;
 public class ChapelCard extends ActionCard {
 
   public ChapelCard() {
-    super(Card.CARD_NAME_CHAPEL, "Trash up to 4 cards from your hand.", 2);
+    super(Card.CARD_NAME_CHAPEL, 2);
 
   }
 

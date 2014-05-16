@@ -61,20 +61,10 @@ public class ThiefCardTest {
   // }
 
   @Test
-  public void testDescription() {
-    assertEquals(
-        "Action: Each other player reveals the top 2 cards of his deck. If they revealed any Treasure cards, they trash one of them that you choose. You may gain any or all of these trashed cards. They discard the other revealed cards.",
-        card.getDescription());
-  }
-
-  @Test
   public void testPerformActionPlayer() {
     context.setDecisionDelegate(new TestDecisionDelegate() {
-      int count = 0;
-
       @Override
-      public int decideCardInDeck(GameContext context, PlayerDeck deck, String question,
-          int numberOfCards) {
+      public int decideCardInDeck(GameContext context, PlayerDeck deck, String question, int numberOfCards) {
         return 1;
       }
 
@@ -83,13 +73,14 @@ public class ThiefCardTest {
         return true;
       }
     });
+    
     int oldSizeOfPlayerDiscardPile = context.getPlayer().getPlayerDeck().getDiscardDeck().size();
-    int oldSizeOfOpponentDrawDeck =
-        context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size();
+    int oldSizeOfOpponentDrawDeck = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size();
+    
     card.performAction(context);
+    
     int newSizeOfPlayerDiscardPile = context.getPlayer().getPlayerDeck().getDiscardDeck().size();
-    int newSizeOfOpponentHand =
-        context.getTurnController().getOpponent().getPlayerDeck().getDiscardDeck().size();
+    int newSizeOfOpponentHand = context.getTurnController().getOpponent().getPlayerDeck().getDiscardDeck().size();
 
     assertEquals(oldSizeOfPlayerDiscardPile + 1, newSizeOfPlayerDiscardPile);
     assertEquals(oldSizeOfOpponentDrawDeck - 1, newSizeOfOpponentHand);

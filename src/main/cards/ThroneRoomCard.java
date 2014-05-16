@@ -5,9 +5,9 @@ import main.GameContext;
 public class ThroneRoomCard extends ActionCard {
 
   public ThroneRoomCard() {
-    super(Card.CARD_NAME_THRONE_ROOM, "Choose an Action card in your hand. Play it twice.", 4);
+    super(Card.CARD_NAME_THRONE_ROOM, 4);
   }
-  
+
   @Override
   public void performAction(GameContext context) {
     super.performAction(context);
@@ -17,7 +17,7 @@ public class ThroneRoomCard extends ActionCard {
       context.getTurnController().forcePlayingCardAtIndex(index);
       context.getPlayer().getPlayerDeck().discardCardInHandAtIndex(index);
     }
-    
+
   }
 
 }

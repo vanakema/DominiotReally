@@ -5,7 +5,7 @@ import main.GameContext;
 public class FeastCard extends ActionCard {
 
   public FeastCard() {
-    super(Card.CARD_NAME_FEAST, "Trash this card. Gain a card costing up to 5.", 0);
+    super(Card.CARD_NAME_FEAST, 0);
   }
 
   @Override

@@ -5,8 +5,7 @@ import main.GameContext;
 public class ChancellorCard extends ActionCard {
 
   protected ChancellorCard() {
-    super(Card.CARD_NAME_CHANCELLOR,
-        "+2 Coins. You may immediately put your deck into your discard pile.", 0);
+    super(Card.CARD_NAME_CHANCELLOR, 0);
 
     this.additionalCoins = 2;
   }

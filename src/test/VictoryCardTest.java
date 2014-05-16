@@ -19,13 +19,6 @@ public class VictoryCardTest {
   }
 
   @Test
-  public void testDescription() {
-    assertEquals("Victory: +1 Victory Point", e.getDescription());
-    assertEquals("Victory: +3 Victory Point", d.getDescription());
-    assertEquals("Victory: +6 Victory Point", p.getDescription());
-  }
-
-  @Test
   public void testCost() {
     assertEquals(2, e.getCost());
     assertEquals(5, d.getCost());

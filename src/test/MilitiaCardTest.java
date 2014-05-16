@@ -30,7 +30,8 @@ public class MilitiaCardTest extends TestCase {
     Card militia = Card.makeCard(Card.CARD_NAME_MILITIA);
     militia.performAction(env.context);
 
-    assertEquals(3 + 1, env.player.getPlayerDeck().getHand().size());
+    // This was originally 3+1, that was an error in the understanding of the card's implementation
+    assertEquals(5, env.player.getPlayerDeck().getHand().size());
     assertEquals(3, env.opponent.getPlayerDeck().getHand().size());
   }
 

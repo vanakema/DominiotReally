@@ -6,22 +6,22 @@ public class TreasureCard extends Card {
 
   int value;
 
-  private TreasureCard(String name, String description, int cost, int value) {
-    super(name, description, cost, Card.CARD_TYPE_TREASURECARD);
+  private TreasureCard(String name, int cost, int value) {
+    super(name, cost, Card.CARD_TYPE_TREASURECARD);
 
     this.value = value;
   }
 
   public static TreasureCard makeCopper() {
-    return new TreasureCard(CARD_NAME_COPPER, "Treasure", 0, 1);
+    return new TreasureCard(CARD_NAME_COPPER, 0, 1);
   }
 
   public static TreasureCard makeSilver() {
-    return new TreasureCard(CARD_NAME_SILVER, "Treasure", 3, 2);
+    return new TreasureCard(CARD_NAME_SILVER, 3, 2);
   }
 
   public static TreasureCard makeGold() {
-    return new TreasureCard(CARD_NAME_GOLD, "Treasure", 6, 3);
+    return new TreasureCard(CARD_NAME_GOLD, 6, 3);
   }
 
   public int getValue() {

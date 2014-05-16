@@ -16,7 +16,7 @@ import main.GameContext;
 public class AdventurerCard extends ActionCard {
 
   protected AdventurerCard() {
-    super(Card.CARD_NAME_ADVENTURER, "", 6);
+    super(Card.CARD_NAME_ADVENTURER, 6);
   }
 
   @Override

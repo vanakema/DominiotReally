@@ -29,7 +29,7 @@ public class ThroneRoomTest extends TestCase {
     });
 
     final Integer[] callCount = new Integer[] {0};
-    env.player.getPlayerDeck().addCard(new Card("", "", 0, "") {
+    env.player.getPlayerDeck().addCard(new Card("", 0, "") {
       @Override
       public void performAction(GameContext context) {
         callCount[0]++;

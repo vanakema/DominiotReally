@@ -6,7 +6,7 @@ import main.PlayerDeck;
 public class MoneylenderCard extends ActionCard {
 
   protected MoneylenderCard() {
-    super(Card.CARD_NAME_MONEYLENDER, "Trash a Copper from your hand. If you do, +$3.", 4);
+    super(Card.CARD_NAME_MONEYLENDER, 4);
   }
 
   @Override

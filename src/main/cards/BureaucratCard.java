@@ -5,10 +5,7 @@ import main.GameContext;
 public class BureaucratCard extends ActionCard {
 
   protected BureaucratCard() {
-    super(
-        Card.CARD_NAME_BUREAUCRAT,
-        "Gain a Silver card, put it on top of your deck. Each other player reveals a Victory card and puts it on top of his deck. (or reveals a hand with no Victory cards).",
-        4);
+    super(Card.CARD_NAME_BUREAUCRAT, 4);
   }
 
   @Override

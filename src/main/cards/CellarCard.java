@@ -8,10 +8,8 @@ public class CellarCard extends ActionCard {
 
 
   protected CellarCard() {
-    super(Card.CARD_NAME_CELLAR,
-        "+1 Action. Discard any number of cards. 1+ Card per card discarded.", 2);
+    super(Card.CARD_NAME_CELLAR, 2);
     this.additionalActions = 1;
-
   }
 
   @Override
@@ -19,7 +17,8 @@ public class CellarCard extends ActionCard {
     super.performAction(context);
     PlayerDeck deck = context.getPlayer().getPlayerDeck();
     while (true) {
-      int index = context.decideCardInHand("Choose a card to trash, and draw a new one after.", true);
+      int index =
+          context.decideCardInHand("Choose a card to trash, and draw a new one after.", true);
       if (index != GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED) {
         deck.trashCardInHandAtIndex(index);
         deck.drawNum(1);

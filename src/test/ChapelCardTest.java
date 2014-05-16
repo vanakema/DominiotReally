@@ -36,9 +36,6 @@ public class ChapelCardTest extends TestCase {
     context = new GameContext(controller);
   }
 
-  
-
-
   @Test
   public void testName() {
     assertEquals("Chapel", card.getName());
@@ -47,11 +44,6 @@ public class ChapelCardTest extends TestCase {
   @Test
   public void testCost() {
     assertEquals(2, card.getCost());
-  }
-
-  @Test
-  public void testDescription() {
-    assertEquals("Action: Trash up to 4 cards from your hand.", card.getDescription());
   }
 
   @Test

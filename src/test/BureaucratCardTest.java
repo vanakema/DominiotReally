@@ -52,18 +52,16 @@ public class BureaucratCardTest extends TestCase {
 
   @Test
   public void testActionsOnOpponent() {
+    context.setDecisionDelegate(new TestDecisionDelegate());
     while (true) {
-      if (context.getTurnController().getOpponent().getPlayerDeck().getHand()
-          .contains(Card.makeCard(Card.CARD_NAME_COPPER))) {
-        int oldHandSize =
-            context.getTurnController().getOpponent().getPlayerDeck().getHand().size();
-        int oldDrawDeckSize =
-            context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size();
+      if (context.getTurnController().getOpponent().getPlayerDeck().getHand().contains(Card.makeCard(Card.CARD_NAME_COPPER))) {
+        int oldHandSize = context.getTurnController().getOpponent().getPlayerDeck().getHand().size();
+        int oldDrawDeckSize = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size();
+        
         card.performAction(context);
-        assertEquals(oldHandSize - 1, context.getTurnController().getOpponent().getPlayerDeck()
-            .getHand().size());
-        assertEquals(oldDrawDeckSize + 1, context.getTurnController().getOpponent().getPlayerDeck()
-            .getDrawDeck().size());
+        
+        assertEquals(oldHandSize - 1, context.getTurnController().getOpponent().getPlayerDeck().getHand().size());
+        assertEquals(oldDrawDeckSize + 1, context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size());
         break;
       } else {
         context.getTurnController().getOpponent().getPlayerDeck().drawNumAndDiscardOldHand(5);

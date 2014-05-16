@@ -12,14 +12,12 @@ import main.GameContext;
 public abstract class Card implements Cloneable {
 
   private String name;
-  private String description;
   private int cost;
   private String type;
   private static final ResourceBundle bundle = ResourceBundle.getBundle("CardDescriptions", new Locale("sp", "SP"));
 
-  protected Card(String name, String description, int cost, String type) {
+  protected Card(String name, int cost, String type) {
     this.name = name;
-    this.description = description;
     this.cost = cost;
     this.type = type;
   }
@@ -120,6 +118,7 @@ public abstract class Card implements Cloneable {
     cards.put(CARD_NAME_BUREAUCRAT, new BureaucratCard());
     cards.put(CARD_NAME_ADVENTURER, new AdventurerCard());
     cards.put(CARD_NAME_LIBRARY, new LibraryCard());
+    cards.put(CARD_NAME_MOAT, new MoatCard());
 
     cards.put(CARD_NAME_ESTATE, VictoryCard.makeEstate());
     cards.put(CARD_NAME_DUCHY, VictoryCard.makeDuchy());

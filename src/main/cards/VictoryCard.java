@@ -6,26 +6,26 @@ public class VictoryCard extends Card {
 
   int victoryPointValue;
 
-  private VictoryCard(String name, String description, int cost, int value) {
-    super(name, description, cost, Card.CARD_TYPE_VICTORYCARD);
+  private VictoryCard(String name, int cost, int value) {
+    super(name, cost, Card.CARD_TYPE_VICTORYCARD);
 
     this.victoryPointValue = value;
   }
 
   public static VictoryCard makeEstate() {
-    return new VictoryCard(CARD_NAME_ESTATE, "Victory", 2, 1);
+    return new VictoryCard(CARD_NAME_ESTATE, 2, 1);
   }
 
   public static VictoryCard makeDuchy() {
-    return new VictoryCard(CARD_NAME_DUCHY, "Victory", 5, 3);
+    return new VictoryCard(CARD_NAME_DUCHY, 5, 3);
   }
 
   public static VictoryCard makeProvince() {
-    return new VictoryCard(CARD_NAME_PROVINCE, "Victory", 8, 6);
+    return new VictoryCard(CARD_NAME_PROVINCE, 8, 6);
   }
   
   public static VictoryCard makeCurse() {
-    return new VictoryCard(CARD_NAME_CURSE, "Victory", 0, -1);
+    return new VictoryCard(CARD_NAME_CURSE, 0, -1);
   }
 
   public int getVictoryPointValue() {

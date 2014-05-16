@@ -51,13 +51,6 @@ public class SpyCardTest extends TestCase {
   }
 
   @Test
-  public void testDescription() {
-    assertEquals(
-        "Action: +1 Card; +1 Action  Each player (including you) reveals the top card of his deck and either discards it or puts it back, your choice.",
-        card.getDescription());
-  }
-
-  @Test
   public void testPerformAction() {
     context.setDecisionDelegate(new TestDecisionDelegate() {
       @Override
