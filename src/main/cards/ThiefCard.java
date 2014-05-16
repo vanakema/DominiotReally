@@ -5,7 +5,7 @@ import main.GameContext;
 public class ThiefCard extends ActionCard {
 
   public ThiefCard() {
-    super(Card.CARD_NAME_THIEF, 0);
+    super(Card.CARD_NAME_THIEF, 4);
   }
 
   public void performAction(GameContext context) {

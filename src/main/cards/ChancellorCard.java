@@ -5,7 +5,7 @@ import main.GameContext;
 public class ChancellorCard extends ActionCard {
 
   protected ChancellorCard() {
-    super(Card.CARD_NAME_CHANCELLOR, 0);
+    super(Card.CARD_NAME_CHANCELLOR, 3);
 
     this.additionalCoins = 2;
   }
