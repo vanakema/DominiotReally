@@ -6,7 +6,7 @@ import main.PlayerDeck;
 public class RemodelCard extends ActionCard {
 
   public RemodelCard() {
-    super(Card.CARD_NAME_REMODEL, 0);
+    super(Card.CARD_NAME_REMODEL, 4);
   }
 
   @Override

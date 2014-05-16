@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -28,6 +30,13 @@ public class GamePanel extends JPanel {
     void userClickedEndTurnButton();
   }
 
+  private static final ResourceBundle uiBundle = ResourceBundle.getBundle("UI");
+  
+  private static final String END_TURN_BUTTON_KEY = "EndTurn";
+  private static final String ACTION_COUNT_KEY = "Actions";
+  private static final String BUY_COUNT_KEY = "Buys";
+  private static final String COIN_COUNT_KEY = "Coin";
+  
   private Delegate delegate;
 
   private JTextArea actionsTextArea = new JTextArea();
@@ -83,7 +92,7 @@ public class GamePanel extends JPanel {
     infoPanel.add(coinsLabel);
     this.add(infoPanel, BorderLayout.WEST);
 
-    JButton button = new JButton("End Turn");
+    JButton button = new JButton(uiBundle.getString(END_TURN_BUTTON_KEY));
     button.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -134,14 +143,14 @@ public class GamePanel extends JPanel {
   }
 
   void setNumberOfActions(int count) {
-    this.actionsLabel.setText("Actions: " + count);
+    this.actionsLabel.setText(MessageFormat.format(uiBundle.getString(ACTION_COUNT_KEY), count));
   }
 
   void setNumberOfBuys(int count) {
-    this.buysLabel.setText("Buys " + count);
+    this.buysLabel.setText(MessageFormat.format(uiBundle.getString(BUY_COUNT_KEY), count));
   }
 
   void setNumberOfCoins(int count) {
-    this.coinsLabel.setText("Coin: " + count);
+    this.coinsLabel.setText(MessageFormat.format(uiBundle.getString(COIN_COUNT_KEY), count));
   }
 }

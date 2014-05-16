@@ -1,7 +1,9 @@
 package ui;
 
-import java.util.ArrayList;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -9,14 +11,26 @@ import javax.swing.JOptionPane;
 import main.GameContext;
 import main.GameController;
 import main.PlayerDeck;
-import main.SupplyDeck;
 import main.PlayerDeck.PlayerDeckType;
+import main.SupplyDeck;
 import main.SupplyDeck.CardTuple;
-import main.cards.Card;
 
 public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDelegate {
-
+  
+  private static final ResourceBundle uiBundle = ResourceBundle.getBundle("UI");
+  
+  private static final String GAME_STARTED_KEY = "GameStarted";
+  private static final String GAME_OVER_KEY = "GameOver";
+  private static final String CANNOT_BUY_CARD_KEY = "CannotBuyCard";
+  private static final String BUY_CARD_KEY = "BuyCard";
+  private static final String PLAYER_ENDED_TURN_KEY = "PlayerEndedTurn";
+  private static final String PLAYER_PLAYED_CARD_KEY = "PlayerPlayedCard";
+  private static final String PROMPT_SELECT_CARD_FROM_HAND_KEY = "PromptSelectCardFromHand";
+  private static final String PROMPT_MAKE_DECISION_KEY = "MakeDecision";
+  private static final String PROMPT_CANCEL_KEY = "PromptCancel";
+  
   public static void main(String[] args) {
+    Locale.setDefault(new Locale("sp", "SP"));
     new GameWindow();
   }
 
@@ -28,7 +42,7 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
 
   public GameWindow() {
     panel = new GamePanel(this);
-    panel.addActionLine("Game Started!");
+    panel.addActionLine(uiBundle.getString(GAME_STARTED_KEY));
 
     game = new GameController(this);
 
@@ -42,8 +56,7 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
 
   private void updateUI() {
     if (game.getCurrentTurn() == null) {
-      applicationFrame.setTitle(APPLICATION_NAME + ": GAME OVER: "
-          + game.getWinningPlayer().getName() + " WINS!");
+      applicationFrame.setTitle(MessageFormat.format(uiBundle.getString(GAME_OVER_KEY), APPLICATION_NAME, game.getWinningPlayer().getName()));
       applicationFrame.setEnabled(false);
       return;
     }
@@ -66,9 +79,9 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
   public void userSelectedActionSupplyCardAtIndex(int index) {
     if (game.getCurrentTurn().tryPurchaseActionCardAtIndex(index)) {
       CardTuple tuple = game.getSupplyDeck().getActionCardRoster().get(index);
-      panel.addActionLine("Bought one " + tuple.getCard().getName() + ".");
+      panel.addActionLine(MessageFormat.format(uiBundle.getString(BUY_CARD_KEY), tuple.getCard().getName()));
     } else {
-      panel.addActionLine("Cannot buy that card.");
+      panel.addActionLine(uiBundle.getString(CANNOT_BUY_CARD_KEY));
     }
 
     updateUI();
@@ -78,9 +91,9 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
   public void userSelectedResourceSupplyCardAtIndex(int index) {
     if (game.getCurrentTurn().tryPurchaseResourceCardAtIndex(index)) {
       CardTuple tuple = game.getSupplyDeck().getResourceCardRoster().get(index);
-      panel.addActionLine("Bought one " + tuple.getCard().getName() + ".");
+      panel.addActionLine(MessageFormat.format(uiBundle.getString(BUY_CARD_KEY), tuple.getCard().getName()));
     } else {
-      panel.addActionLine("Cannot buy that card.");
+      panel.addActionLine(uiBundle.getString(CANNOT_BUY_CARD_KEY));
     }
 
     updateUI();
@@ -89,7 +102,7 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
   @Override
   public void userSelectedCardInHandAtIndex(int index) {
     if (game.getCurrentTurn().tryPlayingCardAtIndex(index)) {
-      panel.addActionLine("Play card " + index);
+      panel.addActionLine(MessageFormat.format(uiBundle.getString(PLAYER_PLAYED_CARD_KEY), index));
     }
 
     updateUI();
@@ -97,7 +110,9 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
 
   @Override
   public void userClickedEndTurnButton() {
-    panel.addActionLine(game.getCurrentTurn().getPlayer().getName() + " ended their turn.\n");
+    String playerName = game.getCurrentTurn().getPlayer().getName();
+    panel.addActionLine(MessageFormat.format(uiBundle.getString(PLAYER_ENDED_TURN_KEY), playerName));
+    panel.addActionLine("");
     game.endCurrentTurn();
 
     updateUI();
@@ -106,7 +121,7 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
   @Override
   public boolean decideBoolean(GameContext context, String question) {
     return (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(panel, question,
-        "Make Decision", JOptionPane.YES_NO_OPTION));
+        uiBundle.getString(PROMPT_MAKE_DECISION_KEY), JOptionPane.YES_NO_OPTION));
   }
 
   @Override
@@ -114,10 +129,10 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
       boolean canIgnore) {
     List<String> cards = deck.getCardDescriptions(PlayerDeckType.HAND, Integer.MAX_VALUE);
     if (canIgnore)
-      cards.add("Cancel");
+      cards.add(uiBundle.getString(PROMPT_CANCEL_KEY));
 
     int result =
-        JOptionPane.showOptionDialog(panel, question, "Select a Card from Hand",
+        JOptionPane.showOptionDialog(panel, question, uiBundle.getString(PROMPT_SELECT_CARD_FROM_HAND_KEY),
             JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, cards.toArray(), 0);
     return (canIgnore && result == cards.size() - 1) ? GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED
         : result;
@@ -136,7 +151,7 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
       int numberOfCards) {
     List<String> cardDescriptions = deck.getCardDescriptions(PlayerDeckType.DRAW, numberOfCards);
 
-    return JOptionPane.showOptionDialog(panel, question, "Select a Card from Hand",
+    return JOptionPane.showOptionDialog(panel, question, uiBundle.getString(PROMPT_SELECT_CARD_FROM_HAND_KEY),
         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, cardDescriptions.toArray(),
         0);
   }

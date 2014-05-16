@@ -1,7 +1,6 @@
 package main.cards;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.NoSuchElementException;
@@ -14,7 +13,7 @@ public abstract class Card implements Cloneable {
   private String name;
   private int cost;
   private String type;
-  private static final ResourceBundle bundle = ResourceBundle.getBundle("CardDescriptions", new Locale("sp", "SP"));
+  private static final ResourceBundle bundle = ResourceBundle.getBundle("CardDescriptions");
 
   protected Card(String name, int cost, String type) {
     this.name = name;
