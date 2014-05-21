@@ -119,6 +119,9 @@ public class TurnController {
     
     GameContext context = new GameContext(this.currentContext);
     Card selectedCard = deck.getHand().get(index);
+    if (selectedCard.getType() == Card.CARD_TYPE_VICTORYCARD)
+      return false;
+    
     selectedCard.performAction(context);
     
     if (selectedCard.getType() == Card.CARD_TYPE_ACTIONCARD)
