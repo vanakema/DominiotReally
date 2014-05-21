@@ -16,7 +16,7 @@ public class GameController {
       Card.makeCard(Card.CARD_NAME_VILLAGE), Card.makeCard(Card.CARD_NAME_WOODCUTTER),
       Card.makeCard(Card.CARD_NAME_CHANCELLOR), Card.makeCard(Card.CARD_NAME_WORKSHOP)});
 
-  private SupplyDeck supplyDeck = new SupplyDeck();
+  private SupplyDeck supplyDeck = new SupplyDeck(mockCards);
   private List<Player> players = new ArrayList<Player>();
 
   private TurnController currentTurn;

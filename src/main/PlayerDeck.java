@@ -85,7 +85,6 @@ public class PlayerDeck {
 
   public List<Card> getHand() {
     if (this.hand.size() == 0)
-
       this.drawNumAndDiscardOldHand(PlayerDeck.STANDARD_HAND_SIZE);
 
     // return Collections.unmodifiableList(this.hand);
@@ -158,16 +157,17 @@ public class PlayerDeck {
       }
     } else {
       int remainingToDraw = numToDraw - this.deck.size();
-      this.hand.addAll(this.deck);
-      this.deck.clear();
+      while (!this.deck.isEmpty())
+        this.hand.add(this.deck.remove(0));
+      
       shuffleDeck();
       if (this.deck.size() > remainingToDraw) {
         for (int i = 0; i < remainingToDraw; i++) {
           this.hand.add(this.deck.remove(0));
         }
       } else {
-        this.hand.addAll(this.deck);
-        this.deck.clear();
+        while (!this.deck.isEmpty())
+          this.hand.add(this.deck.remove(0));
       }
     }
 
@@ -176,8 +176,8 @@ public class PlayerDeck {
 
   private void shuffleDeck() {
     Collections.shuffle(this.discardDeck);
-    this.deck.addAll(this.discardDeck);
-    this.discardDeck.clear();
+    while (!this.discardDeck.isEmpty())
+      this.deck.add(this.discardDeck.remove(0));
   }
 
   public List<Card> getDiscard() {
@@ -208,8 +208,8 @@ public class PlayerDeck {
   }
 
   public void discardHand() {
-    this.discardDeck.addAll(this.hand);
-    this.hand.clear();
+    while (!this.hand.isEmpty())
+      this.discardDeck.add(this.hand.remove(0));
   }
 
   public void addCard(Card cardToInsert, PlayerDeckType type) {

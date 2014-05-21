@@ -26,17 +26,18 @@ public class TurnController {
   public Player getPlayer() {
     return this.player;
   }
-  
+
   public Player getOpponent() {
     return this.opponent;
   }
-  
+
   public GameContext getCurrentContext() {
     return this.currentContext;
   }
 
   private boolean canBuyCardAtIndexInRoster(int index, List<CardTuple> roster) {
-    return (this.getCurrentContext().getTreasureCount() >= roster.get(index).getCard().getCost() && this.getCurrentContext().getBuyCount() > 0);
+    return (this.getCurrentContext().getTreasureCount() >= roster.get(index).getCard().getCost() && this
+        .getCurrentContext().getBuyCount() > 0);
   }
 
   private boolean tryPurchaseCardHelper(Card card) {
@@ -46,7 +47,7 @@ public class TurnController {
     this.getCurrentContext().adjustBuyCountByDelta(-1);
     this.getCurrentContext().adjustTreasureCountByDelta(-card.getCost());
     this.getCurrentContext().invalidateLumpSumTreasure();
-    
+
     player.getPlayerDeck().addCard(card);
     return true;
   }
@@ -68,7 +69,7 @@ public class TurnController {
   public boolean tryForceInsertResourceCardIntoHand(int index) {
     return tryForceInsertResourceCardIntoPlayerDeck(this.player, PlayerDeckType.HAND, index);
   }
-  
+
   public boolean tryForceInsertResourceCardIntoTopOfPlayerDrawDeck(int index) {
     Card cardToInsert = supplyDeck.buyResourceCardAtIndex(index);
     if (cardToInsert != null) {
@@ -77,8 +78,8 @@ public class TurnController {
     }
     return false;
   }
-  
-  
+
+
   public boolean tryToTakeAVictoryCardFromOpponentAndPutItOnTopOfHisDrawDeck() {
     int handSize = this.opponent.getPlayerDeck().hand.size();
     int iter = 0;
@@ -91,11 +92,12 @@ public class TurnController {
       }
       iter++;
     }
-    
+
     return false;
   }
-  
-  private boolean tryForceInsertResourceCardIntoPlayerDeck(Player destinationPlayer, PlayerDeckType deckType, int index) {
+
+  private boolean tryForceInsertResourceCardIntoPlayerDeck(Player destinationPlayer,
+      PlayerDeckType deckType, int index) {
     Card cardToBuy = supplyDeck.buyResourceCardAtIndex(index);
     if (cardToBuy == null) {
       return false;
@@ -114,24 +116,26 @@ public class TurnController {
    */
   public boolean tryPlayingCardAtIndex(int index) {
     PlayerDeck deck = this.player.getPlayerDeck();
-    if (index >= deck.getHand().size() || this.currentContext.getActionCount() <= 0)
+    if (index >= deck.getHand().size())
       return false;
-    
+
     GameContext context = new GameContext(this.currentContext);
     Card selectedCard = deck.getHand().get(index);
-    if (selectedCard.getType() == Card.CARD_TYPE_VICTORYCARD)
+    if (selectedCard.getType() == Card.CARD_TYPE_VICTORYCARD
+        || (selectedCard.getType() == Card.CARD_TYPE_ACTIONCARD && this.currentContext
+            .getActionCount() <= 0))
       return false;
-    
+
     selectedCard.performAction(context);
-    
+
     if (selectedCard.getType() == Card.CARD_TYPE_ACTIONCARD)
       context.adjustActionCountByDelta(-1);
-    
+
     if (context.getShouldTrashCurrentCard())
       deck.trashCardInHandAtIndex(index);
     else
       deck.discardCardInHandAtIndex(index);
-    
+
     this.currentContext = context;
     return true;
   }
@@ -147,28 +151,29 @@ public class TurnController {
     Card selectedCard = this.player.getPlayerDeck().getHand().get(index);
     selectedCard.performAction(this.currentContext);
   }
-  
+
   public boolean curseOpponent() {
     int curseCardIndex = -1;
     Card curseCard = Card.makeCard(Card.CARD_NAME_CURSE);
     List<CardTuple> roster = this.supplyDeck.getResourceCardRoster();
-    
+
     for (int idx = 0; idx < roster.size(); ++idx) {
       if (roster.get(idx).getCard().equals(curseCard)) {
         curseCardIndex = idx;
         break;
       }
     }
-    
+
     if (curseCardIndex < 0)
       return false;
-      
-    return tryForceInsertResourceCardIntoPlayerDeck(this.opponent, PlayerDeckType.DISCARD, curseCardIndex);
+
+    return tryForceInsertResourceCardIntoPlayerDeck(this.opponent, PlayerDeckType.DISCARD,
+        curseCardIndex);
   }
 
   public void opponentDrawNumCards(int num) {
     opponent.getPlayerDeck().drawNum(num);
-    
+
   }
 
 }

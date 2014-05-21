@@ -157,8 +157,7 @@ public class GameContext {
     useLumpSumTreasure = false;
   }
 
-  private boolean trashCurrentCard = true; // TODO: Add test to ensure we do not transfer this to
-                                           // copies
+  private boolean trashCurrentCard = false; // TODO: Add test to ensure we do not transfer this to copies
 
   public void setShouldTrashCurrentCard() {
     trashCurrentCard = true;
