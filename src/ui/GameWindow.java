@@ -30,7 +30,6 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
   private static final String PROMPT_CANCEL_KEY = "PromptCancel";
   
   public static void main(String[] args) {
-    Locale.setDefault(new Locale("sp", "SP"));
     new GameWindow();
   }
 
