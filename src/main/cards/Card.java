@@ -1,7 +1,10 @@
 package main.cards;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.MissingResourceException;
 import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
@@ -143,5 +146,14 @@ public abstract class Card implements Cloneable {
     } catch (CloneNotSupportedException e) {
       throw new RuntimeException("Someone removed Clonable from Card", e);
     }
+  }
+  
+  public static final List<Card> allCards(String ofType) {
+    List<Card> result = new ArrayList<>();
+    for (Entry<String, Card> entry : cards.entrySet())
+      if (entry.getValue().getType() == ofType)
+        result.add(makeCard(entry.getValue()));
+    
+    return result;
   }
 }

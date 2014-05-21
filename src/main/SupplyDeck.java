@@ -53,6 +53,18 @@ public class SupplyDeck {
       Card.CARD_NAME_PROVINCE, Card.CARD_NAME_CURSE};
   private static final Integer[] DEFAULT_RESOURCE_CARD_COUNT = new Integer[] {60, 40, 30, 24, 12,
       12, 30};
+  
+  public SupplyDeck() {
+    List<Card> allActionCards = Card.allCards(Card.CARD_TYPE_ACTIONCARD);
+    Collections.shuffle(allActionCards);
+    
+    List<Card> thisGameCards = new ArrayList<>();
+    
+    for (int i = 0; i < DEFAULT_ACTION_CARD_COUNT; ++i)
+      thisGameCards.add(allActionCards.remove(0));
+    
+    sharedConstructor(thisGameCards);
+  }
 
   /**
    * Create a new SupplyDeck with the specified action cards. Victory and Treasure cards will be
@@ -62,6 +74,10 @@ public class SupplyDeck {
    * IllegalArgumentException.
    */
   public SupplyDeck(List<Card> actionCards) {
+    sharedConstructor(actionCards);
+  }
+  
+  private void sharedConstructor(List<Card> actionCards) {
     for (Card card : actionCards)
       this.actionCards.add(new CardTuple(card, DEFAULT_ACTION_CARD_COUNT));
 
