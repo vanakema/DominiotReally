@@ -120,7 +120,9 @@ public class TurnController {
     GameContext context = new GameContext(this.currentContext);
     Card selectedCard = deck.getHand().get(index);
     selectedCard.performAction(context);
-    context.adjustActionCountByDelta(-1);
+    
+    if (selectedCard.getType() == Card.CARD_TYPE_ACTIONCARD)
+      context.adjustActionCountByDelta(-1);
     
     if (context.getShouldTrashCurrentCard())
       deck.trashCardInHandAtIndex(index);
