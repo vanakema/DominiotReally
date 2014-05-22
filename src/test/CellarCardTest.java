@@ -48,7 +48,7 @@ public class CellarCardTest extends TestCase {
     });
     context.getPlayer().getPlayerDeck().drawNumAndDiscardOldHand(5);
     List<Card> hand = context.getPlayer().getPlayerDeck().getHand();
-    Card oldFirstInDeck = context.getPlayer().getPlayerDeck().getDrawDeck().get(0);
+    Card oldFirstInDeck = context.getPlayer().getPlayerDeck().getDrawDeckForTestingOnly().get(0);
     int handSize = hand.size();
     assertEquals(handSize, 5);
     
