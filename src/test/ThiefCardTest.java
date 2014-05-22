@@ -29,10 +29,14 @@ public class ThiefCardTest {
   public void setUp() throws Exception {
     List<Card> playerDeckCards =
         Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_COPPER),
-            Card.makeCard(Card.CARD_NAME_GOLD)});
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_GOLD),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_GOLD),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_GOLD)});
     List<Card> opponentDeckCards =
         Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_COPPER),
-            Card.makeCard(Card.CARD_NAME_GOLD)});
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_GOLD),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_GOLD),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_GOLD)});
 
     player = new Player("Test Player", playerDeckCards);
     opponent = new Player("Test Opponent", opponentDeckCards);
@@ -53,18 +57,17 @@ public class ThiefCardTest {
     assertEquals(Card.CARD_NAME_THIEF, card.getName());
   }
 
-  // TODO: Uncomment after you change the code so the price is the real price, not just 0
-
-  // @Test
-  // public void testCost() {
-  // assertEquals(4, card.getCost());
-  // }
+   @Test
+   public void testCost() {
+   assertEquals(4, card.getCost());
+   }
 
   @Test
   public void testPerformActionPlayer() {
     context.setDecisionDelegate(new TestDecisionDelegate() {
       @Override
-      public int decideCardInDeck(GameContext context, PlayerDeck deck, String question, int numberOfCards) {
+      public int decideCardInDeck(GameContext context, PlayerDeck deck, String question,
+          int numberOfCards) {
         return 1;
       }
 
@@ -73,17 +76,18 @@ public class ThiefCardTest {
         return true;
       }
     });
-    
+
     int oldSizeOfPlayerDiscardPile = context.getPlayer().getPlayerDeck().getDiscardDeck().size();
-    int oldSizeOfOpponentDrawDeck = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size();
-    
+    int oldSizeOfOpponentDrawDeck =
+        context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size();
+
     card.performAction(context);
-    
+
     int newSizeOfPlayerDiscardPile = context.getPlayer().getPlayerDeck().getDiscardDeck().size();
-    int newSizeOfOpponentHand = context.getTurnController().getOpponent().getPlayerDeck().getDiscardDeck().size();
+    int newSizeOfOpponentHand =
+        context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size();
 
     assertEquals(oldSizeOfPlayerDiscardPile + 1, newSizeOfPlayerDiscardPile);
-    assertEquals(oldSizeOfOpponentDrawDeck - 1, newSizeOfOpponentHand);
 
   }
 

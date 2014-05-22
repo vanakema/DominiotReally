@@ -10,7 +10,6 @@ public class MineCard extends ActionCard {
 
   @Override
   public void performAction(GameContext context) {
-    // TODO: Testing on this
     super.performAction(context);
     int index = context.decideCardInHand("Choose a Treasure Card to trash", true);
     if (index != GameContext.DecisionDelegate.CARD_IN_HAND_IGNORED) {

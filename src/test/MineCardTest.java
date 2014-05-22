@@ -52,14 +52,13 @@ public class MineCardTest {
     });
     context.getPlayer().getPlayerDeck().addCard(Card.makeCard(Card.CARD_NAME_COPPER), PlayerDeckType.HAND);
     List<Card> hand = context.getPlayer().getPlayerDeck().getHand();
-    Card oldFirstInDeck = context.getPlayer().getPlayerDeck().getDrawDeck().get(0);
+    Card oldFirstInDeck = context.getPlayer().getPlayerDeck().getHand().get(0);
     int handSize = hand.size();
     
     Card mine = Card.makeCard(Card.CARD_NAME_MINE);
     mine.performAction(context);
     assertEquals(handSize, hand.size());
-    assertFalse(hand.contains(oldFirstInDeck));
-    assertEquals(Card.makeCard(Card.CARD_NAME_SILVER), hand.get(0));
+    assertEquals(Card.makeCard(Card.CARD_NAME_SILVER), hand.get(handSize-1));
   }
 
 }

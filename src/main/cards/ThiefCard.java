@@ -12,8 +12,21 @@ public class ThiefCard extends ActionCard {
     super.performAction(context);
 
     if (context.shouldPerformMaliciousActions()) {
-      Card card0 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(0);
-      Card card1 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(1);
+      Card card0 = null;
+      Card card1 = null;
+      if (context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size() > 0) {
+        card0 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(0);
+      } else {
+        context.getTurnController().getOpponent().getPlayerDeck().shuffleDeck();
+        card0 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(0);
+      }
+      if (context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().size() > 0) {
+        card1 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(1);
+      }
+      else {
+        context.getTurnController().getOpponent().getPlayerDeck().shuffleDeck();
+        card1 = context.getTurnController().getOpponent().getPlayerDeck().getDrawDeck().get(0);
+      }
       if (card0.getType() == Card.CARD_TYPE_TREASURECARD
           || card1.getType() == Card.CARD_TYPE_TREASURECARD) {
         boolean choseATreasureCard = false;

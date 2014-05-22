@@ -184,7 +184,7 @@ public class PlayerDeck {
     return this.hand;
   }
 
-  private void shuffleDeck() {
+  public void shuffleDeck() {
     Collections.shuffle(this.discardDeck);
     while (!this.discardDeck.isEmpty())
       this.deck.add(this.discardDeck.remove(0));
