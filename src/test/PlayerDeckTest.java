@@ -26,7 +26,7 @@ public class PlayerDeckTest {
 
     hand = deck1.drawNumAndDiscardOldHand(5);
 
-    assertEquals(0, deck1.getSize());
+    assertEquals(5, deck1.getSize());
 
     assertEquals(5, hand.size());
 

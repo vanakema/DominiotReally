@@ -144,7 +144,7 @@ public class PlayerDeck {
       this.hand.addAll(this.deck);
       this.deck.clear();
       shuffleDeck();
-      if (this.deck.size() > numToDraw) {
+      if (this.deck.size() > remainingToDraw) {
         for (int i = 0; i < remainingToDraw; i++) {
           this.hand.add(this.deck.remove(0));
         }
