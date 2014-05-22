@@ -134,6 +134,9 @@ public class PlayerDeck {
       for (int i = 0; i < numToDraw; i++) {
         this.hand.add(this.deck.remove(0));
       }
+      if(this.deck.isEmpty()){
+        shuffleDeck();
+      }
 
       return hand;
     } else {
@@ -150,6 +153,9 @@ public class PlayerDeck {
         this.deck.clear();
       }
       // if not enough cards add more
+      if(this.deck.isEmpty()){
+        shuffleDeck();
+      }
       return this.hand;
     }
   }
