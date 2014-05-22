@@ -66,7 +66,7 @@ public class GameWindow implements GamePanel.Delegate, GameContext.DecisionDeleg
     SupplyDeck supplyDeck = game.getSupplyDeck();
     panel.setActionCardsInSupply(supplyDeck.getActionCardRoster());
     panel.setResourceCardsInSupply(supplyDeck.getResourceCardRoster());
-    panel.setCardsInHand(game.getCurrentTurn().getPlayer().getPlayerDeck().getHand());
+    panel.setCardsInHand(game.getCurrentTurn().getPlayer().getPlayerDeck().getHandWithoutRedrawing());
 
     GameContext context = game.getCurrentTurn().getCurrentContext();
     panel.setNumberOfActions(context.getActionCount());

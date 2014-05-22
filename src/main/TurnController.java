@@ -15,6 +15,8 @@ public class TurnController {
 
   public TurnController(Player player, Player opponent, SupplyDeck supplyDeck,
       GameContext.DecisionDelegate decisionDelegate) {
+    player.getPlayerDeck().getHand();
+    
     this.player = player;
     this.opponent = opponent;
     this.supplyDeck = supplyDeck;

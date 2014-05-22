@@ -91,6 +91,10 @@ public class PlayerDeck {
     return this.hand;
   }
 
+  public List<Card> getHandWithoutRedrawing() {
+    return this.hand;
+  }
+  
   public List<Card> getDiscardDeck() {
     return Collections.unmodifiableList(this.discardDeck);
   }
