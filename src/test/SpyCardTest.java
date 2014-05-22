@@ -67,9 +67,6 @@ public class SpyCardTest extends TestCase {
     Card spy = Card.makeCard(Card.CARD_NAME_SPY);
     spy.performAction(context);
 
-    // should be 8 because thief draws one card to hand as well as remove top card
-    assertEquals(oldPlayerDeckSize-1, this.player.getPlayerDeck().getSize() + this.player.getPlayerDeck().getHand().size());
-    
     assertEquals(oldOpponentDeckSize - 1,this.secondPlayer.getPlayerDeck().getSize() + this.secondPlayer.getPlayerDeck().getHand().size());
 
   }
