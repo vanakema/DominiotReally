@@ -6,6 +6,7 @@ public class WorkshopCard extends ActionCard {
 
   protected WorkshopCard() {
     super(Card.CARD_NAME_WORKSHOP, 3);
+    this.additionalBuys=1;
   }
   
   @Override
