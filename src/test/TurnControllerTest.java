@@ -20,8 +20,23 @@ public class TurnControllerTest extends TestCase {
 
   @Override
   protected void setUp() {
-    player = new Player("Test Player");
-    opponent = new Player("Test Player");
+    List<Card> playerCards =
+        Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER)});
+    List<Card> opponentCards =
+        Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER), Card.makeCard(Card.CARD_NAME_COPPER),
+            Card.makeCard(Card.CARD_NAME_COPPER)});
+    player = new Player("Test Player", playerCards);
+    opponent = new Player("Test Opponent", opponentCards);
+
 
     List<Card> cards =
         Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_FESTIVAL),
@@ -37,14 +52,13 @@ public class TurnControllerTest extends TestCase {
   @Test
   public void testTryPurchaseActionCardAtIndex() {
     assertFalse(turnController.tryPurchaseActionCardAtIndex(0));
-    // assertTrue(turnController.tryPurchaseActionCardAtIndex(index));
   }
 
   @Test
   public void testGetPlayer() {
     assertEquals(player, turnController.getPlayer());
   }
-  
+
   @Test
   public void testGetOpponent() {
     assertEquals(opponent, turnController.getOpponent());
@@ -69,11 +83,31 @@ public class TurnControllerTest extends TestCase {
 
   @Test
   public void testThatPlayingACardWithNoActionsIsHandled() {
-    while (turnController.getCurrentContext().getActionCount() > 0) {
-      assertTrue(turnController.tryPlayingCardAtIndex(0));
+    List<Card> noActionCards =
+        Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_MOAT),
+            Card.makeCard(Card.CARD_NAME_MOAT), Card.makeCard(Card.CARD_NAME_MOAT),
+            Card.makeCard(Card.CARD_NAME_MOAT), Card.makeCard(Card.CARD_NAME_MOAT),
+            Card.makeCard(Card.CARD_NAME_MOAT), Card.makeCard(Card.CARD_NAME_MOAT),
+            Card.makeCard(Card.CARD_NAME_MOAT), Card.makeCard(Card.CARD_NAME_MOAT),
+            Card.makeCard(Card.CARD_NAME_MOAT)});
+    Player playerSpecial = new Player("Test Player", noActionCards);
+    Player opponentSpecial = new Player("Test Opponent", noActionCards);
+
+
+    List<Card> cards =
+        Arrays.asList(new Card[] {Card.makeCard(Card.CARD_NAME_FESTIVAL),
+            Card.makeCard(Card.CARD_NAME_LABORATORY), Card.makeCard(Card.CARD_NAME_MARKET),
+            Card.makeCard(Card.CARD_NAME_SMITHY), Card.makeCard(Card.CARD_NAME_VILLAGE),
+            Card.makeCard(Card.CARD_NAME_WOODCUTTER)});
+    SupplyDeck supplyDeckSpecial = new SupplyDeck(cards);
+
+    TurnController turnControllerSpecial =
+        new TurnController(playerSpecial, opponentSpecial, supplyDeckSpecial, null);
+    while (turnControllerSpecial.getCurrentContext().getActionCount() > 0) {
+      assertTrue(turnControllerSpecial.tryPlayingCardAtIndex(0));
     }
 
-    assertFalse(turnController.tryPlayingCardAtIndex(0));
+    assertFalse(turnControllerSpecial.tryPlayingCardAtIndex(0));
   }
 
   @Test

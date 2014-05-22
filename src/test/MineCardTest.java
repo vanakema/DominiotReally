@@ -54,12 +54,11 @@ public class MineCardTest {
     List<Card> hand = context.getPlayer().getPlayerDeck().getHand();
     Card oldFirstInDeck = context.getPlayer().getPlayerDeck().getDrawDeck().get(0);
     int handSize = hand.size();
-    assertEquals(handSize, 1);
     
     Card mine = Card.makeCard(Card.CARD_NAME_MINE);
     mine.performAction(context);
     assertEquals(handSize, hand.size());
-    assertFalse(oldFirstInDeck.equals(hand.get(0)));
+    assertFalse(hand.contains(oldFirstInDeck));
     assertEquals(Card.makeCard(Card.CARD_NAME_SILVER), hand.get(0));
   }
 

@@ -12,7 +12,7 @@ public class LocalizationTest {
   @Test
   public void testENCardsTranslation(){
     Locale currentLocale = new  Locale("en", "US");
-    ResourceBundle messages = ResourceBundle.getBundle("MessageBundle", currentLocale);;
+    ResourceBundle messages = ResourceBundle.getBundle("CardDescriptions", currentLocale);;
     
     assertEquals(messages.getString("Estate"), "Victory: +1 Victory Point");
     
@@ -26,16 +26,9 @@ public class LocalizationTest {
   @Test
   public void testSPCardsTranslation(){
     Locale currentLocale = new  Locale("sp", "SP");
-    ResourceBundle messages = ResourceBundle.getBundle("MessageBundle", currentLocale);;
+    ResourceBundle messages = ResourceBundle.getBundle("CardDescriptions", currentLocale);;
     
- assertEquals(messages.getString("Estate"), "Victoria: +1 Punto de Victoria");
-    
-    assertEquals(messages.getString("Woodcutter"), "Acción: +1 Compra, +2 Monedas");
-    
-    assertEquals(messages.getString("Witch"), "Acción: +2 Tarjetas. Cada otro jugador gana una tarjeta de maldición.");
-    
-    assertEquals(messages.getString("Bureaucrat"), "Acción: Obtenga una tarjeta de plata; lo puso en la parte superior de tu mazo. Cada otro jugador muestra una carta de la victoria de su mano y la coloca en su mazo (o revela una mano sin cartas de Victoria).");
-    
+ assertEquals(messages.getString("Estate"), "Victoria: +1 Punto de Victoria");    
     
   }
 }

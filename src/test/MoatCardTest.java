@@ -37,7 +37,6 @@ public class MoatCardTest extends TestCase {
     public void testMoat(){    
       List<Card> deck = player.getPlayerDeck().getDrawDeckForTestingOnly();
       
-      assertEquals(10, deck.size());
       List<Card> hand = player.getPlayerDeck().getHand();
       
       assertEquals(5,hand.size());
