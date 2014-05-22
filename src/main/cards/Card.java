@@ -30,7 +30,7 @@ public abstract class Card implements Cloneable {
 
   public String getDescription() {
     try {
-      return bundle.getString(this.name);
+      return bundle.getString(this.name.replaceAll(" ", ""));
     } catch (MissingResourceException ex) {
       System.err.println("Could not find localized string for key \"" + this.name + "\"");
       return "<Unlocalized_Description(" + this.name + ")>";
