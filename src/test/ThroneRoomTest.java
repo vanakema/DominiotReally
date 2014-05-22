@@ -20,18 +20,20 @@ public class ThroneRoomTest extends TestCase {
 
   @Test
   public void testPerformAction() {
+    final int cardIndex = env.player.getPlayerDeck().getHand().size();
+    
     env.context.setDecisionDelegate(new TestDecisionDelegate() {
       @Override
       public int decideCardInHand(GameContext context, PlayerDeck deck, String question,
           boolean canIgnore) {
-        return 0;
+        return cardIndex;
       }
     });
 
     final Integer[] callCount = new Integer[] {0};
     env.player.getPlayerDeck().addCard(new Card("", 0, "") {
       @Override
-      public void performAction(GameContext context) {
+      public void performAction(GameContext context) { 
         callCount[0]++;
       }
     }, PlayerDeckType.HAND);
