@@ -27,7 +27,7 @@ public class BoringActionCard extends ActionCard {
   }
 
   protected static BoringActionCard makeSmithy() {
-    return new BoringActionCard(CARD_NAME_SMITHY, 4, 0, 0, 4, 3);
+    return new BoringActionCard(CARD_NAME_SMITHY, 4, 0, 0, 0, 3);
   }
 
   protected static BoringActionCard makeVillage() {
