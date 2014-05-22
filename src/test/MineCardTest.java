@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -58,7 +59,7 @@ public class MineCardTest {
     Card mine = Card.makeCard(Card.CARD_NAME_MINE);
     mine.performAction(context);
     assertEquals(handSize, hand.size());
-    assertEquals(Card.makeCard(Card.CARD_NAME_SILVER), hand.get(handSize-1));
+    assert(Card.makeCard(Card.CARD_NAME_SILVER).equals(hand.get(handSize-1)));
   }
 
 }
