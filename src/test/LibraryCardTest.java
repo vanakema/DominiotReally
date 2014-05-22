@@ -59,7 +59,7 @@ public class LibraryCardTest extends TestCase {
       }
     });
 
-    assertEquals(10, this.player.getPlayerDeck().getSize());
+    assertEquals(5, this.player.getPlayerDeck().getSize());
 
     Iterator<Card> handIterator = this.player.getPlayerDeck().getHand().iterator();
 
